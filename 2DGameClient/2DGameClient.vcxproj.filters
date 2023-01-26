@@ -10,152 +10,182 @@
     <Filter Include="Core">
       <UniqueIdentifier>{187f4bd1-6d59-4e07-91c4-d5289d143711}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Network">
-      <UniqueIdentifier>{89c61ecb-957c-40a9-b372-3e66a8b25ca3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{8a79f532-21fc-4d2a-af88-2ccde917cfb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{1de14b11-ff42-44d1-8d4c-13369ea7944b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Protocol">
+      <UniqueIdentifier>{a17d387d-21fa-4621-8e68-4abbc7040615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Protocol\cc">
+      <UniqueIdentifier>{9fc8d629-96e0-4a27-836b-7fa1eec5b39a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Component.cpp">
-      <Filter>Component</Filter>
+    <ClCompile Include="World.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Actor.cpp">
+    <ClCompile Include="Tile.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game.cpp">
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Boom.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPacketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerSession.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Sender.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\SpriteComponent.cpp">
+    <ClCompile Include="BlockComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Player.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\MoveComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\InputComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Input.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\AnimationComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Bomb.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\CollisionComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\TileMapComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Block.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Tile.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Boom.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\NetworkManager.cpp">
+    <ClCompile Include="Reciever.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Src\Packet.cpp">
-      <Filter>Network</Filter>
+    <ClCompile Include="Enum.pb.cc">
+      <Filter>Network\Protocol\cc</Filter>
     </ClCompile>
-    <ClCompile Include="Src\PacketAnalyzer.cpp">
-      <Filter>Network</Filter>
+    <ClCompile Include="Protocol.pb.cc">
+      <Filter>Network\Protocol\cc</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Stream.cpp">
-      <Filter>Network</Filter>
+    <ClCompile Include="Struct.pb.cc">
+      <Filter>Network\Protocol\cc</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkManagerClient.cpp">
-      <Filter>Network</Filter>
+    <ClCompile Include="BG.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\Component.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Actor.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Game.h">
+    <ClInclude Include="World.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Vector2.h">
+    <ClInclude Include="Tile.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Boom.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\SpriteComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Player.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\MoveComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\InputComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Input.h">
+    <ClInclude Include="Input.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\AnimationComponent.h">
-      <Filter>Component</Filter>
+    <ClInclude Include="ServerPacketHandler.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Bomb.h">
-      <Filter>Actor</Filter>
+    <ClInclude Include="ServerSession.h">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\CollisionComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\TileMapComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Block.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Tile.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Boom.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Singleton.h">
+    <ClInclude Include="Vector2.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\NetworkManager.h">
+    <ClInclude Include="Singleton.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Sender.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Inc\Packet.h">
+    <ClInclude Include="BlockComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Reciever.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\PacketAnalyzer.h">
-      <Filter>Network</Filter>
+    <ClInclude Include="BG.h">
+      <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\PacketFactory.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\PacketType.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Stream.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkManagerClient.h">
-      <Filter>Network</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\TCPServer\Common\Protobuf\bin\Enum.proto">
+      <Filter>Network\Protocol</Filter>
+    </None>
+    <None Include="..\..\TCPServer\Common\Protobuf\bin\Protocol.proto">
+      <Filter>Network\Protocol</Filter>
+    </None>
+    <None Include="..\..\TCPServer\Common\Protobuf\bin\Struct.proto">
+      <Filter>Network\Protocol</Filter>
+    </None>
   </ItemGroup>
 </Project>
