@@ -12,10 +12,14 @@ public:
 		EBush
 	};
 
-	Tile(uint64 serverId, int tilenum, Vector2 pos);
+	Tile();
 	~Tile();
 
 	void UpdateActor(float deltaTime) override;
+	virtual void GetActorInfo(Protocol::PActor* actor) override {
+		Actor::GetActorInfo(actor);
+
+	};
 
 	TileType GetTileType() const { return mType; }
 	void SetTileType(TileType type) { mType = type; }

@@ -1,10 +1,9 @@
 #include "stdafx.h"
-#include "Sender.h"
 #include "Reciever.h"
 #include "World.h"
 #include "ServerSession.h"
 
-shared_ptr<Game> GGame = make_shared<Game>();
+shared_ptr<Game> gGame = make_shared<Game>();
 
 Game::Game()
     :mIsRunning(true)
@@ -28,7 +27,7 @@ bool Game::Init()
 	}
 
 	// SDL 윈도우 생성
-	mWindow = SDL_CreateWindow("2d Game Client", 270, 50, mGameScale * mMapRange[1] * mTileSizeX, mGameScale * (mMapRange[3] - 1) * mTileSizeY , 0);
+	mWindow = SDL_CreateWindow("2d Game Client", 270, 50, mGameScale * (mMapRange[1] - 1) * mTileSizeX, mGameScale * (mMapRange[3] - 1) * mTileSizeY , 0);
 	if (!mWindow)
 	{
 		SDL_Log("Failed to create window: %s", SDL_GetError());
@@ -50,13 +49,8 @@ bool Game::Init()
 		return false;
 	}
 
-	mInput = new Input();
-	if (!mInput->Init())
-	{
-		SDL_Log("Failed to initialize input system");
+	if (gInputManager->Init() == false)
 		return false;
-	}
-
 
 	mTicksCount = SDL_GetTicks();
 
@@ -112,11 +106,27 @@ void Game::UnloadData()
 
 void Game::RunLoop()
 {
-		ProcessInput();
-		ProcessSend();
-		ProcessRecv();
-		UpdateGame();
-		GenerateOutput();
+	//프레임 제한 - 마지막 프레임 이후 델타시간이 목표보다 적을경우 해당 시간(16ms)까지 대기
+	//실행환경이 달라 FPS가 달라지면 동작이 달라질 수 있기 때문에 사용
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 100))
+		;
+
+	float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.f;
+	mTicksCount = SDL_GetTicks();
+
+
+	//델타 최대 시간값을 고정
+	if (deltaTime > 0.2f)
+	{
+		deltaTime = 0.2f;
+	}
+
+
+	ProcessInput();
+	ProcessRecv();
+	UpdateGame(deltaTime);
+	gInputManager->Send();
+	GenerateOutput();
 }
 
 
@@ -131,7 +141,7 @@ ActorRef Game::FindActor(uint64 id)
 
 void Game::ProcessInput()
 {
-	mInput->PrepareForUpdate();
+	gInputManager->PrepareForUpdate();
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
@@ -144,54 +154,23 @@ void Game::ProcessInput()
 		}
 	}
 
-	KeyboardState keyState = mInput->GetKeyboardState();
-
+	KeyboardState keyState = gInputManager->GetState();
 	if (keyState.GetKeyState(SDL_SCANCODE_ESCAPE)
 		== EReleased)
 	{
 		mIsRunning = false;
 	}
 
-
-	mIsUpdatingActors = true;
-	for (auto actor : mActors)
-	{
-		actor->ProcessInput(keyState);
-	}
-	mIsUpdatingActors = false;
-}
-
-void Game::ProcessSend()
-{
-	if (mSendJobTick + 30 <= mTicksCount)
-	{
-		mSendJobTick = mTicksCount;
-		GSender->SendJob();
-	}
+	gInputManager->Update();
 }
 
 void Game::ProcessRecv()
 {
-	GReciever->RecvJob();
+	gReciever->Execute();
 }
 
-void Game::UpdateGame()
+void Game::UpdateGame(float deltaTime)
 {
-	//프레임 제한 - 마지막 프레임 이후 델타시간이 목표보다 적을경우 해당 시간(16ms)까지 대기
-	//실행환경이 달라 FPS가 달라지면 동작이 달라질 수 있기 때문에 사용
-	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16))
-		;
-
-	float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.f;
-	mTicksCount = SDL_GetTicks();
-
-
-	//델타 최대 시간값을 고정
-	if (deltaTime > 0.05f)
-	{
-		deltaTime = 0.05f;
-	}
-
 
 	for (int i = 0, c = mActors.size(); i < c; ++i)
 	{
@@ -231,7 +210,7 @@ void Game::GenerateOutput()
 	
 	//전면버퍼(디스플레이)와 후면버퍼 교체
 	SDL_RenderPresent(mRenderer);
-}
+ }
 
 void Game::SetTileSizeXY(int x, int y)
 {
@@ -275,7 +254,6 @@ void Game::RemoveActor(ActorRef actor)
 	auto iter = std::find(mPendingActors.begin(), mPendingActors.end(), actor);
 	if (iter != mPendingActors.end())
 	{
-		//TODO : swap 후 pop_back의 이유는 ? -> stl공부하면서 찾아볼것
 		std::iter_swap(iter, mPendingActors.end() - 1);
 		mPendingActors.pop_back();
 	}

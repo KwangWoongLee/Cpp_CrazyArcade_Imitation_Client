@@ -10,10 +10,6 @@ Component::~Component()
 {
 }
 
-void Component::ProcessInput(const class KeyboardState& keyState)
-{
-}
-
 void Component::Update(float deltaTime)
 {
 }

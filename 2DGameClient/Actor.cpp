@@ -1,19 +1,57 @@
 #include "stdafx.h"
 #include "World.h"
 
-Actor::Actor(uint64 serverId, string name, Vector2 pos)
+Actor::Actor()
 	:mState(State::EActive)
 	,mMovingState(MovingState::ENone)
-	, mPosition(pos)
 	, mScale(1.0f)
-	,mServerId(serverId)
-	, mName(name)
+	, mSpeed(10.0f)
 {
 }
 
 Actor::~Actor()
 {
 	mComponents.clear();
+
+	cout << "~Actor" << endl;
+}
+
+void Actor::MoveNextPosition(Protocol::Action action)
+{
+	auto actorSpeed = GetSpeed();
+
+	float hopeX = GetPosition().x;
+	float hopeY = GetPosition().y;
+
+	switch (action)
+	{
+	case Protocol::Action::ACTION_DOWN:
+		SetMovingState(Actor::MovingState::EDown);
+		hopeY +=  actorSpeed * 1.f;
+		break;
+	case Protocol::Action::ACTION_UP:
+		SetMovingState(Actor::MovingState::EUp);
+		hopeY -= actorSpeed * 1.f;
+		break;
+	case Protocol::Action::ACTION_LEFT:
+		SetMovingState(Actor::MovingState::ELeft);
+		hopeX -= actorSpeed * 1.f;
+		break;
+	case Protocol::Action::ACTION_RIGHT:
+		SetMovingState(Actor::MovingState::ERight);
+		hopeX += actorSpeed * 1.f;
+		break;
+	default:
+		SetMovingState(Actor::MovingState::EStop);
+		break;
+	}
+
+	if (hopeX == GetPosition().x && hopeY == GetPosition().y)
+		return;
+
+
+	mDirtyFlag = true;
+	SetPosition(Vector2(hopeX, hopeY));
 }
 
 void Actor::Update(float deltaTime)
@@ -41,26 +79,32 @@ void Actor::Die()
 {
 
 }
-
-void Actor::ProcessInput(const class KeyboardState& keyState)
-{
-	if (mState == State::EActive)
-	{
-		for (auto comp : mComponents)
-		{
-			comp->ProcessInput(keyState);
-		}
-
-		ActorInput(keyState);
-	}
-}
-
-void Actor::ActorInput(const class KeyboardState& keyState)
-{
-}
+//
+//void Actor::ProcessInput(const class KeyboardState& keyState)
+//{
+//	if (mState == State::EActive)
+//	{
+//		for (auto comp : mComponents)
+//		{
+//			comp->ProcessInput(keyState);
+//		}
+//
+//		ActorInput(keyState);
+//	}
+//}
+//
+//void Actor::ActorInput(const class KeyboardState& keyState)
+//{
+//}
 
 void Actor::SetMovingState(MovingState state, bool flag)
 {
+	if (mMovingState == state)
+	{
+		return;
+	}
+	
+	mDirtyFlag = true;
 	mMovingState = state;
 }
 

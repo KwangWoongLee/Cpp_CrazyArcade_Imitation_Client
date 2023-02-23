@@ -1,8 +1,7 @@
 #include "stdafx.h"
 
-Boom::Boom(BoomPosition state, Vector2 pos)
-	: Actor(0, "", pos)
-	, mDeathTimer(0.f)
+Boom::Boom(BoomPosition state)
+	: mDeathTimer(0.f)
 	, EBoomPosition(state)
 {
 	
@@ -10,17 +9,17 @@ Boom::Boom(BoomPosition state, Vector2 pos)
 
 Boom::~Boom()
 {
-	//GGame->RemoveBoom(this);
+	//gGame->RemoveBoom(this);
 }
 
 void Boom::Init()
 {
-	AnimationComponentRef anim = MakeShared<AnimationComponent>(shared_from_this(), 150);
-	SDL_Texture* boomCenter = GGame->GetTexture("Assets/boom_center.bmp");
-	SDL_Texture* boomLeft = GGame->GetTexture("Assets/boom_left.bmp");
-	SDL_Texture* boomRight = GGame->GetTexture("Assets/boom_right.bmp");
-	SDL_Texture* boomUp = GGame->GetTexture("Assets/boom_up.bmp");
-	SDL_Texture* boomDown = GGame->GetTexture("Assets/boom_down.bmp");
+	AnimationComponentRef anim = std::make_shared<AnimationComponent>(shared_from_this(), 150);
+	SDL_Texture* boomCenter = gGame->GetTexture("Assets/boom_center.bmp");
+	SDL_Texture* boomLeft = gGame->GetTexture("Assets/boom_left.bmp");
+	SDL_Texture* boomRight = gGame->GetTexture("Assets/boom_right.bmp");
+	SDL_Texture* boomUp = gGame->GetTexture("Assets/boom_up.bmp");
+	SDL_Texture* boomDown = gGame->GetTexture("Assets/boom_down.bmp");
 
 	switch (EBoomPosition)
 	{
@@ -45,10 +44,10 @@ void Boom::Init()
 		break;
 	};
 
-	GGame->AddSprite(static_pointer_cast<SpriteComponent>(anim));
+	gGame->AddSprite(static_pointer_cast<SpriteComponent>(anim));
 	this->AddComponent(anim);
 
-	GGame->AddActor(shared_from_this());
+	gGame->AddActor(shared_from_this());
 }
 
 void Boom::Die()

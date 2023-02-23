@@ -4,14 +4,18 @@
 class Block : public Actor
 {
 public:
-	Block(uint64 serverId, string name, Protocol::BlockType blockType, Vector2 pos);
+	Block();
 	~Block();
 
 	virtual void Init() override;
 	virtual void Die() override;
 
 	void UpdateActor(float deltaTime) override;
+	virtual void GetActorInfo(Protocol::PActor* actor) override {
+		Actor::GetActorInfo(actor);
 
+		mBlockType = actor->blocktype();
+	};
 
 private:
 	Protocol::BlockType mBlockType = Protocol::BlockType::BLOCK_TYPE_NONE;

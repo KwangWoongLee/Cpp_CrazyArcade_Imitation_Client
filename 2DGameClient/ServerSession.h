@@ -1,7 +1,5 @@
 #pragma once
-#include "Protocol.pb.h"
-#include "ServerPacketHandler.h"
-#include "Sender.h"
+#include "Proto/protocol.pb.h"
 
 class ServerSession : public PacketSession
 {
@@ -12,10 +10,10 @@ public:
 	}
 
 	virtual void OnConnected() override;
-	virtual void OnRecvPacket(BYTE* buffer, int32 len) override;
-	virtual void OnSend(int32 len) override;
+	virtual void OnRecvPacket(PacketHeader header, google::protobuf::io::CodedInputStream& payloadInputStream) override;
+	virtual void OnSend(uint32 transferred) override;
 	virtual void OnDisconnected() override;
 
-	uint64 mPlayerId = 0;
-	PlayerRef mPlayer = nullptr;
+	PlayerRef	mPlayer = nullptr;
+	uint64		mPlayerId = 0;
 };

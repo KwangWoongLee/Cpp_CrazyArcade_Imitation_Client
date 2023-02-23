@@ -1,47 +1,57 @@
 #include "stdafx.h"
 #include "ServerSession.h"
 #include "Reciever.h"
+#include "InputManager.h"
+#include "PacketHandler.h"
+#include "PacketFactory.h"
+#include "HttpManager.h"
+#include "SendTimer.h"
 
 void ServerSession::OnConnected()
 {
 	auto serverSessionRef = static_pointer_cast<ServerSession>(shared_from_this());
-	GSender->SetSession(serverSessionRef);
-	GReciever->SetSession(serverSessionRef);
+	gReciever->SetSession(serverSessionRef);
+	gInputManager->SetSession(serverSessionRef);
+	gSendTimer->session = serverSessionRef;
 
 	Protocol::C_ENTER_GAME enterGamePkt;
+	enterGamePkt.set_aidx(HttpManager::aidx);
+	enterGamePkt.set_roomid(HttpManager::remoteRoomId);
+	enterGamePkt.set_nickname(HttpManager::nickname);
 	enterGamePkt.set_playertype(Protocol::PLAYER_TYPE_BAZZI);
 
-	//레디스에서 룸키를 가져올 예정
-	enterGamePkt.set_roomkey("1");
-	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(enterGamePkt);
-
-	GSender->Push(sendBuffer);
+	std::shared_ptr<google::protobuf::MessageLite> sharedPacket = std::make_shared<Protocol::C_ENTER_GAME>(enterGamePkt);
+	gSendTimer->DoAsync(&SendTimer::Push, std::pair{ static_cast<uint16>(1), sharedPacket });
 }
 
-void ServerSession::OnRecvPacket(BYTE* buffer, int32 len)
-{
-	PacketSessionRef session = GetPacketSessionRef();
-	
-	//임시
-	BYTE* buf = new BYTE[len];
-	copy(buffer, buffer + len, buf);
-	
-	GReciever->Push(buf, len);
-	//PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 
-	// TODO : packetId 대역 체크
-	//ServerPacketHandler::HandlePacket(session, buffer, len);
-	
+void ServerSession::OnRecvPacket(PacketHeader header, google::protobuf::io::CodedInputStream& payloadInputStream)
+{
+	if (header.id >= 10 || header.id < 0)
+	{
+		DisConnect("Packet Range Over");
+		return;
+	}
+
+	auto packet = PacketFactory::GetInstance().MakePacket(header, payloadInputStream);
+	if(packet == nullptr)
+	{
+		DisConnect("Incorrect Packet Transfered");
+		return;
+	}
+
+	gReciever->Push(packet);
+
 }
 
-void ServerSession::OnSend(int32 len)
+
+void ServerSession::OnSend(uint32 transferred)
 {
-	//cout << "OnSend Len = " << len << endl;
 }
 
 void ServerSession::OnDisconnected()
 {
 	//리커넥트 or 종료
 	mPlayer = nullptr;
-	GGame->Shutdown();
+	gGame->Shutdown();
 }

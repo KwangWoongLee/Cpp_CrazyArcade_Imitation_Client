@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "BG.h"
 
-BG::BG(uint64 serverId, string name, Vector2 pos)
-	:Actor(serverId, name, pos)
+BG::BG()
 {
 }
 
@@ -12,10 +11,10 @@ BG::~BG()
 
 void BG::Init()
 {
-	auto bg = MakeShared<SpriteComponent>(shared_from_this(), 1);
-	bg->SetTexture(GGame->GetTexture("Assets/bg.bmp"));
+	auto bg = std::make_shared<SpriteComponent>(shared_from_this(), 1);
+	bg->SetTexture(gGame->GetTexture("Assets/bg.bmp"));
 
-	GGame->AddSprite(bg);
+	gGame->AddSprite(bg);
 	this->AddComponent(bg);
 }
 

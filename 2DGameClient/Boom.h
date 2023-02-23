@@ -15,7 +15,7 @@ public:
 		EDown
 	} EBoomPosition;
 
-	Boom(BoomPosition state, Vector2 pos);
+	Boom(BoomPosition state);
 	~Boom();
 
 	virtual void Init() override;

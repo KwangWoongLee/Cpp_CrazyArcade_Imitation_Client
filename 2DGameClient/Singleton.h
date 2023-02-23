@@ -16,19 +16,19 @@
 // »ç¿ë ¿¹ 
 // Test::GetInstance();
 
-template <typename T>
-class Singleton
-{
-public:
-	static T& GetInstance()
-	{
-		static T mInstance;
-		volatile int dummy{};
-
-		return mInstance;
-	}
-
-protected:
-	Singleton() = default;
-	~Singleton() = default;
-};
+//template <typename T>
+//class Singleton
+//{
+//public:
+//	static T& GetInstance()
+//	{
+//		static T mInstance;
+//		volatile int dummy{};
+//
+//		return mInstance;
+//	}
+//
+//protected:
+//	Singleton() = default;
+//	~Singleton() = default;
+//};

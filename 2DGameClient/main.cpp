@@ -1,43 +1,98 @@
 #include "stdafx.h"
 
+#include "HttpManager.h"
 #include "ThreadManager.h"
-#include "Service.h"
+#include "ClientEngine.h"
 #include "Session.h"
-#include "BufferReader.h"
-#include "ServerPacketHandler.h"
+
 #include "ServerSession.h"
+#include "PacketHandler.h"
+#include "Reciever.h"
+#include "SendTimer.h"
+
+
+
 
 int main(int argc, char** argv)
 {
+	//try {
+	//	cout << "아이디를 입력하세요 : ";
+	//	string id;
+	//	std::cin >> id;
 
-	ServerPacketHandler::Init();
+	//	cout << "비밀번호를 입력하세요 : ";
+	//	string password;
+	//	std::cin >> password;
 
-	ClientServiceRef service = MakeShared<ClientService>(
-		NetAddress(L"127.0.0.1", 7777),
-		MakeShared<IocpCore>(),
-		MakeShared<ServerSession>, // TODO : SessionManager 등
-		1);
+	//	HttpManager::Login(id, password);
+	//	HttpManager::GetRoomList();
 
-	ASSERT_CRASH(service->Start());
+	//	uint64 roomId;
+	//	std::cin >> roomId;
+	//	HttpManager::EnterRoom(roomId);
 
-	GThreadManager->Launch([&]()
-		{
-			while (true)
+	//}
+	//catch (std::exception& e)
+	//{
+	//	std::cerr << "TCP 서버 정보 얻어오기 실패 ! " << e.what() << std::endl;
+	//	std::cerr << "종료합니다." << std::endl;
+
+	//	exit(1);
+	//}
+
+	try {
+		ASSERT_CRASH(gGame->Init());
+
+		PacketHandler::Init();
+		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 1, []() { return std::make_shared<ServerSession>(); });
+
+		ASSERT_CRASH(client->Init());
+
+		gThreadManager->AddThread([=]()
 			{
-				service->GetIocpCore()->Dispatch();
-			}
-		});
+				while (true)
+				{
+					client->Run();
 
-	GThreadManager->Launch([&]()
-		{
-			ASSERT_CRASH(GGame->Init());
+					// 예약된 일감 처리
+					ThreadManager::DistributeReservedJobs();
 
-			while (true)
+					// 글로벌 큐
+					ThreadManager::DoGlobalQueueWork();
+				}
+			});
+
+		gThreadManager->AddThread([=]()
 			{
-				GGame->RunLoop();
-			}
-		});
+				gSendTimer->DoTimer(100, &SendTimer::Update);
 
-	GThreadManager->Join();
+				while (true)
+				{
+					client->Run(10);
+
+					// 예약된 일감 처리
+					ThreadManager::DistributeReservedJobs();
+
+					// 글로벌 큐
+					ThreadManager::DoGlobalQueueWork();
+				}
+			});
+		
+
+		while (true)
+		{
+			gGame->RunLoop();
+		}
+
+
+		gThreadManager->Join();
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+		exit(1);
+	}
+	
+
 	return 0;
 }

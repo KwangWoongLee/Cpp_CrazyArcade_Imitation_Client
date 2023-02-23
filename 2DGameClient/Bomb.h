@@ -4,7 +4,7 @@
 class Bomb : public Actor
 {
 public:
-	Bomb(uint64 serverId, string name, Vector2 pos);
+	Bomb();
 	~Bomb();
 	
 	virtual void Init() override;

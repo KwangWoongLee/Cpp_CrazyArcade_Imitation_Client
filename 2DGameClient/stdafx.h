@@ -52,6 +52,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <map>
 #include <atomic>
 
 //SDL
@@ -62,34 +63,19 @@
 
 #include "CorePch.h"
 
-
-using ClientServiceRef = shared_ptr<class ClientService>;
-using ServerSessionRef = shared_ptr<class ServerSession>;
-using ComponentRef = shared_ptr<class Component>;
-using SpriteComponentRef = shared_ptr<class SpriteComponent>;
-using CollisionComponentRef = shared_ptr<class CollisionComponent>;
-using AnimationComponentRef = shared_ptr<class AnimationComponent>;
-using InputComponentRef = shared_ptr<class InputComponent>;
-using BlockComponentRef = shared_ptr<class BlockComponent>;
-using ActorRef = shared_ptr<class Actor>;
-using PlayerRef = shared_ptr<class Player>;
-using BombRef = shared_ptr<class Bomb>;
-using BoomRef = shared_ptr<class Boom>;
-using TileRef = shared_ptr<class Tile>;
-
 #include "Math.h"
 #include "Vector2.h"
-#include "Input.h"
 #include "Singleton.h"
+
+#include "GameTypes.h"
+
+#include "InputManager.h"
 
 #include "Actor.h"
 #include "Component.h"
 #include "SpriteComponent.h"
 #include "AnimationComponent.h"
 #include "BlockComponent.h"
-
-#include "MoveComponent.h"
-#include "InputComponent.h"
 #include "CollisionComponent.h"
 
 #include "Boom.h"
@@ -100,7 +86,3 @@ using TileRef = shared_ptr<class Tile>;
 #include "Tile.h"
 
 #include "Game.h"
-
-#include "Protocol.pb.h"
-#include "Enum.pb.h"
-#include "Struct.pb.h"

@@ -72,26 +72,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../TCPServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../TCPServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../CppServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../CppServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../TCPServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../TCPServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../CppServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../CppServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../TCPServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\2DGameClient\Assets;..\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../TCPServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../CppServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\2DGameClient\Assets;..\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../CppServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../TCPServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\2DGameClient\Assets;..\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../TCPServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Libraries\Include\SDL2;$(SolutionDir)../CppServer/ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\..\2DGameClient\Assets;..\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Libs;$(SolutionDir)../CppServer/Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -101,7 +101,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\workspace\2DGameClient\2DGameClient\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\workspace\2DGameClient\2DGameClient\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -185,6 +185,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Libraries\Include\json\jsoncpp.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="BG.cpp" />
@@ -193,27 +196,33 @@
     <ClCompile Include="Boom.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Enum.pb.cc">
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HttpManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="PacketHandler.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Proto\enum.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="InputComponent.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MoveComponent.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Protocol.pb.cc">
+    <ClCompile Include="Proto\protocol.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Proto\struct.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Reciever.cpp" />
-    <ClCompile Include="Sender.cpp" />
-    <ClCompile Include="ServerPacketHandler.cpp" />
+    <ClCompile Include="SendTimer.cpp" />
     <ClCompile Include="ServerSession.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -222,14 +231,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Struct.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="BlockComponent.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -242,19 +245,24 @@
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="MoveComponent.h" />
+    <ClInclude Include="GameTypes.h" />
+    <ClInclude Include="HttpManager.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="PacketFactory.h" />
+    <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Proto\enum.pb.h" />
+    <ClInclude Include="Proto\protocol.pb.h" />
+    <ClInclude Include="Proto\struct.pb.h" />
     <ClInclude Include="Reciever.h" />
-    <ClInclude Include="Sender.h" />
-    <ClInclude Include="ServerPacketHandler.h" />
+    <ClInclude Include="SendTimer.h" />
     <ClInclude Include="ServerSession.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="BlockComponent.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
@@ -262,11 +270,6 @@
     <UpToDateCheckInput Include="..\..\TCPServer\Common\Protobuf\bin\Enum.proto" />
     <UpToDateCheckInput Include="..\..\TCPServer\Common\Protobuf\bin\Protocol.proto" />
     <UpToDateCheckInput Include="..\..\TCPServer\Common\Protobuf\bin\Struct.proto" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\TCPServer\Common\Protobuf\bin\Enum.proto" />
-    <None Include="..\..\TCPServer\Common\Protobuf\bin\Protocol.proto" />
-    <None Include="..\..\TCPServer\Common\Protobuf\bin\Struct.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

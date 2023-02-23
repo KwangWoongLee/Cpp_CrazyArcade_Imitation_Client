@@ -11,26 +11,25 @@ enum class ePlayerType
 class Player : public Actor
 {
 public:
-	Player(uint64 serverId, string name, Protocol::PlayerType type, Vector2 pos, bool myPlayer);
+	Player();
 	~Player();
 
 	virtual void Init() override;
-
 	virtual void Die() override;
-
 	virtual void UpdateActor(float deltaTime) override;
-	
-	void ActorInput(const class KeyboardState& keyState) override;
+	virtual void GetActorInfo(Protocol::PActor* actor) override {
+		Actor::GetActorInfo(actor);
 
-	void SetBubbleToLive();
+		mPlayerType = actor->playertype();
+	};
+	
+
 
 	bool isBubbleTimeOut() { return mDeathTimer >= 3.0f; }
-
 	bool isDead() { return mDeathTimer >= 1.1f; }
+	void SetBubbleToLive();
 
-	InputComponentRef mInputComponent = nullptr;
 	float mDeathTimer;
 	Protocol::PlayerType mPlayerType = Protocol::PlayerType::PLAYER_TYPE_NONE;
-	bool mMyPlayer = false;
 };
 

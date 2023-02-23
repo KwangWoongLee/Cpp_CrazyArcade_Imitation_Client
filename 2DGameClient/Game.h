@@ -20,7 +20,7 @@ public:
 	//Actor추가 및 삭제함수
 	void AddActor(ActorRef actor);
 	void RemoveActor(ActorRef actor);
-	Vector<ActorRef>& GetActors() { return mActors; }
+	std::vector<ActorRef>& GetActors() { return mActors; }
 
 	//SpriteComponent 추가, 삭제
 	void AddSprite(SpriteComponentRef sprite);
@@ -51,7 +51,7 @@ public:
 	//Vector<class BoomRef>& GetBooms() { return mBooms; }
 
 
-	bool EnterWorld(ServerSessionRef serverSession, Protocol::S_ENTER_GAME& pkt);
+	//bool EnterWorld(ServerSessionRef serverSession, Protocol::S_ENTER_GAME& pkt);
 
 	std::map<uint64, ActorRef> mIdToActor;
 	ActorRef FindActor(uint64 id);
@@ -60,27 +60,26 @@ public:
 private:
 	//게임 루프 헬퍼 함수
 	void ProcessInput();
-	void ProcessSend();
 	void ProcessRecv();
-	void UpdateGame();
+	void UpdateGame(float deltaTime);
 	void GenerateOutput();
 
 	//업데이트 완료된 Actor vector
-	Vector<ActorRef> mActors;
+	std::vector<ActorRef> mActors;
 	//업데이트 완료되지 않은 Actor vector;
-	Vector<ActorRef> mPendingActors;
+	std::vector<ActorRef> mPendingActors;
 
 
 	// SpriteComponent Vector // Game이 그리기 위한 Sprite Vector
-	Vector<SpriteComponentRef> mSprites;
+	std::vector<SpriteComponentRef> mSprites;
 
 	// Texture map  <filename, SDL_Texture*> // Texture 재활용을 위한 vector
-	Map<std::string, SDL_Texture*> mTextures;
+	std::map<std::string, SDL_Texture*> mTextures;
 
 	//타일맵
-	Vector<TileRef> mTiles;
-	Vector<Vector<int>> mTileMapToInt;
-	Vector<Vector<Tile::TileType>> mTileMapToType;
+	std::vector<TileRef> mTiles;
+	std::vector<std::vector<int>> mTileMapToInt;
+	std::vector<std::vector<Tile::TileType>> mTileMapToType;
 	int GetTileSizeX() const { return mTileSizeX; }
 	int GetTileSizeY() const { return mTileSizeY; }
 	void SetTileSizeXY(int x, int y);
@@ -96,10 +95,7 @@ private:
 	SDL_Window*	mWindow;
 	//SDL 렌더러
 	SDL_Renderer* mRenderer;
-	//InputSystem
-	Input* mInput;
 
-	Atomic<bool> mConnected = false;
 	//게임 실행 판단
 	bool		mIsRunning;
 	//현재 틱값을 갱신할 변수
@@ -107,9 +103,9 @@ private:
 	//Actor 업데이트 완료 확인 판단
 	bool		mIsUpdatingActors;
 	
-	Vector<PlayerRef> mPlayers;
+	std::vector<PlayerRef> mPlayers;
 	//Vector<BombRef> mBombs;
 	//Vector<BoomRef> mBooms;
 };
 
-extern shared_ptr<Game> GGame;
+extern shared_ptr<Game> gGame;

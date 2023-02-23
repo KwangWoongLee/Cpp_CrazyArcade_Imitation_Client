@@ -11,8 +11,8 @@ public:
 	bool EnterWorld(Protocol::S_ENTER_GAME& pkt);
 
 private:
-	Vector<ActorRef> mActors;
-	Map<uint64, ActorRef> mActorMap;
+	std::vector<ActorRef> mActors;
+	std::map<uint64, ActorRef> mActorMap;
 };
 
 
