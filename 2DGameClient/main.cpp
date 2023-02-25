@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 			{
 				while (true)
 				{
-					client->Run();
+					client->Run(30);
 
 					// 抗距等 老皑 贸府
 					ThreadManager::DistributeReservedJobs();
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
 
 				while (true)
 				{
-					client->Run(10);
+					client->Run(30);
 
 					// 抗距等 老皑 贸府
 					ThreadManager::DistributeReservedJobs();
