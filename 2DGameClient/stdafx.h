@@ -13,10 +13,8 @@
 
 #ifdef _DEBUG
 #pragma comment(lib, "ServerCore\\Debug\\ServerCore.lib")
-#pragma comment(lib, "Protobuf\\Debug\\libprotobufd.lib")
 #else
 #pragma comment(lib, "ServerCore\\Release\\ServerCore.lib")
-#pragma comment(lib, "Protobuf\\Release\\libprotobuf.lib")
 #endif
 
 #pragma comment(lib, "SDL2\\SDL2.lib")
@@ -56,12 +54,12 @@
 #include <atomic>
 
 //SDL
-#include <SDL.h>
-#include <SDL_scancode.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_scancode.h>
+#include <SDL2/SDL_image.h>
 
 
-#include "CorePch.h"
+#include "ServerCore/CorePch.h"
 
 #include "Math.h"
 #include "Vector2.h"

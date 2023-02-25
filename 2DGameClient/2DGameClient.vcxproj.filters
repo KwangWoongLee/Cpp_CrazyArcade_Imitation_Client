@@ -81,15 +81,6 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Contents\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Proto\enum.pb.cc">
-      <Filter>Proto\contents</Filter>
-    </ClCompile>
-    <ClCompile Include="Proto\protocol.pb.cc">
-      <Filter>Proto\contents</Filter>
-    </ClCompile>
-    <ClCompile Include="Proto\struct.pb.cc">
-      <Filter>Proto\contents</Filter>
-    </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Network</Filter>
     </ClCompile>
@@ -105,6 +96,15 @@
     </ClCompile>
     <ClCompile Include="SendTimer.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\enum.pb.cc">
+      <Filter>Proto\contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\protocol.pb.cc">
+      <Filter>Proto\contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\struct.pb.cc">
+      <Filter>Proto\contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,15 +165,6 @@
     <ClInclude Include="Player.h">
       <Filter>Contents\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Proto\enum.pb.h">
-      <Filter>Proto\contents</Filter>
-    </ClInclude>
-    <ClInclude Include="Proto\protocol.pb.h">
-      <Filter>Proto\contents</Filter>
-    </ClInclude>
-    <ClInclude Include="Proto\struct.pb.h">
-      <Filter>Proto\contents</Filter>
-    </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>Network</Filter>
     </ClInclude>
@@ -192,6 +183,15 @@
     <ClInclude Include="HttpManager.h" />
     <ClInclude Include="SendTimer.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\enum.pb.h">
+      <Filter>Proto\contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\protocol.pb.h">
+      <Filter>Proto\contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\struct.pb.h">
+      <Filter>Proto\contents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

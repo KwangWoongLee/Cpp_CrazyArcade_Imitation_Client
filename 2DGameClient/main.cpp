@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
 #include "HttpManager.h"
-#include "ThreadManager.h"
-#include "ClientEngine.h"
-#include "Session.h"
+#include "ServerCore/ThreadManager.h"
+#include "ServerCore/ClientEngine.h"
+#include "ServerCore/Session.h"
 
 #include "ServerSession.h"
 #include "PacketHandler.h"
