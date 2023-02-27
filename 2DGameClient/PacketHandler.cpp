@@ -21,15 +21,17 @@ void PacketHandler::Init()
 
 void PacketHandler::S_PING(ServerSessionRef session, PacketRef packet)
 {
-	cout << "PING" << endl;
+	//cout << "PING" << endl;
 
 	Protocol::C_PONG pongPkt;
-	std::shared_ptr<google::protobuf::MessageLite> sharedPacket = std::make_shared<Protocol::C_PONG>(pongPkt);
-	gSendTimer->DoAsync(&SendTimer::Push, std::pair{ static_cast<uint16>(0), sharedPacket });
+	session->Send(0, pongPkt);
+	//std::shared_ptr<google::protobuf::MessageLite> sharedPacket = std::make_shared<Protocol::C_PONG>(pongPkt);
+	//gSendTimer->DoAsync(&SendTimer::Push, std::pair{ static_cast<uint16>(0), sharedPacket });
 }
 
 void PacketHandler::S_ENTER_GAME(ServerSessionRef session, PacketRef packet)
 {
+	cout << "Enter From Server" << endl;
 	auto pkt = static_pointer_cast<Protocol::S_ENTER_GAME>(packet->packet);
 	session->mPlayerId = pkt->myplayerid();
 
@@ -82,6 +84,8 @@ void PacketHandler::S_ENTER_GAME(ServerSessionRef session, PacketRef packet)
 		}
 	}
 
+
+	gGame->OnNetwork = true;
 }
 
 void PacketHandler::S_SPAWN(ServerSessionRef session, PacketRef packet)

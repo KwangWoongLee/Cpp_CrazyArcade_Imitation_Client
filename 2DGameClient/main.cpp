@@ -52,36 +52,15 @@ int main(int argc, char** argv)
 			{
 				while (true)
 				{
-					client->Run(30);
+					client->Run();
 
-					// 예약된 일감 처리
-					ThreadManager::DistributeReservedJobs();
-
-					// 글로벌 큐
-					ThreadManager::DoGlobalQueueWork();
 				}
 			});
-
-		gThreadManager->AddThread([=]()
-			{
-				gSendTimer->DoTimer(100, &SendTimer::Update);
-
-				while (true)
-				{
-					client->Run(30);
-
-					// 예약된 일감 처리
-					ThreadManager::DistributeReservedJobs();
-
-					// 글로벌 큐
-					ThreadManager::DoGlobalQueueWork();
-				}
-			});
-		
 
 		while (true)
 		{
 			gGame->RunLoop();
+
 		}
 
 

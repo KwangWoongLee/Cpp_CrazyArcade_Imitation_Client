@@ -14,6 +14,21 @@ SpriteComponent::~SpriteComponent()
 	//gGame->RemoveSprite(static_pointer_cast<SpriteComponent>(shared_from_this()));
 }
 
+void SpriteComponent::DrawRect(SDL_Renderer* renderer, int gameScale)
+{
+	if (auto owner = mOwner.lock()) {
+		SDL_Rect r;
+		r.w = static_cast<int>(mTextureWidth * owner->GetScale()) * gameScale;
+		r.h = static_cast<int>(mTextureHeight * owner->GetScale()) * gameScale;
+		r.x = static_cast<int>(owner->GetPosition().x - r.w / 2) * gameScale;
+		r.y = static_cast<int>(owner->GetPosition().y - r.h / 2) * gameScale;
+
+
+		SDL_RenderDrawRect(renderer,
+			&r);
+	}
+}
+
 void SpriteComponent::Draw(SDL_Renderer* renderer, int gameScale)
 {
 	if (auto owner = mOwner.lock()) {

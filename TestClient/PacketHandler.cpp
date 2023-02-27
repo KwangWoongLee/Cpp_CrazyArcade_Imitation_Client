@@ -20,13 +20,20 @@ void PacketHandler::Init()
 
 void PacketHandler::S_PING(ServerSessionRef session, PacketRef packet)
 {
-	Protocol::C_PONG pongPkt;
-	session->Send(0, pongPkt);
+	if (session->mEntered == true)
+	{
+		Protocol::C_PONG pongPkt;
+		session->Send(0, pongPkt);
+	}
 }
 
 void PacketHandler::S_ENTER_GAME(ServerSessionRef session, PacketRef packet)
 {
 	auto pkt = static_pointer_cast<Protocol::S_ENTER_GAME>(packet->packet);
+	
+	session->mEntered = true;
+	cout << session->mAidx << "Enter" << endl;
+
 }
 
 void PacketHandler::S_SPAWN(ServerSessionRef session, PacketRef packet)

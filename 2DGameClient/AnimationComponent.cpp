@@ -86,11 +86,12 @@ void AnimationComponent::Draw(SDL_Renderer* renderer, int gameScale)
 
 			//소유 actor의 정보에 따라 texture 배치
 			SDL_Rect dsc;
-			dsc.w = static_cast<int>(mTextureWidth / mFrameX * owner->GetScale()) * gameScale;
-			dsc.h = static_cast<int>(mTextureHeight * owner->GetScale()) * gameScale;
+			//dsc.w = static_cast<int>(mTextureWidth / mFrameX * owner->GetScale()) * gameScale;
+			//dsc.h = static_cast<int>(mTextureHeight * owner->GetScale()) * gameScale;
 			//dsc.x = static_cast<int>(owner->GetPosition().x - dsc.w / 2) * gameScale + mTextureWidth / mFrameX;
 			//dsc.y = static_cast<int>(owner->GetPosition().y - dsc.h / 2) * gameScale + mTextureHeight;
-
+			dsc.w = static_cast<int>(1) * gameScale;
+			dsc.h = static_cast<int>(1) * gameScale;
 			dsc.x = static_cast<int>(owner->GetPosition().x - dsc.w / 2) * gameScale;
 			dsc.y = static_cast<int>(owner->GetPosition().y - dsc.h / 2) * gameScale;
 

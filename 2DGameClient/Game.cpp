@@ -124,8 +124,11 @@ void Game::RunLoop()
 
 	ProcessInput();
 	ProcessRecv();
-	UpdateGame(deltaTime);
+	if (OnNetwork == false) 
+		return;
 	gInputManager->Send();
+
+	UpdateGame(deltaTime);
 	GenerateOutput();
 }
 

@@ -16,7 +16,7 @@ ReplicationManager::~ReplicationManager()
 
 void ReplicationManager::Update()
 {
-	DoTimer(250, &ReplicationManager::Update);
+	DoTimer(1000, &ReplicationManager::Update);
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -24,6 +24,8 @@ void ReplicationManager::Update()
 
 	for (auto session : mSessions)
 	{
+		if (session->mEntered == false) continue;
+
 		Protocol::C_ACTION actionPkt;
 
 		actionPkt.add_playeractions(static_cast<Protocol::Action>(dis(gen)));
@@ -42,6 +44,7 @@ void ReplicationManager::Add(ServerSessionRef session)
 	enterGamePkt.set_nickname(dummy.nickname);
 	enterGamePkt.set_playertype(Protocol::PLAYER_TYPE_BAZZI);
 
+	session->mAidx = dummy.aidx;
 	session->Send(1, enterGamePkt);
 
 	mSessions.insert(session);

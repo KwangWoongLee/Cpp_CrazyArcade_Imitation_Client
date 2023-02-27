@@ -15,6 +15,7 @@ public:
 	virtual void OnDisconnected() override;
 
 	atomic<bool>	mEntered = false;
+	uint64 mAidx;
 	PlayerRef	mPlayer = nullptr;
 	uint64		mPlayerId = 0;
 };

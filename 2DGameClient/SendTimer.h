@@ -6,8 +6,6 @@ public:
 	~SendTimer();
 
 	void Update();
-	void AsyncSendJob();
-
 
 
 	void Push(std::pair<uint16, std::shared_ptr<google::protobuf::MessageLite>> packet);

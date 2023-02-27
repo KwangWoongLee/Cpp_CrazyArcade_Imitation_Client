@@ -112,7 +112,6 @@ void InputManager::Send()
 
 		mActionList.Clear();
 
-		std::shared_ptr<google::protobuf::MessageLite> sharedPacket = std::make_shared<Protocol::C_ACTION>(actionPkt);
-		gSendTimer->DoAsync(&SendTimer::Push, std::pair{ static_cast<uint16>(2), sharedPacket });
+		//mServerSession->Send(2, actionPkt);
 	}
 }

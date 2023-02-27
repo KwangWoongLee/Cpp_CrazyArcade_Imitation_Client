@@ -57,6 +57,8 @@ public:
 	ActorRef FindActor(uint64 id);
 	uint32		mTicksCount;
 
+	std::atomic<bool> OnNetwork = false;
+
 private:
 	//게임 루프 헬퍼 함수
 	void ProcessInput();
@@ -106,6 +108,7 @@ private:
 	std::vector<PlayerRef> mPlayers;
 	//Vector<BombRef> mBombs;
 	//Vector<BoomRef> mBooms;
+
 };
 
 extern shared_ptr<Game> gGame;

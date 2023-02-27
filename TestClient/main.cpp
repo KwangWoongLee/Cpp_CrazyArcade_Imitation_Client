@@ -10,21 +10,6 @@
 #include "Reciever.h"
 #include "ReplicationManager.h"
 
-void AsyncSendJob()
-{
-	// TLS 작업이라 No Lock
-	while (TLS_SendSessionQueue.empty() == false)
-	{
-		auto sessionRef = TLS_SendSessionQueue.front();
-		if (sessionRef->AsyncSend() == true) // 남은 Send 작업이 없을 경우, 제거
-		{
-			sessionRef = nullptr;
-			TLS_SendSessionQueue.pop();
-		}
-	}
-}
-
-
 
 int main(int argc, char** argv)
 {
@@ -43,7 +28,7 @@ int main(int argc, char** argv)
 		//	HttpManager::remoteHost = host;
 		//	HttpManager::remotePort = port;
 
-		for (uint64 i = 1; i < 150; ++i)
+		for (uint64 i = 400; i < 900; ++i)
 		{
 			gReplicationManager->Dummys.Push(
 				DummyUserInfo{
@@ -56,19 +41,15 @@ int main(int argc, char** argv)
 			);
 		}
 
-		//}
-
-		//Sleep(100);
-
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 1000, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 500, []() { return std::make_shared<ServerSession>(); });
 
 		ASSERT_CRASH(client->Init());
 
 
-		gReplicationManager->DoTimer(250, &ReplicationManager::Update);
+		gReplicationManager->DoTimer(1000, &ReplicationManager::Update);
 
-		int threadCount = 3;
+		int threadCount = 5;
 		for (int i = 0; i < threadCount; ++i)
 		{
 			gThreadManager->AddThread([=]()
@@ -85,7 +66,6 @@ int main(int argc, char** argv)
 						// 글로벌 큐
 						ThreadManager::DoGlobalQueueWork();
 
-						AsyncSendJob();
 					}
 				});
 

@@ -6,7 +6,8 @@ class SpriteComponent : public Component
 public:
 	SpriteComponent(ActorRef owner, int drawOrder);
 	~SpriteComponent();
-		
+
+	void DrawRect(SDL_Renderer* renderer, int gameScale = 1);
 	virtual void Draw(SDL_Renderer* renderer, int gameScale = 1);
 	
 	//Getter, Setter

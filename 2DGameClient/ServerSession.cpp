@@ -20,8 +20,7 @@ void ServerSession::OnConnected()
 	enterGamePkt.set_nickname(HttpManager::nickname);
 	enterGamePkt.set_playertype(Protocol::PLAYER_TYPE_BAZZI);
 
-	std::shared_ptr<google::protobuf::MessageLite> sharedPacket = std::make_shared<Protocol::C_ENTER_GAME>(enterGamePkt);
-	gSendTimer->DoAsync(&SendTimer::Push, std::pair{ static_cast<uint16>(1), sharedPacket });
+	Send(1, enterGamePkt);
 }
 
 
