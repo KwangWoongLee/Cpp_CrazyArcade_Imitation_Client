@@ -112,6 +112,6 @@ void InputManager::Send()
 
 		mActionList.Clear();
 
-		//mServerSession->Send(2, actionPkt);
+		mServerSession->Send(2, actionPkt);
 	}
 }

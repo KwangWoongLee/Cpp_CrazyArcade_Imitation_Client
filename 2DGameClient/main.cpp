@@ -40,6 +40,9 @@ int main(int argc, char** argv)
 	//	exit(1);
 	//}
 
+	cout << "Test 용으로 aidx 입력하기";
+	cin >> HttpManager::aidx;
+
 	try {
 		ASSERT_CRASH(gGame->Init());
 

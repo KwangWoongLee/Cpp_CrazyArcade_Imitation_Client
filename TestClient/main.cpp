@@ -28,7 +28,12 @@ int main(int argc, char** argv)
 		//	HttpManager::remoteHost = host;
 		//	HttpManager::remotePort = port;
 
-		for (uint64 i = 400; i < 900; ++i)
+		cout << "새로운 500명의 시작 인덱스를 입력하세요 : " << endl;
+		uint64 idx;
+
+		cin >> idx;
+
+		for (uint64 i = idx; i < idx+500; ++i)
 		{
 			gReplicationManager->Dummys.Push(
 				DummyUserInfo{

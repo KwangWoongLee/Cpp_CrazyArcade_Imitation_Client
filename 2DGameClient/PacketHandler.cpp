@@ -45,11 +45,11 @@ void PacketHandler::S_ENTER_GAME(ServerSessionRef session, PacketRef packet)
 			break;
 		case Protocol::ACTOR_TYPE_PLAYER:
 		{
-			auto p = std::make_shared<Player>();
-			p->GetActorInfo(&actor);
-			p->Init();
+			//auto p = std::make_shared<Player>();
+			//p->GetActorInfo(&actor);
+			//p->Init();
 
-			gGame->AddActor(p);
+			//gGame->AddActor(p);
 		}
 		break;
 		case Protocol::ACTOR_TYPE_BLOCK:
@@ -95,7 +95,7 @@ void PacketHandler::S_SPAWN(ServerSessionRef session, PacketRef packet)
 
 	for (auto actor : pkt->actors())
 	{
-		cout << actor.id() << " 접속" << endl;
+		cout << actor.id() << " 스폰 !" << endl;
 
 		auto type = actor.type();
 
@@ -166,8 +166,8 @@ void PacketHandler::S_DESPAWN(ServerSessionRef session, PacketRef packet)
 		auto actorRef = gGame->FindActor(id);
 		gGame->RemoveActor(actorRef);
 
-		if (session->mPlayerId == id)
-			session->mPlayer = nullptr;
+		//if (session->mPlayerId == id)
+		//	session->mPlayer = nullptr;
 	}
 }
 
@@ -180,5 +180,7 @@ void PacketHandler::S_ACTION(ServerSessionRef session, PacketRef packet)
 	auto action = pkt->playeraction();
 
 	auto actorRef = gGame->FindActor(id);
+	if (actorRef == nullptr) return;
+
 	actorRef->MoveNextPosition(action);
 }

@@ -233,6 +233,7 @@ void Game::Shutdown()
 
 void Game::AddActor(ActorRef actor)
 {
+	cout << "Add : " << actor->GetServerId() << endl;
 	mIdToActor[actor->GetServerId()] = actor;
 	
 

@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Component">
+      <UniqueIdentifier>{296287e3-9d2d-4b1a-beaa-2365b94ad3be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{187f4bd1-6d59-4e07-91c4-d5289d143711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{8a79f532-21fc-4d2a-af88-2ccde917cfb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{1de14b11-ff42-44d1-8d4c-13369ea7944b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto">
+      <UniqueIdentifier>{c06bc812-7946-49fa-b8da-876efcc5731c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto\contents">
+      <UniqueIdentifier>{ea42d0fb-2384-4459-8a95-8bd800cdd8c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{2c190a69-4659-4e9f-824f-6b6b875a683e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Actor">
+      <UniqueIdentifier>{97428659-af3c-4719-ae4e-23add722fcb8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="World.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerSession.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Reciever.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="BG.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Boom.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpManager.cpp" />
+    <ClCompile Include="..\Libraries\Include\json\jsoncpp.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="SendTimer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\enum.pb.cc">
+      <Filter>Proto\contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\protocol.pb.cc">
+      <Filter>Proto\contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Proto\struct.pb.cc">
+      <Filter>Proto\contents</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="World.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerSession.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Reciever.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="BG.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Boom.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketFactory.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTypes.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpManager.h" />
+    <ClInclude Include="SendTimer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\enum.pb.h">
+      <Filter>Proto\contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\protocol.pb.h">
+      <Filter>Proto\contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Proto\struct.pb.h">
+      <Filter>Proto\contents</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
