@@ -17,11 +17,10 @@ void Reciever::Push(PacketRef packet)
 
 void Reciever::Execute()
 {
-	std::vector<PacketRef> packets;
-	mPacketQueue.PopAll(packets);
+	auto packet = mPacketQueue.Pop();
+	if (packet == nullptr) return;
 
-	for (auto packet : packets)
-	{
-		HandleFuncs[packet->header.id](mServerSession, packet);
-	}
+	HandleFuncs[packet->header.id](mServerSession, packet);
+
+	mPacketQueue.Clear();
 }
