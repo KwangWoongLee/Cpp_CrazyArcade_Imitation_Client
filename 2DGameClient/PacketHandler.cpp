@@ -54,11 +54,11 @@ void PacketHandler::S_ENTER_GAME(ServerSessionRef session, PacketRef packet)
 		break;
 		case Protocol::ACTOR_TYPE_BLOCK:
 		{
-			auto b = std::make_shared<Block>();
-			b->GetActorInfo(&actor);
-			b->Init();
+			//auto b = std::make_shared<Block>();
+			//b->GetActorInfo(&actor);
+			//b->Init();
 
-			gGame->AddActor(b);
+			//gGame->AddActor(b);
 		}
 		break;
 		case Protocol::ACTOR_TYPE_BOMB:
@@ -132,10 +132,11 @@ void PacketHandler::S_SPAWN(ServerSessionRef session, PacketRef packet)
 		break;
 		case Protocol::ACTOR_TYPE_BOMB:
 		{
-			//auto b = MakeShared<Bomb>(id, name, Vector2(pos.x(), pos.y()));
-			//b->Init();
+			auto b = std::make_shared<Bomb>();
+			b->GetActorInfo(&actor);
+			b->Init();
 
-			//gGame->AddActor(b);
+			gGame->AddActor(b);
 		}
 		break;
 
@@ -164,7 +165,17 @@ void PacketHandler::S_DESPAWN(ServerSessionRef session, PacketRef packet)
 		auto id = actor.id();
 		cout << "DESPAWN " << id << endl;
 		auto actorRef = gGame->FindActor(id);
-		gGame->RemoveActor(actorRef);
+		//gGame->RemoveActor(actorRef);
+		if (actorRef->mType == Protocol::ACTOR_TYPE_PLAYER)
+		{
+			actorRef->SetState(Actor::State::ETempDie);
+		}
+		else
+		{
+			actorRef->SetState(Actor::State::WANT_DIE);
+		}
+
+		
 
 		//if (session->mPlayerId == id)
 		//	session->mPlayer = nullptr;
@@ -181,6 +192,24 @@ void PacketHandler::S_ACTION(ServerSessionRef session, PacketRef packet)
 
 	auto actorRef = gGame->FindActor(id);
 	if (actorRef == nullptr) return;
+
+	if (actorRef->mType == Protocol::ACTOR_TYPE_PLAYER)
+	{
+		auto player = static_pointer_cast<Player>(actorRef);
+
+		if (action == Protocol::ACTION_TEMP_DIE)
+		{
+			player->SetState(Actor::State::EBubble);
+			return;
+		}
+		else if (action == Protocol::ACTION_RESURRECT)
+		{
+			player->SetBubbleToLive();
+			return;
+		}
+	}
+	
+	
 
 	actorRef->MoveNextPosition(action);
 }

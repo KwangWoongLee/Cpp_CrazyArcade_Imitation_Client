@@ -15,7 +15,7 @@ public:
 		EDown
 	} EBoomPosition;
 
-	Boom(BoomPosition state);
+	Boom(BoomPosition state, Vector2 pos);
 	~Boom();
 
 	virtual void Init() override;
@@ -24,7 +24,7 @@ public:
 
 
 private:
-	bool	isTimeToDeath() {return mDeathTimer >= 0.8f;};
+	bool	isTimeToDeath() {return mDeathTimer >= 0.9f;};
 	float	mDeathTimer;
 };
 

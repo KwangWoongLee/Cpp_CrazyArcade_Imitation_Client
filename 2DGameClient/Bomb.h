@@ -11,13 +11,5 @@ public:
 
 	void UpdateActor(float deltaTime) override;
 	void Die() override;
-	
-	CollisionComponentRef GetCollider() const { return mCollider; }
-
-
-private:
-	bool	bFirstContact;
-
-	CollisionComponentRef mCollider;
-};
+	};
 

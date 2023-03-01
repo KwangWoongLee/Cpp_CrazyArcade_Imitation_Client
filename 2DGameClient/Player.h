@@ -26,7 +26,7 @@ public:
 
 
 	bool isBubbleTimeOut() { return mDeathTimer >= 3.0f; }
-	bool isDead() { return mDeathTimer >= 1.1f; }
+	bool isDead() { return mDeathTimer >= 1.f; }
 	void SetBubbleToLive();
 
 	float mDeathTimer;

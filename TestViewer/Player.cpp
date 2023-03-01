@@ -12,11 +12,30 @@ Player::~Player()
 
 void Player::Init()
 {
-	SetMovingState(Actor::MovingState::EIdle);
-	SpriteComponentRef sprite = std::make_shared<SpriteComponent>(shared_from_this(), 15);
 
-	gGame->AddSprite(sprite);
-	this->AddComponent(static_pointer_cast<Component>(sprite));
+	//AnimationComponentRef asc = std::make_shared<AnimationComponent>(shared_from_this(), 200);
+
+	//SDL_Texture* idle = gGame->GetTexture("Assets/idle.bmp");
+	//SDL_Texture* down = gGame->GetTexture("Assets/down.bmp");
+	//SDL_Texture* left = gGame->GetTexture("Assets/left.bmp");
+	//SDL_Texture* right = gGame->GetTexture("Assets/right.bmp");
+	//SDL_Texture* up = gGame->GetTexture("Assets/up.bmp");
+	//SDL_Texture* bubble = gGame->GetTexture("Assets/bazziBubble.bmp");
+	//SDL_Texture* tempdie = gGame->GetTexture("Assets/bazziDie.bmp");
+
+	//asc->AddAnimTextures("idle", idle);
+	//asc->AddAnimTextures("down", down);
+	//asc->AddAnimTextures("left", left);
+	//asc->AddAnimTextures("right", right);
+	//asc->AddAnimTextures("up", up);
+	//asc->AddAnimTextures("bubble", bubble);
+	//asc->AddAnimTextures("tempdie", tempdie);
+
+	//asc->SetAnimTexture(down, 8);
+	//SetMovingState(Actor::MovingState::EIdle);
+
+	//gGame->AddSprite(static_pointer_cast<SpriteComponent>(asc));
+	//this->AddComponent(asc);
 }
 
 void Player::Die()
@@ -26,6 +45,8 @@ void Player::Die()
 
 void Player::UpdateActor(float deltaTime)
 {
+	if (mDirtyFlag == false) SetMovingState(MovingState::EStop);
+
 	if (GetState() == State::EBubble)
 	{
 		mDeathTimer += deltaTime;

@@ -80,7 +80,6 @@ public:
 
 	bool mDirtyFlag = false;
 
-protected:
 	Protocol::ActorType mType = Protocol::ActorType::ACTOR_TYPE_NONE;
 	
 private:

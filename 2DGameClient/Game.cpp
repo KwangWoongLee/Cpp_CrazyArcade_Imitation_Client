@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Reciever.h"
-#include "World.h"
 #include "ServerSession.h"
 
 shared_ptr<Game> gGame = make_shared<Game>();
@@ -215,12 +214,6 @@ void Game::GenerateOutput()
 	SDL_RenderPresent(mRenderer);
  }
 
-void Game::SetTileSizeXY(int x, int y)
-{
-	mTileSizeX = x;
-	mTileSizeY = y;
-}
-
 
 void Game::Shutdown()
 {
@@ -233,10 +226,8 @@ void Game::Shutdown()
 
 void Game::AddActor(ActorRef actor)
 {
-	cout << "Add : " << actor->GetServerId() << endl;
 	mIdToActor[actor->GetServerId()] = actor;
 	
-
 	//Actor 업데이트 중이라면, 임시Actor Vector에 Pending
 	if (mIsUpdatingActors)
 	{

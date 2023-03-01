@@ -63,6 +63,8 @@ private:
 	uint8_t	mBackKey;
 	uint8_t	mUpKey;
 	uint8_t	mDownKey;
+	uint8_t	mSpaceKey;
+	uint8_t	mEscKey;
 };
 
 extern shared_ptr<InputManager> gInputManager;

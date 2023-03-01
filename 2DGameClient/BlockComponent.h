@@ -5,6 +5,7 @@ class BlockComponent : public SpriteComponent
 {
 public:
 	BlockComponent(ActorRef owner, int drawOrder);
+	virtual ~BlockComponent();
 
 	void Draw(SDL_Renderer* renderer, int gameScale = 1) override;
 

@@ -3,6 +3,7 @@
 
 Player::Player()
 {
+	mDeathTimer = 0.f;
 	SetScale(0.5f);
 }
 
@@ -44,24 +45,16 @@ void Player::Die()
 
 void Player::UpdateActor(float deltaTime)
 {
-	if (GetState() == State::EBubble)
-	{
-		mDeathTimer += deltaTime;
+	if (mDirtyFlag == false) SetMovingState(Actor::MovingState::EStop);
 
-		if (isBubbleTimeOut())
-		{
-			mDeathTimer = 0.f;
-			SetState(State::ETempDie);
-		}
 
-	}
-	else if (GetState() == State::ETempDie)
+	if (GetState() == State::ETempDie)
 	{
 		mDeathTimer += deltaTime;
 
 		if (isDead())
 		{
-			SetState(State::EDead);
+			SetState(State::WANT_DIE);
 		}
 	}
 
@@ -73,4 +66,5 @@ void Player::SetBubbleToLive()
 {
 	mDeathTimer = 0.f;
 	SetState(State::EActive);
+	SetMovingState(Actor::MovingState::EIdle);
 }

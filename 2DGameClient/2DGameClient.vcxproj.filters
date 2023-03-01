@@ -27,13 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="World.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
@@ -78,9 +72,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Contents\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Contents\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Network</Filter>
     </ClCompile>
@@ -108,13 +99,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="World.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
@@ -143,9 +128,6 @@
     </ClInclude>
     <ClInclude Include="Reciever.h">
       <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Contents\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Contents\Actor</Filter>

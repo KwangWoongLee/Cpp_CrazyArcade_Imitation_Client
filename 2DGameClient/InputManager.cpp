@@ -12,6 +12,8 @@ InputManager::InputManager()
 	mBackKey = SDL_SCANCODE_LEFT;
 	mDownKey = SDL_SCANCODE_DOWN;
 	mUpKey = SDL_SCANCODE_UP;
+	mSpaceKey = SDL_SCANCODE_SPACE;
+	mEscKey = SDL_SCANCODE_ESCAPE;
 }
 
 
@@ -87,6 +89,12 @@ void InputManager::Update()
 	else if (mCurrentState.GetKeyValue(SDL_Scancode(mDownKey)) == EPressed)
 	{
 		action = Protocol::Action::ACTION_DOWN;
+	}
+	else if (mCurrentState.GetKeyValue(SDL_Scancode(mSpaceKey)) == EPressed)
+	{
+		action = Protocol::Action::ACTION_ATTACK;
+		mActionList.PushFront(std::make_shared<Action>(action, 1, 1));
+		return;
 	}
 	else
 	{

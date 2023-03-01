@@ -18,7 +18,7 @@ void Block::Init()
 
 
 	gGame->AddSprite(static_pointer_cast<SpriteComponent>(tile));
-	this->AddComponent(tile);
+	AddComponent(tile);
 }
 
 void Block::Die()

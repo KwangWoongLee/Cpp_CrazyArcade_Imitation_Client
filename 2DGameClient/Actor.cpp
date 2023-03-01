@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "World.h"
 
 Actor::Actor()
 	:mState(State::EActive)
@@ -11,6 +10,13 @@ Actor::Actor()
 
 Actor::~Actor()
 {
+	for (auto component : mComponents)
+	{
+		auto sprite = dynamic_pointer_cast<SpriteComponent>(component);
+		if (sprite != nullptr)
+			gGame->RemoveSprite(sprite);
+	}
+
 	mComponents.clear();
 
 	cout << "~Actor" << endl;
@@ -60,6 +66,8 @@ void Actor::Update(float deltaTime)
 	
 	UpdateComponents(deltaTime);
 	UpdateActor(deltaTime);
+
+	mDirtyFlag = false;
 }
 
 void Actor::UpdateComponents(float deltaTime)
@@ -77,26 +85,7 @@ void Actor::WantDie()
 
 void Actor::Die()
 {
-
 }
-//
-//void Actor::ProcessInput(const class KeyboardState& keyState)
-//{
-//	if (mState == State::EActive)
-//	{
-//		for (auto comp : mComponents)
-//		{
-//			comp->ProcessInput(keyState);
-//		}
-//
-//		ActorInput(keyState);
-//	}
-//}
-//
-//void Actor::ActorInput(const class KeyboardState& keyState)
-//{
-//}
-
 void Actor::SetMovingState(MovingState state, bool flag)
 {
 	if (mMovingState == state)

@@ -29,30 +29,6 @@ public:
 	//이미지 파일에서 Texture로 변환
 	SDL_Texture* GetTexture(const std::string& fileName);
 
-	//tilemap 가져오기
-	//bool ReadTileMap(const std::string& fileName);
-	//void AddTile(class TileRef bomb);
-	//void RemoveTile(class TileRef bomb, const Vector2& pos);
-	//Vector<class TileRef>& GetTiles() { return mTiles; }
-	//Vector<Vector<int>>& GetTileMapToInt() { return mTileMapToInt; }
-	//Vector<Vector<Tile::TileType>>& GetTileMapToType() { return mTileMapToType; }
-
-	//게임 구체적 내용
-	//void AddPlayer(class PlayerRef player);
-	//void RemovePlayer(class PlayerRef player);
-	//Vector<class PlayerRef>& GetPlayers() { return mPlayers; }
-
-	//void AddBomb(class BombRef bomb);
-	//void RemoveBomb(class BombRef bomb);
-	//Vector<class BombRef>& GetBombs() { return mBombs; }
-
-	//void AddBoom(class BoomRef boom);
-	//void RemoveBoom(class BoomRef boom);
-	//Vector<class BoomRef>& GetBooms() { return mBooms; }
-
-
-	//bool EnterWorld(ServerSessionRef serverSession, Protocol::S_ENTER_GAME& pkt);
-
 	std::map<uint64, ActorRef> mIdToActor;
 	ActorRef FindActor(uint64 id);
 	uint32		mTicksCount;
@@ -78,13 +54,6 @@ private:
 	// Texture map  <filename, SDL_Texture*> // Texture 재활용을 위한 vector
 	std::map<std::string, SDL_Texture*> mTextures;
 
-	//타일맵
-	std::vector<TileRef> mTiles;
-	std::vector<std::vector<int>> mTileMapToInt;
-	std::vector<std::vector<Tile::TileType>> mTileMapToType;
-	int GetTileSizeX() const { return mTileSizeX; }
-	int GetTileSizeY() const { return mTileSizeY; }
-	void SetTileSizeXY(int x, int y);
 	int GetGameScale() const { return mGameScale; }
 
 	int mTileSizeX;
@@ -106,8 +75,6 @@ private:
 	bool		mIsUpdatingActors;
 	
 	std::vector<PlayerRef> mPlayers;
-	//Vector<BombRef> mBombs;
-	//Vector<BoomRef> mBooms;
 
 };
 

@@ -10,6 +10,10 @@ BlockComponent::BlockComponent(ActorRef owner, int drawOrder)
 	SetTileSizeY(32);
 }
 
+BlockComponent::~BlockComponent()
+{
+}
+
 void BlockComponent::Draw(SDL_Renderer* renderer, int gameScale)
 {
 	if (auto owner = mOwner.lock())

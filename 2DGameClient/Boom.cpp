@@ -1,15 +1,14 @@
 #include "stdafx.h"
 
-Boom::Boom(BoomPosition state)
+Boom::Boom(BoomPosition state, Vector2 pos)
 	: mDeathTimer(0.f)
 	, EBoomPosition(state)
 {
-	
+	SetPosition(pos);
 }
 
 Boom::~Boom()
 {
-	//gGame->RemoveBoom(this);
 }
 
 void Boom::Init()
@@ -45,7 +44,7 @@ void Boom::Init()
 	};
 
 	gGame->AddSprite(static_pointer_cast<SpriteComponent>(anim));
-	this->AddComponent(anim);
+	AddComponent(anim);
 
 	gGame->AddActor(shared_from_this());
 }

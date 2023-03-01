@@ -194,7 +194,6 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Boom.cpp" />
-    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HttpManager.cpp" />
@@ -232,8 +231,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="BlockComponent.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -242,7 +239,6 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Boom.h" />
-    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTypes.h" />
@@ -262,9 +258,7 @@
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="BlockComponent.h" />
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector2.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Include="..\..\TCPServer\Common\Protobuf\bin\Enum.proto" />

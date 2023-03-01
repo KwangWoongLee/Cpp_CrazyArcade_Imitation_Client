@@ -74,13 +74,10 @@
 #include "SpriteComponent.h"
 #include "AnimationComponent.h"
 #include "BlockComponent.h"
-#include "CollisionComponent.h"
 
 #include "Boom.h"
 #include "Bomb.h"
 #include "Player.h"
 #include "Block.h"
-
-#include "Tile.h"
 
 #include "Game.h"

@@ -31,6 +31,8 @@ public:
 	}
 
 	void Push(ActionRef action);
+	void PushFront(ActionRef action);
+
 	ActionRef Pop();
 
 	void Clear() {

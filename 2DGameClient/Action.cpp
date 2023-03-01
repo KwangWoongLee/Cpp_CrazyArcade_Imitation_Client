@@ -8,6 +8,12 @@ void ActionList::Push(ActionRef action)
 	++mActionCount;
 }
 
+void ActionList::PushFront(ActionRef action)
+{
+	mActionList.push_front(action);
+	++mActionCount;
+}
+
 ActionRef ActionList::Pop()
 {
 	if (mActionCount == 0) return nullptr;

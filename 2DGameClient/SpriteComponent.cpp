@@ -11,7 +11,6 @@ SpriteComponent::SpriteComponent(ActorRef owner, int drawOrder)
 
 SpriteComponent::~SpriteComponent()
 {
-	//gGame->RemoveSprite(static_pointer_cast<SpriteComponent>(shared_from_this()));
 }
 
 void SpriteComponent::DrawRect(SDL_Renderer* renderer, int gameScale)
