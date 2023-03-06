@@ -9,10 +9,18 @@
 #include "PacketHandler.h"
 #include "Reciever.h"
 #include "ReplicationManager.h"
+#include "ConfigManager.h"
 
+#include <filesystem>
+using std::filesystem::current_path;
 
 int main(int argc, char** argv)
 {
+	gConfigManager->Init(current_path().string(), "Config\\config.json");
+
+	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();
+	uint16		tcpPort = gConfigManager->Configs["server"]["port"].asInt();
+	uint32		maxSession = gConfigManager->Configs["server"]["maxSession"].asInt();
 	//std::cout << "접속할 방 번호를 입력하세요 : ";
 	//uint64 roomId;
 	//std::cin >> roomId;
@@ -28,12 +36,12 @@ int main(int argc, char** argv)
 		//	HttpManager::remoteHost = host;
 		//	HttpManager::remotePort = port;
 
-		cout << "새로운 100명의 시작 인덱스를 입력하세요 : " << endl;
+		cout << "새로운" << maxSession <<" 명의 시작 인덱스를 입력하세요 : " << endl;
 		uint64 idx;
 
 		cin >> idx;
 
-		for (uint64 i = idx; i < idx+100; ++i)
+		for (uint64 i = idx; i < idx + maxSession; ++i)
 		{
 			gReplicationManager->Dummys.Push(
 				DummyUserInfo{
@@ -47,7 +55,7 @@ int main(int argc, char** argv)
 		}
 
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 500, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); });
 
 		ASSERT_CRASH(client->Init());
 

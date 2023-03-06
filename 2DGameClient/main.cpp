@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <filesystem>
 
 #include "HttpManager.h"
 #include "ServerCore/ThreadManager.h"
@@ -8,10 +9,20 @@
 #include "ServerSession.h"
 #include "PacketHandler.h"
 #include "Reciever.h"
+#include "ConfigManager.h"
+
+using std::filesystem::current_path;
 
 int main(int argc, char** argv)
 {
+	gConfigManager->Init(current_path().string(), "Config\\config.json");
+
+	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();
+	uint16		tcpPort = gConfigManager->Configs["server"]["port"].asInt();
+	uint32		maxSession = gConfigManager->Configs["server"]["maxSession"].asInt();
+
 	//try {
+
 	//	cout << "아이디를 입력하세요 : ";
 	//	string id;
 	//	std::cin >> id;
@@ -43,7 +54,7 @@ int main(int argc, char** argv)
 		ASSERT_CRASH(gGame->Init());
 
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 1, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); });
 
 		ASSERT_CRASH(client->Init());
 

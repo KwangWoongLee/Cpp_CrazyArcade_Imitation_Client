@@ -94,6 +94,7 @@
     <ClCompile Include="Proto\struct.pb.cc">
       <Filter>Proto\contents</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h">
@@ -169,5 +170,6 @@
     <ClInclude Include="Proto\struct.pb.h">
       <Filter>Proto\contents</Filter>
     </ClInclude>
+    <ClInclude Include="ConfigManager.h" />
   </ItemGroup>
 </Project>

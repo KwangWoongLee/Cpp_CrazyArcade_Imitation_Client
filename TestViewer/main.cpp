@@ -6,41 +6,36 @@
 
 #include "ServerSession.h"
 #include "PacketHandler.h"
+#include "ConfigManager.h"
 
+#include <filesystem>
+using std::filesystem::current_path;
 
 
 
 int main(int argc, char** argv)
 {
-	string host = "61.77.43.136";
-	uint32 port = 7777;
+	gConfigManager->Init(current_path().string(), "Config\\config.json");
+
+	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();
+	uint16		tcpPort = gConfigManager->Configs["server"]["port"].asInt();
+	uint32		maxSession = gConfigManager->Configs["server"]["maxSession"].asInt();
+
+	HWND hConsole = GetConsoleWindow();
+	ShowWindow(hConsole, SW_HIDE);
 
 	try {
 		ASSERT_CRASH(gGame->Init());
 
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(host, port, std::make_shared<IOCP>(), 1, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); });
 
 		ASSERT_CRASH(client->Init());
 
-		
-		gThreadManager->AddThread([=]()
-			{
-				while (true)
-				{
-					client->Run();
-				}
-			});
-
 		while (true)
 		{
-			gGame->RunLoop();
-
+			client->Run();
 		}
-
-
-		gThreadManager->Join();
-
 
 	}
 	catch (std::exception& e)

@@ -12,7 +12,7 @@ uint64 HttpManager::nowRoomId = 1;
 
 
 string HttpManager::remoteHost = "61.77.43.136";
-uint16 HttpManager::remotePort = 9999;
+uint16 HttpManager::remotePort = 7777;
 uint64 HttpManager::remoteRoomId = 1;
 
 

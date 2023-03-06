@@ -188,13 +188,10 @@
     <ClCompile Include="..\Libraries\Include\json\jsoncpp.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="HttpManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Proto\enum.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -213,9 +210,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Reciever.cpp" />
     <ClCompile Include="ServerSession.cpp" />
-    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -224,23 +219,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Component.h" />
+    <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTypes.h" />
-    <ClInclude Include="HttpManager.h" />
-    <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="PacketHandler.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Proto\enum.pb.h" />
     <ClInclude Include="Proto\protocol.pb.h" />
     <ClInclude Include="Proto\struct.pb.h" />
-    <ClInclude Include="Reciever.h" />
     <ClInclude Include="ServerSession.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Include="..\..\TCPServer\Common\Protobuf\bin\Enum.proto" />

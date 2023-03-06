@@ -195,6 +195,7 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Boom.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HttpManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Boom.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTypes.h" />
     <ClInclude Include="HttpManager.h" />
