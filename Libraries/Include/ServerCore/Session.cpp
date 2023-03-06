@@ -34,7 +34,7 @@ Session::Session()
 	mSocket = SocketUtil::GetInstance().CreateSocket();
 
 	mSendBuffer = ObjectPool<CircularBuffer>::MakeShared(65535);
-	mRecvBuff = ObjectPool<CircularBuffer>::MakeShared(65535 * 10);
+	mRecvBuff = ObjectPool<CircularBuffer>::MakeShared(65535);
 }
 
 Session::~Session()

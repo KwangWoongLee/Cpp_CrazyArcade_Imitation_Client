@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Reciever.h"
-#include "World.h"
 #include "ServerSession.h"
 
 shared_ptr<Game> gGame = make_shared<Game>();

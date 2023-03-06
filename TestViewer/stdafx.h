@@ -67,3 +67,5 @@
 #include "GameTypes.h"
 
 #include "Game.h"
+
+#define TEST

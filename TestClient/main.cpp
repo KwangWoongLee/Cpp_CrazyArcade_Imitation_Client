@@ -18,9 +18,9 @@ int main(int argc, char** argv)
 {
 	gConfigManager->Init(current_path().string(), "Config\\config.json");
 
-	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();
-	uint16		tcpPort = gConfigManager->Configs["server"]["port"].asInt();
-	uint32		maxSession = gConfigManager->Configs["server"]["maxSession"].asInt();
+	std::string tcpHost = gConfigManager->Configs["test"]["host"].asString();
+	uint16		tcpPort = gConfigManager->Configs["test"]["port"].asInt();
+	uint32		maxSession = gConfigManager->Configs["test"]["maxSession"].asInt();
 	//std::cout << "접속할 방 번호를 입력하세요 : ";
 	//uint64 roomId;
 	//std::cin >> roomId;

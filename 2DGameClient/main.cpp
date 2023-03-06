@@ -15,6 +15,10 @@ using std::filesystem::current_path;
 
 int main(int argc, char** argv)
 {
+	HWND hConsole = GetConsoleWindow();
+	ShowWindow(hConsole, SW_SHOW);
+
+
 	gConfigManager->Init(current_path().string(), "Config\\config.json");
 
 	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();

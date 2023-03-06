@@ -235,7 +235,6 @@
     </ClCompile>
     <ClCompile Include="BlockComponent.cpp" />
     <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -268,7 +267,6 @@
     <ClInclude Include="BlockComponent.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector2.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Include="..\..\TCPServer\Common\Protobuf\bin\Enum.proto" />

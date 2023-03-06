@@ -83,3 +83,5 @@
 #include "Tile.h"
 
 #include "Game.h"
+
+#define TEST

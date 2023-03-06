@@ -26,9 +26,8 @@ bool ConfigManager::Init(std::string_view projectPath, std::string_view fileName
 	}
 
 	Configs["server"] = root["server"];
-	Configs["grpc"] = root["grpc"];
-	Configs["db"] = root["db"];
-	Configs["redis"] = root["redis"];
+	Configs["test"] = root["test"];
+	Configs["web"] = root["web"];
 
 	cout << "Configuration File Name Is " << oss.str() << endl;
 

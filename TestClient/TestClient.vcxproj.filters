@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="World.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -112,9 +109,6 @@
     <ClCompile Include="ConfigManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="World.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="AnimationComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
