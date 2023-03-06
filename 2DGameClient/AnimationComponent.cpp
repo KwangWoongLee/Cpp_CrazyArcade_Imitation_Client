@@ -14,44 +14,44 @@ void AnimationComponent::Update(float deltaTime)
 
 	if (auto owner = mOwner.lock())
 	{
-		if (owner->GetMovingState() == Actor::MovingState::EIdle)
+		if (owner->GetMovingState() == MovingState::EIdle)
 		{
 			mAnimTexture = mAnimTextures.find("idle")->second;
 			mFrameX = 1;
 		}
-		else if (owner->GetMovingState() == Actor::MovingState::EDown)
+		else if (owner->GetMovingState() == MovingState::EDown)
 		{
 			mAnimTexture = mAnimTextures.find("down")->second;
 			mFrameX = 8;
 		}
-		else if (owner->GetMovingState() == Actor::MovingState::EUp)
+		else if (owner->GetMovingState() == MovingState::EUp)
 		{
 			mAnimTexture = mAnimTextures.find("up")->second;
 			mFrameX = 8;
 		}
-		else if (owner->GetMovingState() == Actor::MovingState::ERight)
+		else if (owner->GetMovingState() == MovingState::ERight)
 		{
 			mAnimTexture = mAnimTextures.find("right")->second;
 			mFrameX = 6;
 		}
-		else if (owner->GetMovingState() == Actor::MovingState::ELeft)
+		else if (owner->GetMovingState() == MovingState::ELeft)
 		{
 			mAnimTexture = mAnimTextures.find("left")->second;
 			mFrameX = 6;
 		}
 
-		if (owner->GetState() == Actor::State::EBubble)
+		if (owner->GetState() == State::EBubble)
 		{
 			mAnimTexture = mAnimTextures.find("bubble")->second;
 			mFrameX = 16;
 		}
-		else if (owner->GetState() == Actor::State::ETempDie)
+		else if (owner->GetState() == State::ETempDie)
 		{
 			mAnimTexture = mAnimTextures.find("tempdie")->second;
 			mFrameX = 13;
 		}
 
-		if (owner->GetMovingState() == Actor::MovingState::EStop && owner->GetState() == Actor::State::EActive)
+		if (owner->GetMovingState() == MovingState::EStop && owner->GetState() == State::EActive)
 		{
 			mCurrFrame = 0.f;
 		}

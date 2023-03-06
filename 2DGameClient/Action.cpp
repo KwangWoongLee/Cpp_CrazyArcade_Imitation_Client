@@ -4,12 +4,24 @@
 
 void ActionList::Push(ActionRef action)
 {
+	if (mActionList.size() > 0)
+	{
+		if (mActionList[mActionList.size()-1] == action)
+			return;
+	}
+
 	mActionList.push_back(action);
 	++mActionCount;
 }
 
 void ActionList::PushFront(ActionRef action)
 {
+	if (mActionList.size() > 0)
+	{
+		if (mActionList[0] == action)
+			return;
+	}
+
 	mActionList.push_front(action);
 	++mActionCount;
 }

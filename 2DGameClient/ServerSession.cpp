@@ -5,14 +5,13 @@
 #include "PacketHandler.h"
 #include "PacketFactory.h"
 #include "HttpManager.h"
-#include "SendTimer.h"
+#include "Actor.h"
 
 void ServerSession::OnConnected()
 {
 	auto serverSessionRef = static_pointer_cast<ServerSession>(shared_from_this());
 	gReciever->SetSession(serverSessionRef);
 	gInputManager->SetSession(serverSessionRef);
-	gSendTimer->session = serverSessionRef;
 
 	Protocol::C_ENTER_GAME enterGamePkt;
 	enterGamePkt.set_aidx(HttpManager::aidx);
@@ -50,7 +49,8 @@ void ServerSession::OnSend(uint32 transferred)
 
 void ServerSession::OnDisconnected()
 {
+	cout << "Disconnect" << endl;
 	//리커넥트 or 종료
 	mPlayer = nullptr;
-	gGame->Shutdown();
+	gGame->RoomQuit();
 }

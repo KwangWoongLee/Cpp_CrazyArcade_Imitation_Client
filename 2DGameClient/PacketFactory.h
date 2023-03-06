@@ -46,13 +46,20 @@ public:
 			packetRef->packet = std::make_shared<Protocol::S_ACTION>();
 			break;
 		}
-
+		case 5:
+		{
+			packetRef->packet = std::make_shared<Protocol::S_LEAVE_GAME>();
+			break;
+		}
 
 
 
 		default:
 			break;
 		}
+
+		if (packetRef->packet == nullptr) 
+			return nullptr;
 
 		if (false == packetRef->packet->ParseFromCodedStream(&payloadInputStream))
 		{

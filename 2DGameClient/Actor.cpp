@@ -18,8 +18,6 @@ Actor::~Actor()
 	}
 
 	mComponents.clear();
-
-	cout << "~Actor" << endl;
 }
 
 void Actor::MoveNextPosition(Protocol::Action action)
@@ -32,23 +30,23 @@ void Actor::MoveNextPosition(Protocol::Action action)
 	switch (action)
 	{
 	case Protocol::Action::ACTION_DOWN:
-		SetMovingState(Actor::MovingState::EDown);
+		SetMovingState(MovingState::EDown);
 		hopeY +=  actorSpeed * 1.f;
 		break;
 	case Protocol::Action::ACTION_UP:
-		SetMovingState(Actor::MovingState::EUp);
+		SetMovingState(MovingState::EUp);
 		hopeY -= actorSpeed * 1.f;
 		break;
 	case Protocol::Action::ACTION_LEFT:
-		SetMovingState(Actor::MovingState::ELeft);
+		SetMovingState(MovingState::ELeft);
 		hopeX -= actorSpeed * 1.f;
 		break;
 	case Protocol::Action::ACTION_RIGHT:
-		SetMovingState(Actor::MovingState::ERight);
+		SetMovingState(MovingState::ERight);
 		hopeX += actorSpeed * 1.f;
 		break;
 	default:
-		SetMovingState(Actor::MovingState::EStop);
+		SetMovingState(MovingState::EStop);
 		break;
 	}
 

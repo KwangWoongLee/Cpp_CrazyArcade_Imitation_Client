@@ -26,6 +26,8 @@ public:
 	void AddSprite(SpriteComponentRef sprite);
 	void RemoveSprite(SpriteComponentRef sprite);
 
+	void RoomQuit();
+
 	//이미지 파일에서 Texture로 변환
 	SDL_Texture* GetTexture(const std::string& fileName);
 
@@ -74,7 +76,7 @@ private:
 	//Actor 업데이트 완료 확인 판단
 	bool		mIsUpdatingActors;
 	
-	std::vector<PlayerRef> mPlayers;
+	std::vector<ActorRef> mPlayers;
 
 };
 

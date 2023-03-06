@@ -9,6 +9,7 @@ Player::Player()
 
 Player::~Player()
 {
+	cout << "~Player()" << endl;
 }
 
 void Player::Init()
@@ -32,7 +33,7 @@ void Player::Init()
 	asc->AddAnimTextures("tempdie", tempdie);
 
 	asc->SetAnimTexture(down, 8);
-	SetMovingState(Actor::MovingState::EIdle);
+	SetMovingState(MovingState::EIdle);
 
 	gGame->AddSprite(static_pointer_cast<SpriteComponent>(asc));
 	this->AddComponent(asc);
@@ -45,7 +46,7 @@ void Player::Die()
 
 void Player::UpdateActor(float deltaTime)
 {
-	if (mDirtyFlag == false) SetMovingState(Actor::MovingState::EStop);
+	if (mDirtyFlag == false) SetMovingState(MovingState::EStop);
 
 
 	if (GetState() == State::ETempDie)
@@ -66,5 +67,5 @@ void Player::SetBubbleToLive()
 {
 	mDeathTimer = 0.f;
 	SetState(State::EActive);
-	SetMovingState(Actor::MovingState::EIdle);
+	SetMovingState(MovingState::EIdle);
 }

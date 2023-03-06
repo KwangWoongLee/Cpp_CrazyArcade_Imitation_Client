@@ -2,6 +2,7 @@
 #include "Reciever.h"
 #include "ServerSession.h"
 
+
 shared_ptr<Game> gGame = make_shared<Game>();
 
 Game::Game()
@@ -123,10 +124,7 @@ void Game::RunLoop()
 
 	ProcessInput();
 	ProcessRecv();
-	if (OnNetwork == false) 
-		return;
 	gInputManager->Send();
-
 	UpdateGame(deltaTime);
 	GenerateOutput();
 }
@@ -179,13 +177,13 @@ void Game::UpdateGame(float deltaTime)
 		ActorRef actor = mActors[i];
 
 
-		if (actor->GetState() != Actor::State::WANT_DIE)
+		if (actor->GetState() != State::WANT_DIE)
 		{
 			actor->Update(deltaTime);
 		}
 
 		//그 사이에 죽을 때
-		if (actor->GetState() == Actor::State::WANT_DIE)
+		if (actor->GetState() == State::WANT_DIE)
 		{
 			actor->Die();
 			RemoveActor(actor);
@@ -226,6 +224,9 @@ void Game::Shutdown()
 
 void Game::AddActor(ActorRef actor)
 {
+	if (actor->mType == Protocol::ACTOR_TYPE_PLAYER)
+		mPlayers.push_back(actor);
+
 	mIdToActor[actor->GetServerId()] = actor;
 	
 	//Actor 업데이트 중이라면, 임시Actor Vector에 Pending
@@ -284,6 +285,18 @@ void Game::RemoveSprite(SpriteComponentRef sprite)
 {
 	auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
 	mSprites.erase(iter);
+}
+
+void Game::RoomQuit()
+{
+	auto iter = mPlayers.begin();
+	for (; iter != mPlayers.end();)
+	{
+		RemoveActor(*iter);
+		iter = mPlayers.erase(iter);
+	}
+
+
 }
 
 SDL_Texture* Game::GetTexture(const std::string& fileName)

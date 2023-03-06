@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 		}
 
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 100, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(HttpManager::remoteHost, HttpManager::remotePort, std::make_shared<IOCP>(), 500, []() { return std::make_shared<ServerSession>(); });
 
 		ASSERT_CRASH(client->Init());
 

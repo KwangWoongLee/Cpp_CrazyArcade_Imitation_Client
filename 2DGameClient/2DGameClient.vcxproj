@@ -221,7 +221,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Reciever.cpp" />
-    <ClCompile Include="SendTimer.cpp" />
     <ClCompile Include="ServerSession.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -252,7 +251,6 @@
     <ClInclude Include="Proto\protocol.pb.h" />
     <ClInclude Include="Proto\struct.pb.h" />
     <ClInclude Include="Reciever.h" />
-    <ClInclude Include="SendTimer.h" />
     <ClInclude Include="ServerSession.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpriteComponent.h" />

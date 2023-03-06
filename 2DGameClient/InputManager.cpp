@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "InputManager.h"
 #include "ServerSession.h"
-#include "SendTimer.h"
 
 shared_ptr<InputManager> gInputManager = std::make_shared<InputManager>();
 
@@ -68,6 +67,7 @@ ButtonState KeyboardState::GetKeyState(SDL_Scancode keyCode) const
 
 void InputManager::Update()
 {
+	if (Stop == true) return;
 	
 	Protocol::Action action = Protocol::Action::ACTION_NONE;
 
@@ -94,6 +94,7 @@ void InputManager::Update()
 	{
 		action = Protocol::Action::ACTION_ATTACK;
 		mActionList.PushFront(std::make_shared<Action>(action, 1, 1));
+
 		return;
 	}
 	else
@@ -107,6 +108,8 @@ void InputManager::Update()
 
 void InputManager::Send()
 {
+	if (Stop == true) return;
+
 	if (mActionList.IsEmpty() == false)
 	{
 		Protocol::C_ACTION actionPkt;

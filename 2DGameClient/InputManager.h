@@ -46,7 +46,8 @@ public:
 
 	void				Update();
 	void				Send();
-	
+
+	bool	Stop = true;
 private:
 	ServerSessionRef mServerSession;
 
@@ -56,7 +57,6 @@ private:
 	ActionList		mActionList;
 	float			mNextTimeToSampleInput;
 	ActionRef mPendingAction;
-
 
 
 	uint8_t	mForwardKey;

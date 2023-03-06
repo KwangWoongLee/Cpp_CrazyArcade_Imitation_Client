@@ -1,29 +1,29 @@
 #pragma once
 #include "stdafx.h"
 #include "Proto/protocol.pb.h"
+enum class State
+{
+	EActive,
+	EBubble,
+	ETempDie,
+	EDead,
+	WANT_DIE,
+};
 
+enum class MovingState
+{
+	ENone,
+	EIdle,
+	ELeft,
+	ERight,
+	EUp,
+	EDown,
+	EStop
+};
 class Actor : public enable_shared_from_this<Actor>
 {
 public:
-	enum class State
-	{
-		EActive,
-		EBubble,
-		ETempDie,
-		EDead,
-		WANT_DIE,
-	};
 
-	enum class MovingState
-	{
-		ENone,
-		EIdle,
-		ELeft,
-		ERight,
-		EUp,
-		EDown,
-		EStop
-	};
 
 public:
 	Actor();

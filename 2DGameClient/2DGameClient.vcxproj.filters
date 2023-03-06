@@ -85,9 +85,6 @@
     <ClCompile Include="..\Libraries\Include\json\jsoncpp.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="SendTimer.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
     <ClCompile Include="Proto\enum.pb.cc">
       <Filter>Proto\contents</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
       <Filter>Contents</Filter>
     </ClInclude>
     <ClInclude Include="HttpManager.h" />
-    <ClInclude Include="SendTimer.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="Proto\enum.pb.h">
       <Filter>Proto\contents</Filter>
     </ClInclude>

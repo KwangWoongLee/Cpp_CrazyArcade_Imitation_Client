@@ -8,10 +8,6 @@
 #include "ServerSession.h"
 #include "PacketHandler.h"
 #include "Reciever.h"
-#include "SendTimer.h"
-
-
-
 
 int main(int argc, char** argv)
 {
