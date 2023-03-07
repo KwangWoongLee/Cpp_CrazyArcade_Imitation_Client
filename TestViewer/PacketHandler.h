@@ -6,5 +6,6 @@ class PacketHandler
 {
 public:
 	static void Init();
+	static void S_PING(PacketSessionRef, PacketHeader, google::protobuf::io::CodedInputStream&);
 	static void S_TEST(PacketSessionRef, PacketHeader, google::protobuf::io::CodedInputStream&);
 };

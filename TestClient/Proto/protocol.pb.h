@@ -1326,9 +1326,10 @@ class S_DESPAWN final :
 // -------------------------------------------------------------------
 
 class S_PING final :
-    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.S_PING) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_PING) */ {
  public:
   inline S_PING() : S_PING(nullptr) {}
+  ~S_PING() override;
   explicit PROTOBUF_CONSTEXPR S_PING(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
   S_PING(const S_PING& from);
@@ -1401,15 +1402,29 @@ class S_PING final :
   S_PING* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<S_PING>(arena);
   }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
-  inline void CopyFrom(const S_PING& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_PING& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_PING& from) {
+    S_PING::MergeImpl(*this, from);
   }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
-  void MergeFrom(const S_PING& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
-  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
   public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_PING* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
@@ -1430,6 +1445,18 @@ class S_PING final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kTickFieldNumber = 1,
+  };
+  // uint64 tick = 1;
+  void clear_tick();
+  uint64_t tick() const;
+  void set_tick(uint64_t value);
+  private:
+  uint64_t _internal_tick() const;
+  void _internal_set_tick(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_PING)
  private:
   class _Internal;
@@ -1438,7 +1465,10 @@ class S_PING final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    uint64_t tick_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
+  union { Impl_ _impl_; };
   friend struct ::TableStruct_protocol_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2284,6 +2314,26 @@ S_DESPAWN::actors() const {
 // -------------------------------------------------------------------
 
 // S_PING
+
+// uint64 tick = 1;
+inline void S_PING::clear_tick() {
+  _impl_.tick_ = uint64_t{0u};
+}
+inline uint64_t S_PING::_internal_tick() const {
+  return _impl_.tick_;
+}
+inline uint64_t S_PING::tick() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_PING.tick)
+  return _internal_tick();
+}
+inline void S_PING::_internal_set_tick(uint64_t value) {
+  
+  _impl_.tick_ = value;
+}
+inline void S_PING::set_tick(uint64_t value) {
+  _internal_set_tick(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_PING.tick)
+}
 
 // -------------------------------------------------------------------
 

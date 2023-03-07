@@ -8,6 +8,8 @@
 #include "PacketHandler.h"
 #include "ConfigManager.h"
 
+#include "Proto/protocol.pb.h"
+
 #include <filesystem>
 using std::filesystem::current_path;
 
@@ -20,23 +22,26 @@ int main(int argc, char** argv)
 	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();
 	uint16		tcpPort = gConfigManager->Configs["server"]["port"].asInt();
 	uint32		maxSession = gConfigManager->Configs["server"]["maxSession"].asInt();
+	uint32		viewSize = gConfigManager->Configs["server"]["viewSize"].asInt();
 
 	HWND hConsole = GetConsoleWindow();
-	ShowWindow(hConsole, SW_HIDE);
+	ShowWindow(hConsole, SW_SHOW);
 
 	try {
+		gGame->viewSize = viewSize;
 		ASSERT_CRASH(gGame->Init());
+
 
 		PacketHandler::Init();
 		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); });
 
 		ASSERT_CRASH(client->Init());
 
+
 		while (true)
 		{
 			client->Run();
 		}
-
 	}
 	catch (std::exception& e)
 	{

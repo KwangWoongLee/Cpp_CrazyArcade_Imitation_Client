@@ -14,11 +14,18 @@ public:
 
 	std::atomic<bool> OnNetwork = false;
 
+	uint32		viewSize;
+	uint64		mLastSendTick;
+	uint64		delayTick;
 private:
 	//SDL 윈도우
 	SDL_Window*	mWindow;
 	//SDL 렌더러
 	SDL_Renderer* mRenderer;
+	//TTF FONT
+	TTF_Font* font;
+	// ViewTexture
+	SDL_Texture* mViewTexture;
 
 };
 
