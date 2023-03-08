@@ -22,15 +22,15 @@ void PacketHandler::Init()
 void PacketHandler::S_PING(ServerSessionRef session, PacketRef packet)
 {
 	Protocol::C_PONG pongPkt;
-	session->Send(0, pongPkt);
+	//session->Send(0, pongPkt);
 }
 
 void PacketHandler::S_ENTER_GAME(ServerSessionRef session, PacketRef packet)
 {
-	cout << "Server Enter Complete !" << endl;
 	auto pkt = static_pointer_cast<Protocol::S_ENTER_GAME>(packet->packet);
 	session->mPlayerId = pkt->myplayerid();
 
+	cout << "Server Enter Complete !" << session->mPlayerId << endl;
 	gGame->OnNetwork = true;
 	gInputManager->Stop = false;
 }
