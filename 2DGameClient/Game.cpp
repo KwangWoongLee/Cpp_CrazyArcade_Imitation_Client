@@ -27,7 +27,7 @@ bool Game::Init()
 	}
 
 	// SDL 윈도우 생성
-	mWindow = SDL_CreateWindow("2d Game Client", 270, 50, mGameScale * (mMapRange[1] - 1) * mTileSizeX, mGameScale * (mMapRange[3] - 1) * mTileSizeY , 0);
+	mWindow = SDL_CreateWindow("2d Game Client", 300, 300, mGameScale * (mMapRange[1] - 1) * mTileSizeX, mGameScale * (mMapRange[3] - 1) * mTileSizeY , 0);
 	if (!mWindow)
 	{
 		SDL_Log("Failed to create window: %s", SDL_GetError());
@@ -106,6 +106,11 @@ void Game::UnloadData()
 
 void Game::RunLoop()
 {
+	if (gGame->SHUTDOWN == true) {
+		return;
+	}
+	
+
 	//프레임 제한 - 마지막 프레임 이후 델타시간이 목표보다 적을경우 해당 시간(16ms)까지 대기
 	//실행환경이 달라 FPS가 달라지면 동작이 달라질 수 있기 때문에 사용
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 100))
@@ -284,7 +289,8 @@ void Game::AddSprite(SpriteComponentRef sprite)
 void Game::RemoveSprite(SpriteComponentRef sprite)
 {
 	auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
-	mSprites.erase(iter);
+	if(iter != mSprites.end())
+		mSprites.erase(iter);
 }
 
 void Game::RoomQuit()
@@ -296,6 +302,7 @@ void Game::RoomQuit()
 		iter = mPlayers.erase(iter);
 	}
 
+	SHUTDOWN = true;
 
 }
 

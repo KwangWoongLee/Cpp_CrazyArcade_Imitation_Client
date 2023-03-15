@@ -51,12 +51,6 @@ extern CreateRoomRequestDefaultTypeInternal _CreateRoomRequest_default_instance_
 class CreateRoomResponse;
 struct CreateRoomResponseDefaultTypeInternal;
 extern CreateRoomResponseDefaultTypeInternal _CreateRoomResponse_default_instance_;
-class CreateRoomTCPRequest;
-struct CreateRoomTCPRequestDefaultTypeInternal;
-extern CreateRoomTCPRequestDefaultTypeInternal _CreateRoomTCPRequest_default_instance_;
-class CreateRoomTCPResponse;
-struct CreateRoomTCPResponseDefaultTypeInternal;
-extern CreateRoomTCPResponseDefaultTypeInternal _CreateRoomTCPResponse_default_instance_;
 class EnterRoomRequest;
 struct EnterRoomRequestDefaultTypeInternal;
 extern EnterRoomRequestDefaultTypeInternal _EnterRoomRequest_default_instance_;
@@ -69,6 +63,12 @@ extern GetRoomListRequestDefaultTypeInternal _GetRoomListRequest_default_instanc
 class GetRoomListResponse;
 struct GetRoomListResponseDefaultTypeInternal;
 extern GetRoomListResponseDefaultTypeInternal _GetRoomListResponse_default_instance_;
+class GetServerListRequest;
+struct GetServerListRequestDefaultTypeInternal;
+extern GetServerListRequestDefaultTypeInternal _GetServerListRequest_default_instance_;
+class GetServerListResponse;
+struct GetServerListResponseDefaultTypeInternal;
+extern GetServerListResponseDefaultTypeInternal _GetServerListResponse_default_instance_;
 class LeaveRoomRequest;
 struct LeaveRoomRequestDefaultTypeInternal;
 extern LeaveRoomRequestDefaultTypeInternal _LeaveRoomRequest_default_instance_;
@@ -96,6 +96,12 @@ extern ResponseDefaultTypeInternal _Response_default_instance_;
 class RoomInfo;
 struct RoomInfoDefaultTypeInternal;
 extern RoomInfoDefaultTypeInternal _RoomInfo_default_instance_;
+class RoomJobTCPRequest;
+struct RoomJobTCPRequestDefaultTypeInternal;
+extern RoomJobTCPRequestDefaultTypeInternal _RoomJobTCPRequest_default_instance_;
+class RoomJobTCPResponse;
+struct RoomJobTCPResponseDefaultTypeInternal;
+extern RoomJobTCPResponseDefaultTypeInternal _RoomJobTCPResponse_default_instance_;
 class RoomList;
 struct RoomListDefaultTypeInternal;
 extern RoomListDefaultTypeInternal _RoomList_default_instance_;
@@ -111,12 +117,12 @@ extern StartGameRequestDefaultTypeInternal _StartGameRequest_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::CreateRoomRequest* Arena::CreateMaybeMessage<::CreateRoomRequest>(Arena*);
 template<> ::CreateRoomResponse* Arena::CreateMaybeMessage<::CreateRoomResponse>(Arena*);
-template<> ::CreateRoomTCPRequest* Arena::CreateMaybeMessage<::CreateRoomTCPRequest>(Arena*);
-template<> ::CreateRoomTCPResponse* Arena::CreateMaybeMessage<::CreateRoomTCPResponse>(Arena*);
 template<> ::EnterRoomRequest* Arena::CreateMaybeMessage<::EnterRoomRequest>(Arena*);
 template<> ::EnterRoomResponse* Arena::CreateMaybeMessage<::EnterRoomResponse>(Arena*);
 template<> ::GetRoomListRequest* Arena::CreateMaybeMessage<::GetRoomListRequest>(Arena*);
 template<> ::GetRoomListResponse* Arena::CreateMaybeMessage<::GetRoomListResponse>(Arena*);
+template<> ::GetServerListRequest* Arena::CreateMaybeMessage<::GetServerListRequest>(Arena*);
+template<> ::GetServerListResponse* Arena::CreateMaybeMessage<::GetServerListResponse>(Arena*);
 template<> ::LeaveRoomRequest* Arena::CreateMaybeMessage<::LeaveRoomRequest>(Arena*);
 template<> ::PUser* Arena::CreateMaybeMessage<::PUser>(Arena*);
 template<> ::RegistServerRequest* Arena::CreateMaybeMessage<::RegistServerRequest>(Arena*);
@@ -126,6 +132,8 @@ template<> ::RemoveServerRequest* Arena::CreateMaybeMessage<::RemoveServerReques
 template<> ::Request* Arena::CreateMaybeMessage<::Request>(Arena*);
 template<> ::Response* Arena::CreateMaybeMessage<::Response>(Arena*);
 template<> ::RoomInfo* Arena::CreateMaybeMessage<::RoomInfo>(Arena*);
+template<> ::RoomJobTCPRequest* Arena::CreateMaybeMessage<::RoomJobTCPRequest>(Arena*);
+template<> ::RoomJobTCPResponse* Arena::CreateMaybeMessage<::RoomJobTCPResponse>(Arena*);
 template<> ::RoomList* Arena::CreateMaybeMessage<::RoomList>(Arena*);
 template<> ::ServerInfo* Arena::CreateMaybeMessage<::ServerInfo>(Arena*);
 template<> ::ServerInfoList* Arena::CreateMaybeMessage<::ServerInfoList>(Arena*);
@@ -525,6 +533,8 @@ class ServerInfo final :
     kRegionFieldNumber = 3,
     kRoomListFieldNumber = 4,
     kPortFieldNumber = 2,
+    kServerIdFieldNumber = 5,
+    kUserCountFieldNumber = 6,
   };
   // string host = 1;
   void clear_host();
@@ -581,6 +591,24 @@ class ServerInfo final :
   void _internal_set_port(uint32_t value);
   public:
 
+  // uint32 serverId = 5;
+  void clear_serverid();
+  uint32_t serverid() const;
+  void set_serverid(uint32_t value);
+  private:
+  uint32_t _internal_serverid() const;
+  void _internal_set_serverid(uint32_t value);
+  public:
+
+  // uint32 userCount = 6;
+  void clear_usercount();
+  uint32_t usercount() const;
+  void set_usercount(uint32_t value);
+  private:
+  uint32_t _internal_usercount() const;
+  void _internal_set_usercount(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ServerInfo)
  private:
   class _Internal;
@@ -593,6 +621,8 @@ class ServerInfo final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr region_;
     ::RoomList* roomlist_;
     uint32_t port_;
+    uint32_t serverid_;
+    uint32_t usercount_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1546,6 +1576,7 @@ class RoomInfo final :
     kNowMemberCountFieldNumber = 6,
     kRoomIdFieldNumber = 7,
     kLockedFieldNumber = 8,
+    kOwnerServerIdFieldNumber = 9,
   };
   // string title = 2;
   void clear_title();
@@ -1624,6 +1655,15 @@ class RoomInfo final :
   void _internal_set_locked(bool value);
   public:
 
+  // uint32 ownerServerId = 9;
+  void clear_ownerserverid();
+  uint32_t ownerserverid() const;
+  void set_ownerserverid(uint32_t value);
+  private:
+  uint32_t _internal_ownerserverid() const;
+  void _internal_set_ownerserverid(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:RoomInfo)
  private:
   class _Internal;
@@ -1640,6 +1680,282 @@ class RoomInfo final :
     uint32_t nowmembercount_;
     uint64_t roomid_;
     bool locked_;
+    uint32_t ownerserverid_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_match_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetServerListRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:GetServerListRequest) */ {
+ public:
+  inline GetServerListRequest() : GetServerListRequest(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR GetServerListRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetServerListRequest(const GetServerListRequest& from);
+  GetServerListRequest(GetServerListRequest&& from) noexcept
+    : GetServerListRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetServerListRequest& operator=(const GetServerListRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetServerListRequest& operator=(GetServerListRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetServerListRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetServerListRequest* internal_default_instance() {
+    return reinterpret_cast<const GetServerListRequest*>(
+               &_GetServerListRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(GetServerListRequest& a, GetServerListRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetServerListRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetServerListRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetServerListRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetServerListRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const GetServerListRequest& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const GetServerListRequest& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetServerListRequest";
+  }
+  protected:
+  explicit GetServerListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:GetServerListRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+  };
+  friend struct ::TableStruct_match_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetServerListResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetServerListResponse) */ {
+ public:
+  inline GetServerListResponse() : GetServerListResponse(nullptr) {}
+  ~GetServerListResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetServerListResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetServerListResponse(const GetServerListResponse& from);
+  GetServerListResponse(GetServerListResponse&& from) noexcept
+    : GetServerListResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetServerListResponse& operator=(const GetServerListResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetServerListResponse& operator=(GetServerListResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetServerListResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetServerListResponse* internal_default_instance() {
+    return reinterpret_cast<const GetServerListResponse*>(
+               &_GetServerListResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(GetServerListResponse& a, GetServerListResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetServerListResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetServerListResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetServerListResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetServerListResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetServerListResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const GetServerListResponse& from) {
+    GetServerListResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetServerListResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetServerListResponse";
+  }
+  protected:
+  explicit GetServerListResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kServerInfosFieldNumber = 1,
+  };
+  // repeated .ServerInfo serverInfos = 1;
+  int serverinfos_size() const;
+  private:
+  int _internal_serverinfos_size() const;
+  public:
+  void clear_serverinfos();
+  ::ServerInfo* mutable_serverinfos(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ServerInfo >*
+      mutable_serverinfos();
+  private:
+  const ::ServerInfo& _internal_serverinfos(int index) const;
+  ::ServerInfo* _internal_add_serverinfos();
+  public:
+  const ::ServerInfo& serverinfos(int index) const;
+  ::ServerInfo* add_serverinfos();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ServerInfo >&
+      serverinfos() const;
+
+  // @@protoc_insertion_point(class_scope:GetServerListResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ServerInfo > serverinfos_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1695,7 +2011,7 @@ class GetRoomListRequest final :
                &_GetRoomListRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(GetRoomListRequest& a, GetRoomListRequest& b) {
     a.Swap(&b);
@@ -1848,7 +2164,7 @@ class CreateRoomRequest final :
                &_CreateRoomRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(CreateRoomRequest& a, CreateRoomRequest& b) {
     a.Swap(&b);
@@ -2061,7 +2377,7 @@ class CreateRoomResponse final :
                &_CreateRoomResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(CreateRoomResponse& a, CreateRoomResponse& b) {
     a.Swap(&b);
@@ -2161,24 +2477,24 @@ class CreateRoomResponse final :
 };
 // -------------------------------------------------------------------
 
-class CreateRoomTCPRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CreateRoomTCPRequest) */ {
+class RoomJobTCPRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RoomJobTCPRequest) */ {
  public:
-  inline CreateRoomTCPRequest() : CreateRoomTCPRequest(nullptr) {}
-  ~CreateRoomTCPRequest() override;
-  explicit PROTOBUF_CONSTEXPR CreateRoomTCPRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline RoomJobTCPRequest() : RoomJobTCPRequest(nullptr) {}
+  ~RoomJobTCPRequest() override;
+  explicit PROTOBUF_CONSTEXPR RoomJobTCPRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  CreateRoomTCPRequest(const CreateRoomTCPRequest& from);
-  CreateRoomTCPRequest(CreateRoomTCPRequest&& from) noexcept
-    : CreateRoomTCPRequest() {
+  RoomJobTCPRequest(const RoomJobTCPRequest& from);
+  RoomJobTCPRequest(RoomJobTCPRequest&& from) noexcept
+    : RoomJobTCPRequest() {
     *this = ::std::move(from);
   }
 
-  inline CreateRoomTCPRequest& operator=(const CreateRoomTCPRequest& from) {
+  inline RoomJobTCPRequest& operator=(const RoomJobTCPRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline CreateRoomTCPRequest& operator=(CreateRoomTCPRequest&& from) noexcept {
+  inline RoomJobTCPRequest& operator=(RoomJobTCPRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2201,20 +2517,20 @@ class CreateRoomTCPRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const CreateRoomTCPRequest& default_instance() {
+  static const RoomJobTCPRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const CreateRoomTCPRequest* internal_default_instance() {
-    return reinterpret_cast<const CreateRoomTCPRequest*>(
-               &_CreateRoomTCPRequest_default_instance_);
+  static inline const RoomJobTCPRequest* internal_default_instance() {
+    return reinterpret_cast<const RoomJobTCPRequest*>(
+               &_RoomJobTCPRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
-  friend void swap(CreateRoomTCPRequest& a, CreateRoomTCPRequest& b) {
+  friend void swap(RoomJobTCPRequest& a, RoomJobTCPRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateRoomTCPRequest* other) {
+  inline void Swap(RoomJobTCPRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2227,7 +2543,7 @@ class CreateRoomTCPRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(CreateRoomTCPRequest* other) {
+  void UnsafeArenaSwap(RoomJobTCPRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2235,14 +2551,14 @@ class CreateRoomTCPRequest final :
 
   // implements Message ----------------------------------------------
 
-  CreateRoomTCPRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CreateRoomTCPRequest>(arena);
+  RoomJobTCPRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RoomJobTCPRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CreateRoomTCPRequest& from);
+  void CopyFrom(const RoomJobTCPRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CreateRoomTCPRequest& from) {
-    CreateRoomTCPRequest::MergeImpl(*this, from);
+  void MergeFrom( const RoomJobTCPRequest& from) {
+    RoomJobTCPRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -2260,15 +2576,15 @@ class CreateRoomTCPRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(CreateRoomTCPRequest* other);
+  void InternalSwap(RoomJobTCPRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "CreateRoomTCPRequest";
+    return "RoomJobTCPRequest";
   }
   protected:
-  explicit CreateRoomTCPRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit RoomJobTCPRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2284,8 +2600,9 @@ class CreateRoomTCPRequest final :
   enum : int {
     kRegionFieldNumber = 1,
     kRoomIdFieldNumber = 3,
-    kTcpRoomIdFieldNumber = 4,
     kServerIdFieldNumber = 2,
+    kRoomStartFieldNumber = 5,
+    kTcpRoomIdFieldNumber = 4,
   };
   // string region = 1;
   void clear_region();
@@ -2310,15 +2627,6 @@ class CreateRoomTCPRequest final :
   void _internal_set_roomid(uint64_t value);
   public:
 
-  // uint64 tcpRoomId = 4;
-  void clear_tcproomid();
-  uint64_t tcproomid() const;
-  void set_tcproomid(uint64_t value);
-  private:
-  uint64_t _internal_tcproomid() const;
-  void _internal_set_tcproomid(uint64_t value);
-  public:
-
   // uint32 serverId = 2;
   void clear_serverid();
   uint32_t serverid() const;
@@ -2328,7 +2636,25 @@ class CreateRoomTCPRequest final :
   void _internal_set_serverid(uint32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:CreateRoomTCPRequest)
+  // bool roomStart = 5;
+  void clear_roomstart();
+  bool roomstart() const;
+  void set_roomstart(bool value);
+  private:
+  bool _internal_roomstart() const;
+  void _internal_set_roomstart(bool value);
+  public:
+
+  // uint64 tcpRoomId = 4;
+  void clear_tcproomid();
+  uint64_t tcproomid() const;
+  void set_tcproomid(uint64_t value);
+  private:
+  uint64_t _internal_tcproomid() const;
+  void _internal_set_tcproomid(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:RoomJobTCPRequest)
  private:
   class _Internal;
 
@@ -2338,8 +2664,9 @@ class CreateRoomTCPRequest final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr region_;
     uint64_t roomid_;
-    uint64_t tcproomid_;
     uint32_t serverid_;
+    bool roomstart_;
+    uint64_t tcproomid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2347,24 +2674,24 @@ class CreateRoomTCPRequest final :
 };
 // -------------------------------------------------------------------
 
-class CreateRoomTCPResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CreateRoomTCPResponse) */ {
+class RoomJobTCPResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RoomJobTCPResponse) */ {
  public:
-  inline CreateRoomTCPResponse() : CreateRoomTCPResponse(nullptr) {}
-  ~CreateRoomTCPResponse() override;
-  explicit PROTOBUF_CONSTEXPR CreateRoomTCPResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline RoomJobTCPResponse() : RoomJobTCPResponse(nullptr) {}
+  ~RoomJobTCPResponse() override;
+  explicit PROTOBUF_CONSTEXPR RoomJobTCPResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  CreateRoomTCPResponse(const CreateRoomTCPResponse& from);
-  CreateRoomTCPResponse(CreateRoomTCPResponse&& from) noexcept
-    : CreateRoomTCPResponse() {
+  RoomJobTCPResponse(const RoomJobTCPResponse& from);
+  RoomJobTCPResponse(RoomJobTCPResponse&& from) noexcept
+    : RoomJobTCPResponse() {
     *this = ::std::move(from);
   }
 
-  inline CreateRoomTCPResponse& operator=(const CreateRoomTCPResponse& from) {
+  inline RoomJobTCPResponse& operator=(const RoomJobTCPResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline CreateRoomTCPResponse& operator=(CreateRoomTCPResponse&& from) noexcept {
+  inline RoomJobTCPResponse& operator=(RoomJobTCPResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2387,20 +2714,20 @@ class CreateRoomTCPResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const CreateRoomTCPResponse& default_instance() {
+  static const RoomJobTCPResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const CreateRoomTCPResponse* internal_default_instance() {
-    return reinterpret_cast<const CreateRoomTCPResponse*>(
-               &_CreateRoomTCPResponse_default_instance_);
+  static inline const RoomJobTCPResponse* internal_default_instance() {
+    return reinterpret_cast<const RoomJobTCPResponse*>(
+               &_RoomJobTCPResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
-  friend void swap(CreateRoomTCPResponse& a, CreateRoomTCPResponse& b) {
+  friend void swap(RoomJobTCPResponse& a, RoomJobTCPResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateRoomTCPResponse* other) {
+  inline void Swap(RoomJobTCPResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2413,7 +2740,7 @@ class CreateRoomTCPResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(CreateRoomTCPResponse* other) {
+  void UnsafeArenaSwap(RoomJobTCPResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2421,14 +2748,14 @@ class CreateRoomTCPResponse final :
 
   // implements Message ----------------------------------------------
 
-  CreateRoomTCPResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CreateRoomTCPResponse>(arena);
+  RoomJobTCPResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RoomJobTCPResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CreateRoomTCPResponse& from);
+  void CopyFrom(const RoomJobTCPResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CreateRoomTCPResponse& from) {
-    CreateRoomTCPResponse::MergeImpl(*this, from);
+  void MergeFrom( const RoomJobTCPResponse& from) {
+    RoomJobTCPResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -2446,15 +2773,15 @@ class CreateRoomTCPResponse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(CreateRoomTCPResponse* other);
+  void InternalSwap(RoomJobTCPResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "CreateRoomTCPResponse";
+    return "RoomJobTCPResponse";
   }
   protected:
-  explicit CreateRoomTCPResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit RoomJobTCPResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2544,7 +2871,7 @@ class CreateRoomTCPResponse final :
   void _internal_set_maxmembercount(uint32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:CreateRoomTCPResponse)
+  // @@protoc_insertion_point(class_scope:RoomJobTCPResponse)
  private:
   class _Internal;
 
@@ -2614,7 +2941,7 @@ class RemoveRoomTCPRequest final :
                &_RemoveRoomTCPRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(RemoveRoomTCPRequest& a, RemoveRoomTCPRequest& b) {
     a.Swap(&b);
@@ -2762,7 +3089,7 @@ class EnterRoomRequest final :
                &_EnterRoomRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(EnterRoomRequest& a, EnterRoomRequest& b) {
     a.Swap(&b);
@@ -2953,7 +3280,7 @@ class EnterRoomResponse final :
                &_EnterRoomResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(EnterRoomResponse& a, EnterRoomResponse& b) {
     a.Swap(&b);
@@ -3155,7 +3482,7 @@ class LeaveRoomRequest final :
                &_LeaveRoomRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(LeaveRoomRequest& a, LeaveRoomRequest& b) {
     a.Swap(&b);
@@ -3314,7 +3641,7 @@ class StartGameRequest final :
                &_StartGameRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(StartGameRequest& a, StartGameRequest& b) {
     a.Swap(&b);
@@ -3473,7 +3800,7 @@ class GetRoomListResponse final :
                &_GetRoomListResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(GetRoomListResponse& a, GetRoomListResponse& b) {
     a.Swap(&b);
@@ -3630,7 +3957,7 @@ class RoomList final :
                &_RoomList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(RoomList& a, RoomList& b) {
     a.Swap(&b);
@@ -3984,6 +4311,46 @@ inline void ServerInfo::set_allocated_roomlist(::RoomList* roomlist) {
   }
   _impl_.roomlist_ = roomlist;
   // @@protoc_insertion_point(field_set_allocated:ServerInfo.roomList)
+}
+
+// uint32 serverId = 5;
+inline void ServerInfo::clear_serverid() {
+  _impl_.serverid_ = 0u;
+}
+inline uint32_t ServerInfo::_internal_serverid() const {
+  return _impl_.serverid_;
+}
+inline uint32_t ServerInfo::serverid() const {
+  // @@protoc_insertion_point(field_get:ServerInfo.serverId)
+  return _internal_serverid();
+}
+inline void ServerInfo::_internal_set_serverid(uint32_t value) {
+  
+  _impl_.serverid_ = value;
+}
+inline void ServerInfo::set_serverid(uint32_t value) {
+  _internal_set_serverid(value);
+  // @@protoc_insertion_point(field_set:ServerInfo.serverId)
+}
+
+// uint32 userCount = 6;
+inline void ServerInfo::clear_usercount() {
+  _impl_.usercount_ = 0u;
+}
+inline uint32_t ServerInfo::_internal_usercount() const {
+  return _impl_.usercount_;
+}
+inline uint32_t ServerInfo::usercount() const {
+  // @@protoc_insertion_point(field_get:ServerInfo.userCount)
+  return _internal_usercount();
+}
+inline void ServerInfo::_internal_set_usercount(uint32_t value) {
+  
+  _impl_.usercount_ = value;
+}
+inline void ServerInfo::set_usercount(uint32_t value) {
+  _internal_set_usercount(value);
+  // @@protoc_insertion_point(field_set:ServerInfo.userCount)
 }
 
 // -------------------------------------------------------------------
@@ -4560,6 +4927,74 @@ inline void RoomInfo::set_locked(bool value) {
   // @@protoc_insertion_point(field_set:RoomInfo.locked)
 }
 
+// uint32 ownerServerId = 9;
+inline void RoomInfo::clear_ownerserverid() {
+  _impl_.ownerserverid_ = 0u;
+}
+inline uint32_t RoomInfo::_internal_ownerserverid() const {
+  return _impl_.ownerserverid_;
+}
+inline uint32_t RoomInfo::ownerserverid() const {
+  // @@protoc_insertion_point(field_get:RoomInfo.ownerServerId)
+  return _internal_ownerserverid();
+}
+inline void RoomInfo::_internal_set_ownerserverid(uint32_t value) {
+  
+  _impl_.ownerserverid_ = value;
+}
+inline void RoomInfo::set_ownerserverid(uint32_t value) {
+  _internal_set_ownerserverid(value);
+  // @@protoc_insertion_point(field_set:RoomInfo.ownerServerId)
+}
+
+// -------------------------------------------------------------------
+
+// GetServerListRequest
+
+// -------------------------------------------------------------------
+
+// GetServerListResponse
+
+// repeated .ServerInfo serverInfos = 1;
+inline int GetServerListResponse::_internal_serverinfos_size() const {
+  return _impl_.serverinfos_.size();
+}
+inline int GetServerListResponse::serverinfos_size() const {
+  return _internal_serverinfos_size();
+}
+inline void GetServerListResponse::clear_serverinfos() {
+  _impl_.serverinfos_.Clear();
+}
+inline ::ServerInfo* GetServerListResponse::mutable_serverinfos(int index) {
+  // @@protoc_insertion_point(field_mutable:GetServerListResponse.serverInfos)
+  return _impl_.serverinfos_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ServerInfo >*
+GetServerListResponse::mutable_serverinfos() {
+  // @@protoc_insertion_point(field_mutable_list:GetServerListResponse.serverInfos)
+  return &_impl_.serverinfos_;
+}
+inline const ::ServerInfo& GetServerListResponse::_internal_serverinfos(int index) const {
+  return _impl_.serverinfos_.Get(index);
+}
+inline const ::ServerInfo& GetServerListResponse::serverinfos(int index) const {
+  // @@protoc_insertion_point(field_get:GetServerListResponse.serverInfos)
+  return _internal_serverinfos(index);
+}
+inline ::ServerInfo* GetServerListResponse::_internal_add_serverinfos() {
+  return _impl_.serverinfos_.Add();
+}
+inline ::ServerInfo* GetServerListResponse::add_serverinfos() {
+  ::ServerInfo* _add = _internal_add_serverinfos();
+  // @@protoc_insertion_point(field_add:GetServerListResponse.serverInfos)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ServerInfo >&
+GetServerListResponse::serverinfos() const {
+  // @@protoc_insertion_point(field_list:GetServerListResponse.serverInfos)
+  return _impl_.serverinfos_;
+}
+
 // -------------------------------------------------------------------
 
 // GetRoomListRequest
@@ -4824,44 +5259,44 @@ inline void CreateRoomResponse::set_roomid(uint64_t value) {
 
 // -------------------------------------------------------------------
 
-// CreateRoomTCPRequest
+// RoomJobTCPRequest
 
 // string region = 1;
-inline void CreateRoomTCPRequest::clear_region() {
+inline void RoomJobTCPRequest::clear_region() {
   _impl_.region_.ClearToEmpty();
 }
-inline const std::string& CreateRoomTCPRequest::region() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPRequest.region)
+inline const std::string& RoomJobTCPRequest::region() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPRequest.region)
   return _internal_region();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void CreateRoomTCPRequest::set_region(ArgT0&& arg0, ArgT... args) {
+void RoomJobTCPRequest::set_region(ArgT0&& arg0, ArgT... args) {
  
  _impl_.region_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:CreateRoomTCPRequest.region)
+  // @@protoc_insertion_point(field_set:RoomJobTCPRequest.region)
 }
-inline std::string* CreateRoomTCPRequest::mutable_region() {
+inline std::string* RoomJobTCPRequest::mutable_region() {
   std::string* _s = _internal_mutable_region();
-  // @@protoc_insertion_point(field_mutable:CreateRoomTCPRequest.region)
+  // @@protoc_insertion_point(field_mutable:RoomJobTCPRequest.region)
   return _s;
 }
-inline const std::string& CreateRoomTCPRequest::_internal_region() const {
+inline const std::string& RoomJobTCPRequest::_internal_region() const {
   return _impl_.region_.Get();
 }
-inline void CreateRoomTCPRequest::_internal_set_region(const std::string& value) {
+inline void RoomJobTCPRequest::_internal_set_region(const std::string& value) {
   
   _impl_.region_.Set(value, GetArenaForAllocation());
 }
-inline std::string* CreateRoomTCPRequest::_internal_mutable_region() {
+inline std::string* RoomJobTCPRequest::_internal_mutable_region() {
   
   return _impl_.region_.Mutable(GetArenaForAllocation());
 }
-inline std::string* CreateRoomTCPRequest::release_region() {
-  // @@protoc_insertion_point(field_release:CreateRoomTCPRequest.region)
+inline std::string* RoomJobTCPRequest::release_region() {
+  // @@protoc_insertion_point(field_release:RoomJobTCPRequest.region)
   return _impl_.region_.Release();
 }
-inline void CreateRoomTCPRequest::set_allocated_region(std::string* region) {
+inline void RoomJobTCPRequest::set_allocated_region(std::string* region) {
   if (region != nullptr) {
     
   } else {
@@ -4873,129 +5308,149 @@ inline void CreateRoomTCPRequest::set_allocated_region(std::string* region) {
     _impl_.region_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:CreateRoomTCPRequest.region)
+  // @@protoc_insertion_point(field_set_allocated:RoomJobTCPRequest.region)
 }
 
 // uint32 serverId = 2;
-inline void CreateRoomTCPRequest::clear_serverid() {
+inline void RoomJobTCPRequest::clear_serverid() {
   _impl_.serverid_ = 0u;
 }
-inline uint32_t CreateRoomTCPRequest::_internal_serverid() const {
+inline uint32_t RoomJobTCPRequest::_internal_serverid() const {
   return _impl_.serverid_;
 }
-inline uint32_t CreateRoomTCPRequest::serverid() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPRequest.serverId)
+inline uint32_t RoomJobTCPRequest::serverid() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPRequest.serverId)
   return _internal_serverid();
 }
-inline void CreateRoomTCPRequest::_internal_set_serverid(uint32_t value) {
+inline void RoomJobTCPRequest::_internal_set_serverid(uint32_t value) {
   
   _impl_.serverid_ = value;
 }
-inline void CreateRoomTCPRequest::set_serverid(uint32_t value) {
+inline void RoomJobTCPRequest::set_serverid(uint32_t value) {
   _internal_set_serverid(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPRequest.serverId)
+  // @@protoc_insertion_point(field_set:RoomJobTCPRequest.serverId)
 }
 
 // uint64 roomId = 3;
-inline void CreateRoomTCPRequest::clear_roomid() {
+inline void RoomJobTCPRequest::clear_roomid() {
   _impl_.roomid_ = uint64_t{0u};
 }
-inline uint64_t CreateRoomTCPRequest::_internal_roomid() const {
+inline uint64_t RoomJobTCPRequest::_internal_roomid() const {
   return _impl_.roomid_;
 }
-inline uint64_t CreateRoomTCPRequest::roomid() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPRequest.roomId)
+inline uint64_t RoomJobTCPRequest::roomid() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPRequest.roomId)
   return _internal_roomid();
 }
-inline void CreateRoomTCPRequest::_internal_set_roomid(uint64_t value) {
+inline void RoomJobTCPRequest::_internal_set_roomid(uint64_t value) {
   
   _impl_.roomid_ = value;
 }
-inline void CreateRoomTCPRequest::set_roomid(uint64_t value) {
+inline void RoomJobTCPRequest::set_roomid(uint64_t value) {
   _internal_set_roomid(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPRequest.roomId)
+  // @@protoc_insertion_point(field_set:RoomJobTCPRequest.roomId)
 }
 
 // uint64 tcpRoomId = 4;
-inline void CreateRoomTCPRequest::clear_tcproomid() {
+inline void RoomJobTCPRequest::clear_tcproomid() {
   _impl_.tcproomid_ = uint64_t{0u};
 }
-inline uint64_t CreateRoomTCPRequest::_internal_tcproomid() const {
+inline uint64_t RoomJobTCPRequest::_internal_tcproomid() const {
   return _impl_.tcproomid_;
 }
-inline uint64_t CreateRoomTCPRequest::tcproomid() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPRequest.tcpRoomId)
+inline uint64_t RoomJobTCPRequest::tcproomid() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPRequest.tcpRoomId)
   return _internal_tcproomid();
 }
-inline void CreateRoomTCPRequest::_internal_set_tcproomid(uint64_t value) {
+inline void RoomJobTCPRequest::_internal_set_tcproomid(uint64_t value) {
   
   _impl_.tcproomid_ = value;
 }
-inline void CreateRoomTCPRequest::set_tcproomid(uint64_t value) {
+inline void RoomJobTCPRequest::set_tcproomid(uint64_t value) {
   _internal_set_tcproomid(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPRequest.tcpRoomId)
+  // @@protoc_insertion_point(field_set:RoomJobTCPRequest.tcpRoomId)
+}
+
+// bool roomStart = 5;
+inline void RoomJobTCPRequest::clear_roomstart() {
+  _impl_.roomstart_ = false;
+}
+inline bool RoomJobTCPRequest::_internal_roomstart() const {
+  return _impl_.roomstart_;
+}
+inline bool RoomJobTCPRequest::roomstart() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPRequest.roomStart)
+  return _internal_roomstart();
+}
+inline void RoomJobTCPRequest::_internal_set_roomstart(bool value) {
+  
+  _impl_.roomstart_ = value;
+}
+inline void RoomJobTCPRequest::set_roomstart(bool value) {
+  _internal_set_roomstart(value);
+  // @@protoc_insertion_point(field_set:RoomJobTCPRequest.roomStart)
 }
 
 // -------------------------------------------------------------------
 
-// CreateRoomTCPResponse
+// RoomJobTCPResponse
 
 // uint64 hostAidx = 1;
-inline void CreateRoomTCPResponse::clear_hostaidx() {
+inline void RoomJobTCPResponse::clear_hostaidx() {
   _impl_.hostaidx_ = uint64_t{0u};
 }
-inline uint64_t CreateRoomTCPResponse::_internal_hostaidx() const {
+inline uint64_t RoomJobTCPResponse::_internal_hostaidx() const {
   return _impl_.hostaidx_;
 }
-inline uint64_t CreateRoomTCPResponse::hostaidx() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.hostAidx)
+inline uint64_t RoomJobTCPResponse::hostaidx() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.hostAidx)
   return _internal_hostaidx();
 }
-inline void CreateRoomTCPResponse::_internal_set_hostaidx(uint64_t value) {
+inline void RoomJobTCPResponse::_internal_set_hostaidx(uint64_t value) {
   
   _impl_.hostaidx_ = value;
 }
-inline void CreateRoomTCPResponse::set_hostaidx(uint64_t value) {
+inline void RoomJobTCPResponse::set_hostaidx(uint64_t value) {
   _internal_set_hostaidx(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.hostAidx)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.hostAidx)
 }
 
 // string title = 2;
-inline void CreateRoomTCPResponse::clear_title() {
+inline void RoomJobTCPResponse::clear_title() {
   _impl_.title_.ClearToEmpty();
 }
-inline const std::string& CreateRoomTCPResponse::title() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.title)
+inline const std::string& RoomJobTCPResponse::title() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.title)
   return _internal_title();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void CreateRoomTCPResponse::set_title(ArgT0&& arg0, ArgT... args) {
+void RoomJobTCPResponse::set_title(ArgT0&& arg0, ArgT... args) {
  
  _impl_.title_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.title)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.title)
 }
-inline std::string* CreateRoomTCPResponse::mutable_title() {
+inline std::string* RoomJobTCPResponse::mutable_title() {
   std::string* _s = _internal_mutable_title();
-  // @@protoc_insertion_point(field_mutable:CreateRoomTCPResponse.title)
+  // @@protoc_insertion_point(field_mutable:RoomJobTCPResponse.title)
   return _s;
 }
-inline const std::string& CreateRoomTCPResponse::_internal_title() const {
+inline const std::string& RoomJobTCPResponse::_internal_title() const {
   return _impl_.title_.Get();
 }
-inline void CreateRoomTCPResponse::_internal_set_title(const std::string& value) {
+inline void RoomJobTCPResponse::_internal_set_title(const std::string& value) {
   
   _impl_.title_.Set(value, GetArenaForAllocation());
 }
-inline std::string* CreateRoomTCPResponse::_internal_mutable_title() {
+inline std::string* RoomJobTCPResponse::_internal_mutable_title() {
   
   return _impl_.title_.Mutable(GetArenaForAllocation());
 }
-inline std::string* CreateRoomTCPResponse::release_title() {
-  // @@protoc_insertion_point(field_release:CreateRoomTCPResponse.title)
+inline std::string* RoomJobTCPResponse::release_title() {
+  // @@protoc_insertion_point(field_release:RoomJobTCPResponse.title)
   return _impl_.title_.Release();
 }
-inline void CreateRoomTCPResponse::set_allocated_title(std::string* title) {
+inline void RoomJobTCPResponse::set_allocated_title(std::string* title) {
   if (title != nullptr) {
     
   } else {
@@ -5007,107 +5462,107 @@ inline void CreateRoomTCPResponse::set_allocated_title(std::string* title) {
     _impl_.title_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:CreateRoomTCPResponse.title)
+  // @@protoc_insertion_point(field_set_allocated:RoomJobTCPResponse.title)
 }
 
 // uint32 mapId = 3;
-inline void CreateRoomTCPResponse::clear_mapid() {
+inline void RoomJobTCPResponse::clear_mapid() {
   _impl_.mapid_ = 0u;
 }
-inline uint32_t CreateRoomTCPResponse::_internal_mapid() const {
+inline uint32_t RoomJobTCPResponse::_internal_mapid() const {
   return _impl_.mapid_;
 }
-inline uint32_t CreateRoomTCPResponse::mapid() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.mapId)
+inline uint32_t RoomJobTCPResponse::mapid() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.mapId)
   return _internal_mapid();
 }
-inline void CreateRoomTCPResponse::_internal_set_mapid(uint32_t value) {
+inline void RoomJobTCPResponse::_internal_set_mapid(uint32_t value) {
   
   _impl_.mapid_ = value;
 }
-inline void CreateRoomTCPResponse::set_mapid(uint32_t value) {
+inline void RoomJobTCPResponse::set_mapid(uint32_t value) {
   _internal_set_mapid(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.mapId)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.mapId)
 }
 
 // uint32 minMemberCount = 4;
-inline void CreateRoomTCPResponse::clear_minmembercount() {
+inline void RoomJobTCPResponse::clear_minmembercount() {
   _impl_.minmembercount_ = 0u;
 }
-inline uint32_t CreateRoomTCPResponse::_internal_minmembercount() const {
+inline uint32_t RoomJobTCPResponse::_internal_minmembercount() const {
   return _impl_.minmembercount_;
 }
-inline uint32_t CreateRoomTCPResponse::minmembercount() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.minMemberCount)
+inline uint32_t RoomJobTCPResponse::minmembercount() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.minMemberCount)
   return _internal_minmembercount();
 }
-inline void CreateRoomTCPResponse::_internal_set_minmembercount(uint32_t value) {
+inline void RoomJobTCPResponse::_internal_set_minmembercount(uint32_t value) {
   
   _impl_.minmembercount_ = value;
 }
-inline void CreateRoomTCPResponse::set_minmembercount(uint32_t value) {
+inline void RoomJobTCPResponse::set_minmembercount(uint32_t value) {
   _internal_set_minmembercount(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.minMemberCount)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.minMemberCount)
 }
 
 // uint32 maxMemberCount = 5;
-inline void CreateRoomTCPResponse::clear_maxmembercount() {
+inline void RoomJobTCPResponse::clear_maxmembercount() {
   _impl_.maxmembercount_ = 0u;
 }
-inline uint32_t CreateRoomTCPResponse::_internal_maxmembercount() const {
+inline uint32_t RoomJobTCPResponse::_internal_maxmembercount() const {
   return _impl_.maxmembercount_;
 }
-inline uint32_t CreateRoomTCPResponse::maxmembercount() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.maxMemberCount)
+inline uint32_t RoomJobTCPResponse::maxmembercount() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.maxMemberCount)
   return _internal_maxmembercount();
 }
-inline void CreateRoomTCPResponse::_internal_set_maxmembercount(uint32_t value) {
+inline void RoomJobTCPResponse::_internal_set_maxmembercount(uint32_t value) {
   
   _impl_.maxmembercount_ = value;
 }
-inline void CreateRoomTCPResponse::set_maxmembercount(uint32_t value) {
+inline void RoomJobTCPResponse::set_maxmembercount(uint32_t value) {
   _internal_set_maxmembercount(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.maxMemberCount)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.maxMemberCount)
 }
 
 // uint64 roomId = 6;
-inline void CreateRoomTCPResponse::clear_roomid() {
+inline void RoomJobTCPResponse::clear_roomid() {
   _impl_.roomid_ = uint64_t{0u};
 }
-inline uint64_t CreateRoomTCPResponse::_internal_roomid() const {
+inline uint64_t RoomJobTCPResponse::_internal_roomid() const {
   return _impl_.roomid_;
 }
-inline uint64_t CreateRoomTCPResponse::roomid() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.roomId)
+inline uint64_t RoomJobTCPResponse::roomid() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.roomId)
   return _internal_roomid();
 }
-inline void CreateRoomTCPResponse::_internal_set_roomid(uint64_t value) {
+inline void RoomJobTCPResponse::_internal_set_roomid(uint64_t value) {
   
   _impl_.roomid_ = value;
 }
-inline void CreateRoomTCPResponse::set_roomid(uint64_t value) {
+inline void RoomJobTCPResponse::set_roomid(uint64_t value) {
   _internal_set_roomid(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.roomId)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.roomId)
 }
 
 // uint64 tcpRoomId = 7;
-inline void CreateRoomTCPResponse::clear_tcproomid() {
+inline void RoomJobTCPResponse::clear_tcproomid() {
   _impl_.tcproomid_ = uint64_t{0u};
 }
-inline uint64_t CreateRoomTCPResponse::_internal_tcproomid() const {
+inline uint64_t RoomJobTCPResponse::_internal_tcproomid() const {
   return _impl_.tcproomid_;
 }
-inline uint64_t CreateRoomTCPResponse::tcproomid() const {
-  // @@protoc_insertion_point(field_get:CreateRoomTCPResponse.tcpRoomId)
+inline uint64_t RoomJobTCPResponse::tcproomid() const {
+  // @@protoc_insertion_point(field_get:RoomJobTCPResponse.tcpRoomId)
   return _internal_tcproomid();
 }
-inline void CreateRoomTCPResponse::_internal_set_tcproomid(uint64_t value) {
+inline void RoomJobTCPResponse::_internal_set_tcproomid(uint64_t value) {
   
   _impl_.tcproomid_ = value;
 }
-inline void CreateRoomTCPResponse::set_tcproomid(uint64_t value) {
+inline void RoomJobTCPResponse::set_tcproomid(uint64_t value) {
   _internal_set_tcproomid(value);
-  // @@protoc_insertion_point(field_set:CreateRoomTCPResponse.tcpRoomId)
+  // @@protoc_insertion_point(field_set:RoomJobTCPResponse.tcpRoomId)
 }
 
 // -------------------------------------------------------------------
@@ -5621,6 +6076,10 @@ RoomList::roominfos() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

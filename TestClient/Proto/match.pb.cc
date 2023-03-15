@@ -50,6 +50,8 @@ PROTOBUF_CONSTEXPR ServerInfo::ServerInfo(
   , /*decltype(_impl_.region_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.roomlist_)*/nullptr
   , /*decltype(_impl_.port_)*/0u
+  , /*decltype(_impl_.serverid_)*/0u
+  , /*decltype(_impl_.usercount_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ServerInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ServerInfoDefaultTypeInternal()
@@ -139,6 +141,7 @@ PROTOBUF_CONSTEXPR RoomInfo::RoomInfo(
   , /*decltype(_impl_.nowmembercount_)*/0u
   , /*decltype(_impl_.roomid_)*/uint64_t{0u}
   , /*decltype(_impl_.locked_)*/false
+  , /*decltype(_impl_.ownerserverid_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RoomInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RoomInfoDefaultTypeInternal()
@@ -149,6 +152,30 @@ struct RoomInfoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomInfoDefaultTypeInternal _RoomInfo_default_instance_;
+PROTOBUF_CONSTEXPR GetServerListRequest::GetServerListRequest(
+    ::_pbi::ConstantInitialized) {}
+struct GetServerListRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetServerListRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetServerListRequestDefaultTypeInternal() {}
+  union {
+    GetServerListRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetServerListRequestDefaultTypeInternal _GetServerListRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetServerListResponse::GetServerListResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.serverinfos_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetServerListResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetServerListResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetServerListResponseDefaultTypeInternal() {}
+  union {
+    GetServerListResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetServerListResponseDefaultTypeInternal _GetServerListResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetRoomListRequest::GetRoomListRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.region_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -193,23 +220,24 @@ struct CreateRoomResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateRoomResponseDefaultTypeInternal _CreateRoomResponse_default_instance_;
-PROTOBUF_CONSTEXPR CreateRoomTCPRequest::CreateRoomTCPRequest(
+PROTOBUF_CONSTEXPR RoomJobTCPRequest::RoomJobTCPRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.region_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.roomid_)*/uint64_t{0u}
-  , /*decltype(_impl_.tcproomid_)*/uint64_t{0u}
   , /*decltype(_impl_.serverid_)*/0u
+  , /*decltype(_impl_.roomstart_)*/false
+  , /*decltype(_impl_.tcproomid_)*/uint64_t{0u}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct CreateRoomTCPRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CreateRoomTCPRequestDefaultTypeInternal()
+struct RoomJobTCPRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RoomJobTCPRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~CreateRoomTCPRequestDefaultTypeInternal() {}
+  ~RoomJobTCPRequestDefaultTypeInternal() {}
   union {
-    CreateRoomTCPRequest _instance;
+    RoomJobTCPRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateRoomTCPRequestDefaultTypeInternal _CreateRoomTCPRequest_default_instance_;
-PROTOBUF_CONSTEXPR CreateRoomTCPResponse::CreateRoomTCPResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomJobTCPRequestDefaultTypeInternal _RoomJobTCPRequest_default_instance_;
+PROTOBUF_CONSTEXPR RoomJobTCPResponse::RoomJobTCPResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.title_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.hostaidx_)*/uint64_t{0u}
@@ -219,15 +247,15 @@ PROTOBUF_CONSTEXPR CreateRoomTCPResponse::CreateRoomTCPResponse(
   , /*decltype(_impl_.tcproomid_)*/uint64_t{0u}
   , /*decltype(_impl_.maxmembercount_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct CreateRoomTCPResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CreateRoomTCPResponseDefaultTypeInternal()
+struct RoomJobTCPResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RoomJobTCPResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~CreateRoomTCPResponseDefaultTypeInternal() {}
+  ~RoomJobTCPResponseDefaultTypeInternal() {}
   union {
-    CreateRoomTCPResponse _instance;
+    RoomJobTCPResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateRoomTCPResponseDefaultTypeInternal _CreateRoomTCPResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomJobTCPResponseDefaultTypeInternal _RoomJobTCPResponse_default_instance_;
 PROTOBUF_CONSTEXPR RemoveRoomTCPRequest::RemoveRoomTCPRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.roomid_)*/uint64_t{0u}
@@ -328,7 +356,7 @@ struct RoomListDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomListDefaultTypeInternal _RoomList_default_instance_;
-static ::_pb::Metadata file_level_metadata_match_2eproto[21];
+static ::_pb::Metadata file_level_metadata_match_2eproto[23];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_match_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_match_2eproto = nullptr;
 
@@ -356,6 +384,8 @@ const uint32_t TableStruct_match_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::ServerInfo, _impl_.port_),
   PROTOBUF_FIELD_OFFSET(::ServerInfo, _impl_.region_),
   PROTOBUF_FIELD_OFFSET(::ServerInfo, _impl_.roomlist_),
+  PROTOBUF_FIELD_OFFSET(::ServerInfo, _impl_.serverid_),
+  PROTOBUF_FIELD_OFFSET(::ServerInfo, _impl_.usercount_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RegistServerRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -409,6 +439,20 @@ const uint32_t TableStruct_match_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::RoomInfo, _impl_.nowmembercount_),
   PROTOBUF_FIELD_OFFSET(::RoomInfo, _impl_.roomid_),
   PROTOBUF_FIELD_OFFSET(::RoomInfo, _impl_.locked_),
+  PROTOBUF_FIELD_OFFSET(::RoomInfo, _impl_.ownerserverid_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::GetServerListRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::GetServerListResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::GetServerListResponse, _impl_.serverinfos_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::GetRoomListRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -436,28 +480,29 @@ const uint32_t TableStruct_match_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::CreateRoomResponse, _impl_.roomid_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPRequest, _impl_.region_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPRequest, _impl_.serverid_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPRequest, _impl_.roomid_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPRequest, _impl_.tcproomid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPRequest, _impl_.region_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPRequest, _impl_.serverid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPRequest, _impl_.roomid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPRequest, _impl_.tcproomid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPRequest, _impl_.roomstart_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.hostaidx_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.title_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.mapid_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.minmembercount_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.maxmembercount_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.roomid_),
-  PROTOBUF_FIELD_OFFSET(::CreateRoomTCPResponse, _impl_.tcproomid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.hostaidx_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.title_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.mapid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.minmembercount_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.maxmembercount_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.roomid_),
+  PROTOBUF_FIELD_OFFSET(::RoomJobTCPResponse, _impl_.tcproomid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RemoveRoomTCPRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -521,24 +566,26 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 0, -1, -1, sizeof(::Request)},
   { 6, -1, -1, sizeof(::Response)},
   { 13, -1, -1, sizeof(::ServerInfo)},
-  { 23, -1, -1, sizeof(::RegistServerRequest)},
-  { 30, -1, -1, sizeof(::RegistServerResponse)},
-  { 38, -1, -1, sizeof(::RemoveServerRequest)},
-  { 46, -1, -1, sizeof(::ServerInfoList)},
-  { 53, -1, -1, sizeof(::PUser)},
-  { 62, -1, -1, sizeof(::RoomInfo)},
-  { 76, -1, -1, sizeof(::GetRoomListRequest)},
-  { 83, -1, -1, sizeof(::CreateRoomRequest)},
-  { 95, -1, -1, sizeof(::CreateRoomResponse)},
-  { 102, -1, -1, sizeof(::CreateRoomTCPRequest)},
-  { 112, -1, -1, sizeof(::CreateRoomTCPResponse)},
-  { 125, -1, -1, sizeof(::RemoveRoomTCPRequest)},
-  { 132, -1, -1, sizeof(::EnterRoomRequest)},
-  { 142, -1, -1, sizeof(::EnterRoomResponse)},
-  { 153, -1, -1, sizeof(::LeaveRoomRequest)},
-  { 161, -1, -1, sizeof(::StartGameRequest)},
-  { 169, -1, -1, sizeof(::GetRoomListResponse)},
-  { 176, -1, -1, sizeof(::RoomList)},
+  { 25, -1, -1, sizeof(::RegistServerRequest)},
+  { 32, -1, -1, sizeof(::RegistServerResponse)},
+  { 40, -1, -1, sizeof(::RemoveServerRequest)},
+  { 48, -1, -1, sizeof(::ServerInfoList)},
+  { 55, -1, -1, sizeof(::PUser)},
+  { 64, -1, -1, sizeof(::RoomInfo)},
+  { 79, -1, -1, sizeof(::GetServerListRequest)},
+  { 85, -1, -1, sizeof(::GetServerListResponse)},
+  { 92, -1, -1, sizeof(::GetRoomListRequest)},
+  { 99, -1, -1, sizeof(::CreateRoomRequest)},
+  { 111, -1, -1, sizeof(::CreateRoomResponse)},
+  { 118, -1, -1, sizeof(::RoomJobTCPRequest)},
+  { 129, -1, -1, sizeof(::RoomJobTCPResponse)},
+  { 142, -1, -1, sizeof(::RemoveRoomTCPRequest)},
+  { 149, -1, -1, sizeof(::EnterRoomRequest)},
+  { 159, -1, -1, sizeof(::EnterRoomResponse)},
+  { 170, -1, -1, sizeof(::LeaveRoomRequest)},
+  { 178, -1, -1, sizeof(::StartGameRequest)},
+  { 186, -1, -1, sizeof(::GetRoomListResponse)},
+  { 193, -1, -1, sizeof(::RoomList)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -551,11 +598,13 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::_ServerInfoList_default_instance_._instance,
   &::_PUser_default_instance_._instance,
   &::_RoomInfo_default_instance_._instance,
+  &::_GetServerListRequest_default_instance_._instance,
+  &::_GetServerListResponse_default_instance_._instance,
   &::_GetRoomListRequest_default_instance_._instance,
   &::_CreateRoomRequest_default_instance_._instance,
   &::_CreateRoomResponse_default_instance_._instance,
-  &::_CreateRoomTCPRequest_default_instance_._instance,
-  &::_CreateRoomTCPResponse_default_instance_._instance,
+  &::_RoomJobTCPRequest_default_instance_._instance,
+  &::_RoomJobTCPResponse_default_instance_._instance,
   &::_RemoveRoomTCPRequest_default_instance_._instance,
   &::_EnterRoomRequest_default_instance_._instance,
   &::_EnterRoomResponse_default_instance_._instance,
@@ -567,60 +616,64 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_match_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\013match.proto\"\t\n\007Request\"\032\n\010Response\022\016\n\006"
-  "result\030\001 \001(\010\"U\n\nServerInfo\022\014\n\004host\030\001 \001(\t"
+  "result\030\001 \001(\010\"z\n\nServerInfo\022\014\n\004host\030\001 \001(\t"
   "\022\014\n\004port\030\002 \001(\r\022\016\n\006region\030\003 \001(\t\022\033\n\010roomLi"
-  "st\030\004 \001(\0132\t.RoomList\"6\n\023RegistServerReque"
-  "st\022\037\n\nserverInfo\030\001 \001(\0132\013.ServerInfo\"8\n\024R"
-  "egistServerResponse\022\016\n\006result\030\001 \001(\010\022\020\n\010s"
-  "erverId\030\002 \001(\r\"7\n\023RemoveServerRequest\022\020\n\010"
-  "serverId\030\001 \001(\r\022\016\n\006region\030\002 \001(\t\"2\n\016Server"
-  "InfoList\022 \n\013serverInfos\030\001 \003(\0132\013.ServerIn"
-  "fo\"3\n\005PUser\022\014\n\004aidx\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022"
-  "\016\n\006region\030\003 \001(\t\"\242\001\n\010RoomInfo\022\020\n\010hostAidx"
-  "\030\001 \001(\004\022\r\n\005title\030\002 \001(\t\022\r\n\005mapId\030\003 \001(\r\022\026\n\016"
-  "minMemberCount\030\004 \001(\r\022\026\n\016maxMemberCount\030\005"
-  " \001(\r\022\026\n\016nowMemberCount\030\006 \001(\r\022\016\n\006roomId\030\007"
-  " \001(\004\022\016\n\006locked\030\010 \001(\010\"$\n\022GetRoomListReque"
-  "st\022\016\n\006region\030\001 \001(\t\"\203\001\n\021CreateRoomRequest"
-  "\022\016\n\006region\030\001 \001(\t\022\020\n\010hostAidx\030\002 \001(\004\022\r\n\005ti"
-  "tle\030\003 \001(\t\022\r\n\005mapId\030\004 \001(\r\022\026\n\016minMemberCou"
-  "nt\030\005 \001(\r\022\026\n\016maxMemberCount\030\006 \001(\r\"$\n\022Crea"
-  "teRoomResponse\022\016\n\006roomId\030\001 \001(\004\"[\n\024Create"
-  "RoomTCPRequest\022\016\n\006region\030\001 \001(\t\022\020\n\010server"
-  "Id\030\002 \001(\r\022\016\n\006roomId\030\003 \001(\004\022\021\n\ttcpRoomId\030\004 "
-  "\001(\004\"\232\001\n\025CreateRoomTCPResponse\022\020\n\010hostAid"
-  "x\030\001 \001(\004\022\r\n\005title\030\002 \001(\t\022\r\n\005mapId\030\003 \001(\r\022\026\n"
-  "\016minMemberCount\030\004 \001(\r\022\026\n\016maxMemberCount\030"
-  "\005 \001(\r\022\016\n\006roomId\030\006 \001(\004\022\021\n\ttcpRoomId\030\007 \001(\004"
-  "\"&\n\024RemoveRoomTCPRequest\022\016\n\006roomId\030\001 \001(\004"
-  "\"N\n\020EnterRoomRequest\022\014\n\004aidx\030\001 \001(\004\022\014\n\004na"
-  "me\030\002 \001(\t\022\016\n\006region\030\003 \001(\t\022\016\n\006roomId\030\004 \001(\004"
-  "\"d\n\021EnterRoomResponse\022\017\n\007success\030\001 \001(\010\022\017"
-  "\n\007message\030\002 \001(\t\022\014\n\004host\030\003 \001(\t\022\014\n\004port\030\004 "
-  "\001(\r\022\021\n\ttcpRoomId\030\005 \001(\004\"0\n\020LeaveRoomReque"
-  "st\022\014\n\004aidx\030\001 \001(\004\022\016\n\006roomId\030\002 \001(\004\"4\n\020Star"
-  "tGameRequest\022\020\n\010hostAidx\030\001 \001(\004\022\016\n\006roomId"
-  "\030\002 \001(\004\"3\n\023GetRoomListResponse\022\034\n\troomInf"
-  "os\030\001 \003(\0132\t.RoomInfo\"(\n\010RoomList\022\034\n\troomI"
-  "nfos\030\001 \003(\0132\t.RoomInfo2\313\003\n\014MatchService\022:"
-  "\n\013GetRoomList\022\023.GetRoomListRequest\032\024.Get"
-  "RoomListResponse\"\000\0227\n\nCreateRoom\022\022.Creat"
-  "eRoomRequest\032\023.CreateRoomResponse\"\000\0224\n\tE"
-  "nterRoom\022\021.EnterRoomRequest\032\022.EnterRoomR"
-  "esponse\"\000\022+\n\tLeaveRoom\022\021.LeaveRoomReques"
-  "t\032\t.Response\"\000\022+\n\tStartGame\022\021.StartGameR"
-  "equest\032\t.Response\"\000\022D\n\rCreateRoomTCP\022\025.C"
-  "reateRoomTCPRequest\032\026.CreateRoomTCPRespo"
-  "nse\"\000(\0010\001\022=\n\014RegistServer\022\024.RegistServer"
-  "Request\032\025.RegistServerResponse\"\000\0221\n\014Remo"
-  "veServer\022\024.RemoveServerRequest\032\t.Respons"
-  "e\"\000b\006proto3"
+  "st\030\004 \001(\0132\t.RoomList\022\020\n\010serverId\030\005 \001(\r\022\021\n"
+  "\tuserCount\030\006 \001(\r\"6\n\023RegistServerRequest\022"
+  "\037\n\nserverInfo\030\001 \001(\0132\013.ServerInfo\"8\n\024Regi"
+  "stServerResponse\022\016\n\006result\030\001 \001(\010\022\020\n\010serv"
+  "erId\030\002 \001(\r\"7\n\023RemoveServerRequest\022\020\n\010ser"
+  "verId\030\001 \001(\r\022\016\n\006region\030\002 \001(\t\"2\n\016ServerInf"
+  "oList\022 \n\013serverInfos\030\001 \003(\0132\013.ServerInfo\""
+  "3\n\005PUser\022\014\n\004aidx\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022\016\n\006"
+  "region\030\003 \001(\t\"\271\001\n\010RoomInfo\022\020\n\010hostAidx\030\001 "
+  "\001(\004\022\r\n\005title\030\002 \001(\t\022\r\n\005mapId\030\003 \001(\r\022\026\n\016min"
+  "MemberCount\030\004 \001(\r\022\026\n\016maxMemberCount\030\005 \001("
+  "\r\022\026\n\016nowMemberCount\030\006 \001(\r\022\016\n\006roomId\030\007 \001("
+  "\004\022\016\n\006locked\030\010 \001(\010\022\025\n\rownerServerId\030\t \001(\r"
+  "\"\026\n\024GetServerListRequest\"9\n\025GetServerLis"
+  "tResponse\022 \n\013serverInfos\030\001 \003(\0132\013.ServerI"
+  "nfo\"$\n\022GetRoomListRequest\022\016\n\006region\030\001 \001("
+  "\t\"\203\001\n\021CreateRoomRequest\022\016\n\006region\030\001 \001(\t\022"
+  "\020\n\010hostAidx\030\002 \001(\004\022\r\n\005title\030\003 \001(\t\022\r\n\005mapI"
+  "d\030\004 \001(\r\022\026\n\016minMemberCount\030\005 \001(\r\022\026\n\016maxMe"
+  "mberCount\030\006 \001(\r\"$\n\022CreateRoomResponse\022\016\n"
+  "\006roomId\030\001 \001(\004\"k\n\021RoomJobTCPRequest\022\016\n\006re"
+  "gion\030\001 \001(\t\022\020\n\010serverId\030\002 \001(\r\022\016\n\006roomId\030\003"
+  " \001(\004\022\021\n\ttcpRoomId\030\004 \001(\004\022\021\n\troomStart\030\005 \001"
+  "(\010\"\227\001\n\022RoomJobTCPResponse\022\020\n\010hostAidx\030\001 "
+  "\001(\004\022\r\n\005title\030\002 \001(\t\022\r\n\005mapId\030\003 \001(\r\022\026\n\016min"
+  "MemberCount\030\004 \001(\r\022\026\n\016maxMemberCount\030\005 \001("
+  "\r\022\016\n\006roomId\030\006 \001(\004\022\021\n\ttcpRoomId\030\007 \001(\004\"&\n\024"
+  "RemoveRoomTCPRequest\022\016\n\006roomId\030\001 \001(\004\"N\n\020"
+  "EnterRoomRequest\022\014\n\004aidx\030\001 \001(\004\022\014\n\004name\030\002"
+  " \001(\t\022\016\n\006region\030\003 \001(\t\022\016\n\006roomId\030\004 \001(\004\"d\n\021"
+  "EnterRoomResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007me"
+  "ssage\030\002 \001(\t\022\014\n\004host\030\003 \001(\t\022\014\n\004port\030\004 \001(\r\022"
+  "\021\n\ttcpRoomId\030\005 \001(\004\"0\n\020LeaveRoomRequest\022\014"
+  "\n\004aidx\030\001 \001(\004\022\016\n\006roomId\030\002 \001(\004\"4\n\020StartGam"
+  "eRequest\022\020\n\010hostAidx\030\001 \001(\004\022\016\n\006roomId\030\002 \001"
+  "(\004\"3\n\023GetRoomListResponse\022\034\n\troomInfos\030\001"
+  " \003(\0132\t.RoomInfo\"(\n\010RoomList\022\034\n\troomInfos"
+  "\030\001 \003(\0132\t.RoomInfo2\321\003\n\014MatchService\022@\n\rGe"
+  "tServerList\022\025.GetServerListRequest\032\026.Get"
+  "ServerListResponse\"\000\022:\n\013GetRoomList\022\023.Ge"
+  "tRoomListRequest\032\024.GetRoomListResponse\"\000"
+  "\0227\n\nCreateRoom\022\022.CreateRoomRequest\032\023.Cre"
+  "ateRoomResponse\"\000\0224\n\tEnterRoom\022\021.EnterRo"
+  "omRequest\032\022.EnterRoomResponse\"\000\022+\n\tLeave"
+  "Room\022\021.LeaveRoomRequest\032\t.Response\"\000\022+\n\t"
+  "StartGame\022\021.StartGameRequest\032\t.Response\""
+  "\000\022;\n\nRoomJobTCP\022\022.RoomJobTCPRequest\032\023.Ro"
+  "omJobTCPResponse\"\000(\0010\001\022=\n\014RegistServer\022\024"
+  ".RegistServerRequest\032\025.RegistServerRespo"
+  "nse\"\000b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_match_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_match_2eproto = {
-    false, false, 1931, descriptor_table_protodef_match_2eproto,
+    false, false, 2093, descriptor_table_protodef_match_2eproto,
     "match.proto",
-    &descriptor_table_match_2eproto_once, nullptr, 0, 21,
+    &descriptor_table_match_2eproto_once, nullptr, 0, 23,
     schemas, file_default_instances, TableStruct_match_2eproto::offsets,
     file_level_metadata_match_2eproto, file_level_enum_descriptors_match_2eproto,
     file_level_service_descriptors_match_2eproto,
@@ -875,6 +928,8 @@ ServerInfo::ServerInfo(const ServerInfo& from)
     , decltype(_impl_.region_){}
     , decltype(_impl_.roomlist_){nullptr}
     , decltype(_impl_.port_){}
+    , decltype(_impl_.serverid_){}
+    , decltype(_impl_.usercount_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -897,7 +952,9 @@ ServerInfo::ServerInfo(const ServerInfo& from)
   if (from._internal_has_roomlist()) {
     _this->_impl_.roomlist_ = new ::RoomList(*from._impl_.roomlist_);
   }
-  _this->_impl_.port_ = from._impl_.port_;
+  ::memcpy(&_impl_.port_, &from._impl_.port_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.usercount_) -
+    reinterpret_cast<char*>(&_impl_.port_)) + sizeof(_impl_.usercount_));
   // @@protoc_insertion_point(copy_constructor:ServerInfo)
 }
 
@@ -910,6 +967,8 @@ inline void ServerInfo::SharedCtor(
     , decltype(_impl_.region_){}
     , decltype(_impl_.roomlist_){nullptr}
     , decltype(_impl_.port_){0u}
+    , decltype(_impl_.serverid_){0u}
+    , decltype(_impl_.usercount_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.host_.InitDefault();
@@ -954,7 +1013,9 @@ void ServerInfo::Clear() {
     delete _impl_.roomlist_;
   }
   _impl_.roomlist_ = nullptr;
-  _impl_.port_ = 0u;
+  ::memset(&_impl_.port_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.usercount_) -
+      reinterpret_cast<char*>(&_impl_.port_)) + sizeof(_impl_.usercount_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -996,6 +1057,22 @@ const char* ServerInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_roomlist(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 serverId = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.serverid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 userCount = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.usercount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1062,6 +1139,18 @@ uint8_t* ServerInfo::_InternalSerialize(
         _Internal::roomlist(this).GetCachedSize(), target, stream);
   }
 
+  // uint32 serverId = 5;
+  if (this->_internal_serverid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_serverid(), target);
+  }
+
+  // uint32 userCount = 6;
+  if (this->_internal_usercount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_usercount(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1104,6 +1193,16 @@ size_t ServerInfo::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_port());
   }
 
+  // uint32 serverId = 5;
+  if (this->_internal_serverid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_serverid());
+  }
+
+  // uint32 userCount = 6;
+  if (this->_internal_usercount() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_usercount());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1135,6 +1234,12 @@ void ServerInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   if (from._internal_port() != 0) {
     _this->_internal_set_port(from._internal_port());
   }
+  if (from._internal_serverid() != 0) {
+    _this->_internal_set_serverid(from._internal_serverid());
+  }
+  if (from._internal_usercount() != 0) {
+    _this->_internal_set_usercount(from._internal_usercount());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1163,8 +1268,8 @@ void ServerInfo::InternalSwap(ServerInfo* other) {
       &other->_impl_.region_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ServerInfo, _impl_.port_)
-      + sizeof(ServerInfo::_impl_.port_)
+      PROTOBUF_FIELD_OFFSET(ServerInfo, _impl_.usercount_)
+      + sizeof(ServerInfo::_impl_.usercount_)
       - PROTOBUF_FIELD_OFFSET(ServerInfo, _impl_.roomlist_)>(
           reinterpret_cast<char*>(&_impl_.roomlist_),
           reinterpret_cast<char*>(&other->_impl_.roomlist_));
@@ -2299,6 +2404,7 @@ RoomInfo::RoomInfo(const RoomInfo& from)
     , decltype(_impl_.nowmembercount_){}
     , decltype(_impl_.roomid_){}
     , decltype(_impl_.locked_){}
+    , decltype(_impl_.ownerserverid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -2311,8 +2417,8 @@ RoomInfo::RoomInfo(const RoomInfo& from)
       _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.hostaidx_, &from._impl_.hostaidx_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.locked_) -
-    reinterpret_cast<char*>(&_impl_.hostaidx_)) + sizeof(_impl_.locked_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.ownerserverid_) -
+    reinterpret_cast<char*>(&_impl_.hostaidx_)) + sizeof(_impl_.ownerserverid_));
   // @@protoc_insertion_point(copy_constructor:RoomInfo)
 }
 
@@ -2329,6 +2435,7 @@ inline void RoomInfo::SharedCtor(
     , decltype(_impl_.nowmembercount_){0u}
     , decltype(_impl_.roomid_){uint64_t{0u}}
     , decltype(_impl_.locked_){false}
+    , decltype(_impl_.ownerserverid_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.title_.InitDefault();
@@ -2363,8 +2470,8 @@ void RoomInfo::Clear() {
 
   _impl_.title_.ClearToEmpty();
   ::memset(&_impl_.hostaidx_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.locked_) -
-      reinterpret_cast<char*>(&_impl_.hostaidx_)) + sizeof(_impl_.locked_));
+      reinterpret_cast<char*>(&_impl_.ownerserverid_) -
+      reinterpret_cast<char*>(&_impl_.hostaidx_)) + sizeof(_impl_.ownerserverid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2436,6 +2543,14 @@ const char* RoomInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _impl_.locked_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 ownerServerId = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _impl_.ownerserverid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2521,6 +2636,12 @@ uint8_t* RoomInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_locked(), target);
   }
 
+  // uint32 ownerServerId = 9;
+  if (this->_internal_ownerserverid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_ownerserverid(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2579,6 +2700,11 @@ size_t RoomInfo::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // uint32 ownerServerId = 9;
+  if (this->_internal_ownerserverid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_ownerserverid());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -2621,6 +2747,9 @@ void RoomInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   if (from._internal_locked() != 0) {
     _this->_internal_set_locked(from._internal_locked());
   }
+  if (from._internal_ownerserverid() != 0) {
+    _this->_internal_set_ownerserverid(from._internal_ownerserverid());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2645,8 +2774,8 @@ void RoomInfo::InternalSwap(RoomInfo* other) {
       &other->_impl_.title_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RoomInfo, _impl_.locked_)
-      + sizeof(RoomInfo::_impl_.locked_)
+      PROTOBUF_FIELD_OFFSET(RoomInfo, _impl_.ownerserverid_)
+      + sizeof(RoomInfo::_impl_.ownerserverid_)
       - PROTOBUF_FIELD_OFFSET(RoomInfo, _impl_.hostaidx_)>(
           reinterpret_cast<char*>(&_impl_.hostaidx_),
           reinterpret_cast<char*>(&other->_impl_.hostaidx_));
@@ -2656,6 +2785,231 @@ void RoomInfo::InternalSwap(RoomInfo* other) {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
       file_level_metadata_match_2eproto[8]);
+}
+
+// ===================================================================
+
+class GetServerListRequest::_Internal {
+ public:
+};
+
+GetServerListRequest::GetServerListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:GetServerListRequest)
+}
+GetServerListRequest::GetServerListRequest(const GetServerListRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  GetServerListRequest* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:GetServerListRequest)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetServerListRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetServerListRequest::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetServerListRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
+      file_level_metadata_match_2eproto[9]);
+}
+
+// ===================================================================
+
+class GetServerListResponse::_Internal {
+ public:
+};
+
+GetServerListResponse::GetServerListResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:GetServerListResponse)
+}
+GetServerListResponse::GetServerListResponse(const GetServerListResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetServerListResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.serverinfos_){from._impl_.serverinfos_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:GetServerListResponse)
+}
+
+inline void GetServerListResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.serverinfos_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+GetServerListResponse::~GetServerListResponse() {
+  // @@protoc_insertion_point(destructor:GetServerListResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetServerListResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.serverinfos_.~RepeatedPtrField();
+}
+
+void GetServerListResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetServerListResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:GetServerListResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.serverinfos_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetServerListResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .ServerInfo serverInfos = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_serverinfos(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetServerListResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:GetServerListResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .ServerInfo serverInfos = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_serverinfos_size()); i < n; i++) {
+    const auto& repfield = this->_internal_serverinfos(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:GetServerListResponse)
+  return target;
+}
+
+size_t GetServerListResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:GetServerListResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .ServerInfo serverInfos = 1;
+  total_size += 1UL * this->_internal_serverinfos_size();
+  for (const auto& msg : this->_impl_.serverinfos_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetServerListResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetServerListResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetServerListResponse::GetClassData() const { return &_class_data_; }
+
+
+void GetServerListResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetServerListResponse*>(&to_msg);
+  auto& from = static_cast<const GetServerListResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:GetServerListResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.serverinfos_.MergeFrom(from._impl_.serverinfos_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetServerListResponse::CopyFrom(const GetServerListResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:GetServerListResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetServerListResponse::IsInitialized() const {
+  return true;
+}
+
+void GetServerListResponse::InternalSwap(GetServerListResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.serverinfos_.InternalSwap(&other->_impl_.serverinfos_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetServerListResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
+      file_level_metadata_match_2eproto[10]);
 }
 
 // ===================================================================
@@ -2858,7 +3212,7 @@ void GetRoomListRequest::InternalSwap(GetRoomListRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetRoomListRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[9]);
+      file_level_metadata_match_2eproto[11]);
 }
 
 // ===================================================================
@@ -3219,7 +3573,7 @@ void CreateRoomRequest::InternalSwap(CreateRoomRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateRoomRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[10]);
+      file_level_metadata_match_2eproto[12]);
 }
 
 // ===================================================================
@@ -3397,29 +3751,30 @@ void CreateRoomResponse::InternalSwap(CreateRoomResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateRoomResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[11]);
+      file_level_metadata_match_2eproto[13]);
 }
 
 // ===================================================================
 
-class CreateRoomTCPRequest::_Internal {
+class RoomJobTCPRequest::_Internal {
  public:
 };
 
-CreateRoomTCPRequest::CreateRoomTCPRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+RoomJobTCPRequest::RoomJobTCPRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:CreateRoomTCPRequest)
+  // @@protoc_insertion_point(arena_constructor:RoomJobTCPRequest)
 }
-CreateRoomTCPRequest::CreateRoomTCPRequest(const CreateRoomTCPRequest& from)
+RoomJobTCPRequest::RoomJobTCPRequest(const RoomJobTCPRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  CreateRoomTCPRequest* const _this = this; (void)_this;
+  RoomJobTCPRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.region_){}
     , decltype(_impl_.roomid_){}
-    , decltype(_impl_.tcproomid_){}
     , decltype(_impl_.serverid_){}
+    , decltype(_impl_.roomstart_){}
+    , decltype(_impl_.tcproomid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -3432,20 +3787,21 @@ CreateRoomTCPRequest::CreateRoomTCPRequest(const CreateRoomTCPRequest& from)
       _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.roomid_, &from._impl_.roomid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.serverid_) -
-    reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.serverid_));
-  // @@protoc_insertion_point(copy_constructor:CreateRoomTCPRequest)
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tcproomid_) -
+    reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.tcproomid_));
+  // @@protoc_insertion_point(copy_constructor:RoomJobTCPRequest)
 }
 
-inline void CreateRoomTCPRequest::SharedCtor(
+inline void RoomJobTCPRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.region_){}
     , decltype(_impl_.roomid_){uint64_t{0u}}
-    , decltype(_impl_.tcproomid_){uint64_t{0u}}
     , decltype(_impl_.serverid_){0u}
+    , decltype(_impl_.roomstart_){false}
+    , decltype(_impl_.tcproomid_){uint64_t{0u}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.region_.InitDefault();
@@ -3454,8 +3810,8 @@ inline void CreateRoomTCPRequest::SharedCtor(
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-CreateRoomTCPRequest::~CreateRoomTCPRequest() {
-  // @@protoc_insertion_point(destructor:CreateRoomTCPRequest)
+RoomJobTCPRequest::~RoomJobTCPRequest() {
+  // @@protoc_insertion_point(destructor:RoomJobTCPRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -3463,29 +3819,29 @@ CreateRoomTCPRequest::~CreateRoomTCPRequest() {
   SharedDtor();
 }
 
-inline void CreateRoomTCPRequest::SharedDtor() {
+inline void RoomJobTCPRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.region_.Destroy();
 }
 
-void CreateRoomTCPRequest::SetCachedSize(int size) const {
+void RoomJobTCPRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void CreateRoomTCPRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:CreateRoomTCPRequest)
+void RoomJobTCPRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:RoomJobTCPRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.region_.ClearToEmpty();
   ::memset(&_impl_.roomid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.serverid_) -
-      reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.serverid_));
+      reinterpret_cast<char*>(&_impl_.tcproomid_) -
+      reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.tcproomid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CreateRoomTCPRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* RoomJobTCPRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -3497,7 +3853,7 @@ const char* CreateRoomTCPRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
           auto str = _internal_mutable_region();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "CreateRoomTCPRequest.region"));
+          CHK_(::_pbi::VerifyUTF8(str, "RoomJobTCPRequest.region"));
         } else
           goto handle_unusual;
         continue;
@@ -3525,6 +3881,14 @@ const char* CreateRoomTCPRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // bool roomStart = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.roomstart_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3548,9 +3912,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CreateRoomTCPRequest::_InternalSerialize(
+uint8_t* RoomJobTCPRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:CreateRoomTCPRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:RoomJobTCPRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3559,7 +3923,7 @@ uint8_t* CreateRoomTCPRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_region().data(), static_cast<int>(this->_internal_region().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "CreateRoomTCPRequest.region");
+      "RoomJobTCPRequest.region");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_region(), target);
   }
@@ -3582,16 +3946,22 @@ uint8_t* CreateRoomTCPRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_tcproomid(), target);
   }
 
+  // bool roomStart = 5;
+  if (this->_internal_roomstart() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_roomstart(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:CreateRoomTCPRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:RoomJobTCPRequest)
   return target;
 }
 
-size_t CreateRoomTCPRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:CreateRoomTCPRequest)
+size_t RoomJobTCPRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RoomJobTCPRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -3610,30 +3980,35 @@ size_t CreateRoomTCPRequest::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_roomid());
   }
 
-  // uint64 tcpRoomId = 4;
-  if (this->_internal_tcproomid() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tcproomid());
-  }
-
   // uint32 serverId = 2;
   if (this->_internal_serverid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_serverid());
   }
 
+  // bool roomStart = 5;
+  if (this->_internal_roomstart() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // uint64 tcpRoomId = 4;
+  if (this->_internal_tcproomid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_tcproomid());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CreateRoomTCPRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RoomJobTCPRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    CreateRoomTCPRequest::MergeImpl
+    RoomJobTCPRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CreateRoomTCPRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RoomJobTCPRequest::GetClassData() const { return &_class_data_; }
 
 
-void CreateRoomTCPRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<CreateRoomTCPRequest*>(&to_msg);
-  auto& from = static_cast<const CreateRoomTCPRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:CreateRoomTCPRequest)
+void RoomJobTCPRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RoomJobTCPRequest*>(&to_msg);
+  auto& from = static_cast<const RoomJobTCPRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:RoomJobTCPRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -3644,27 +4019,30 @@ void CreateRoomTCPRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   if (from._internal_roomid() != 0) {
     _this->_internal_set_roomid(from._internal_roomid());
   }
-  if (from._internal_tcproomid() != 0) {
-    _this->_internal_set_tcproomid(from._internal_tcproomid());
-  }
   if (from._internal_serverid() != 0) {
     _this->_internal_set_serverid(from._internal_serverid());
+  }
+  if (from._internal_roomstart() != 0) {
+    _this->_internal_set_roomstart(from._internal_roomstart());
+  }
+  if (from._internal_tcproomid() != 0) {
+    _this->_internal_set_tcproomid(from._internal_tcproomid());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void CreateRoomTCPRequest::CopyFrom(const CreateRoomTCPRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:CreateRoomTCPRequest)
+void RoomJobTCPRequest::CopyFrom(const RoomJobTCPRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RoomJobTCPRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CreateRoomTCPRequest::IsInitialized() const {
+bool RoomJobTCPRequest::IsInitialized() const {
   return true;
 }
 
-void CreateRoomTCPRequest::InternalSwap(CreateRoomTCPRequest* other) {
+void RoomJobTCPRequest::InternalSwap(RoomJobTCPRequest* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -3674,34 +4052,34 @@ void CreateRoomTCPRequest::InternalSwap(CreateRoomTCPRequest* other) {
       &other->_impl_.region_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CreateRoomTCPRequest, _impl_.serverid_)
-      + sizeof(CreateRoomTCPRequest::_impl_.serverid_)
-      - PROTOBUF_FIELD_OFFSET(CreateRoomTCPRequest, _impl_.roomid_)>(
+      PROTOBUF_FIELD_OFFSET(RoomJobTCPRequest, _impl_.tcproomid_)
+      + sizeof(RoomJobTCPRequest::_impl_.tcproomid_)
+      - PROTOBUF_FIELD_OFFSET(RoomJobTCPRequest, _impl_.roomid_)>(
           reinterpret_cast<char*>(&_impl_.roomid_),
           reinterpret_cast<char*>(&other->_impl_.roomid_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CreateRoomTCPRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata RoomJobTCPRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[12]);
+      file_level_metadata_match_2eproto[14]);
 }
 
 // ===================================================================
 
-class CreateRoomTCPResponse::_Internal {
+class RoomJobTCPResponse::_Internal {
  public:
 };
 
-CreateRoomTCPResponse::CreateRoomTCPResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+RoomJobTCPResponse::RoomJobTCPResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:CreateRoomTCPResponse)
+  // @@protoc_insertion_point(arena_constructor:RoomJobTCPResponse)
 }
-CreateRoomTCPResponse::CreateRoomTCPResponse(const CreateRoomTCPResponse& from)
+RoomJobTCPResponse::RoomJobTCPResponse(const RoomJobTCPResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  CreateRoomTCPResponse* const _this = this; (void)_this;
+  RoomJobTCPResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.title_){}
     , decltype(_impl_.hostaidx_){}
@@ -3724,10 +4102,10 @@ CreateRoomTCPResponse::CreateRoomTCPResponse(const CreateRoomTCPResponse& from)
   ::memcpy(&_impl_.hostaidx_, &from._impl_.hostaidx_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.maxmembercount_) -
     reinterpret_cast<char*>(&_impl_.hostaidx_)) + sizeof(_impl_.maxmembercount_));
-  // @@protoc_insertion_point(copy_constructor:CreateRoomTCPResponse)
+  // @@protoc_insertion_point(copy_constructor:RoomJobTCPResponse)
 }
 
-inline void CreateRoomTCPResponse::SharedCtor(
+inline void RoomJobTCPResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -3747,8 +4125,8 @@ inline void CreateRoomTCPResponse::SharedCtor(
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-CreateRoomTCPResponse::~CreateRoomTCPResponse() {
-  // @@protoc_insertion_point(destructor:CreateRoomTCPResponse)
+RoomJobTCPResponse::~RoomJobTCPResponse() {
+  // @@protoc_insertion_point(destructor:RoomJobTCPResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -3756,17 +4134,17 @@ CreateRoomTCPResponse::~CreateRoomTCPResponse() {
   SharedDtor();
 }
 
-inline void CreateRoomTCPResponse::SharedDtor() {
+inline void RoomJobTCPResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.title_.Destroy();
 }
 
-void CreateRoomTCPResponse::SetCachedSize(int size) const {
+void RoomJobTCPResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void CreateRoomTCPResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:CreateRoomTCPResponse)
+void RoomJobTCPResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:RoomJobTCPResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3778,7 +4156,7 @@ void CreateRoomTCPResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CreateRoomTCPResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* RoomJobTCPResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -3798,7 +4176,7 @@ const char* CreateRoomTCPResponse::_InternalParse(const char* ptr, ::_pbi::Parse
           auto str = _internal_mutable_title();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "CreateRoomTCPResponse.title"));
+          CHK_(::_pbi::VerifyUTF8(str, "RoomJobTCPResponse.title"));
         } else
           goto handle_unusual;
         continue;
@@ -3865,9 +4243,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CreateRoomTCPResponse::_InternalSerialize(
+uint8_t* RoomJobTCPResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:CreateRoomTCPResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:RoomJobTCPResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3882,7 +4260,7 @@ uint8_t* CreateRoomTCPResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_title().data(), static_cast<int>(this->_internal_title().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "CreateRoomTCPResponse.title");
+      "RoomJobTCPResponse.title");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_title(), target);
   }
@@ -3921,12 +4299,12 @@ uint8_t* CreateRoomTCPResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:CreateRoomTCPResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:RoomJobTCPResponse)
   return target;
 }
 
-size_t CreateRoomTCPResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:CreateRoomTCPResponse)
+size_t RoomJobTCPResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RoomJobTCPResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -3973,17 +4351,17 @@ size_t CreateRoomTCPResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CreateRoomTCPResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RoomJobTCPResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    CreateRoomTCPResponse::MergeImpl
+    RoomJobTCPResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CreateRoomTCPResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RoomJobTCPResponse::GetClassData() const { return &_class_data_; }
 
 
-void CreateRoomTCPResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<CreateRoomTCPResponse*>(&to_msg);
-  auto& from = static_cast<const CreateRoomTCPResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:CreateRoomTCPResponse)
+void RoomJobTCPResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RoomJobTCPResponse*>(&to_msg);
+  auto& from = static_cast<const RoomJobTCPResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:RoomJobTCPResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -4012,18 +4390,18 @@ void CreateRoomTCPResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void CreateRoomTCPResponse::CopyFrom(const CreateRoomTCPResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:CreateRoomTCPResponse)
+void RoomJobTCPResponse::CopyFrom(const RoomJobTCPResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RoomJobTCPResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CreateRoomTCPResponse::IsInitialized() const {
+bool RoomJobTCPResponse::IsInitialized() const {
   return true;
 }
 
-void CreateRoomTCPResponse::InternalSwap(CreateRoomTCPResponse* other) {
+void RoomJobTCPResponse::InternalSwap(RoomJobTCPResponse* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -4033,17 +4411,17 @@ void CreateRoomTCPResponse::InternalSwap(CreateRoomTCPResponse* other) {
       &other->_impl_.title_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CreateRoomTCPResponse, _impl_.maxmembercount_)
-      + sizeof(CreateRoomTCPResponse::_impl_.maxmembercount_)
-      - PROTOBUF_FIELD_OFFSET(CreateRoomTCPResponse, _impl_.hostaidx_)>(
+      PROTOBUF_FIELD_OFFSET(RoomJobTCPResponse, _impl_.maxmembercount_)
+      + sizeof(RoomJobTCPResponse::_impl_.maxmembercount_)
+      - PROTOBUF_FIELD_OFFSET(RoomJobTCPResponse, _impl_.hostaidx_)>(
           reinterpret_cast<char*>(&_impl_.hostaidx_),
           reinterpret_cast<char*>(&other->_impl_.hostaidx_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CreateRoomTCPResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata RoomJobTCPResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[13]);
+      file_level_metadata_match_2eproto[15]);
 }
 
 // ===================================================================
@@ -4221,7 +4599,7 @@ void RemoveRoomTCPRequest::InternalSwap(RemoveRoomTCPRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RemoveRoomTCPRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[14]);
+      file_level_metadata_match_2eproto[16]);
 }
 
 // ===================================================================
@@ -4534,7 +4912,7 @@ void EnterRoomRequest::InternalSwap(EnterRoomRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata EnterRoomRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[15]);
+      file_level_metadata_match_2eproto[17]);
 }
 
 // ===================================================================
@@ -4871,7 +5249,7 @@ void EnterRoomResponse::InternalSwap(EnterRoomResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata EnterRoomResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[16]);
+      file_level_metadata_match_2eproto[18]);
 }
 
 // ===================================================================
@@ -5082,7 +5460,7 @@ void LeaveRoomRequest::InternalSwap(LeaveRoomRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LeaveRoomRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[17]);
+      file_level_metadata_match_2eproto[19]);
 }
 
 // ===================================================================
@@ -5293,7 +5671,7 @@ void StartGameRequest::InternalSwap(StartGameRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata StartGameRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[18]);
+      file_level_metadata_match_2eproto[20]);
 }
 
 // ===================================================================
@@ -5478,7 +5856,7 @@ void GetRoomListResponse::InternalSwap(GetRoomListResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetRoomListResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[19]);
+      file_level_metadata_match_2eproto[21]);
 }
 
 // ===================================================================
@@ -5663,7 +6041,7 @@ void RoomList::InternalSwap(RoomList* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RoomList::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_match_2eproto_getter, &descriptor_table_match_2eproto_once,
-      file_level_metadata_match_2eproto[20]);
+      file_level_metadata_match_2eproto[22]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -5704,6 +6082,14 @@ template<> PROTOBUF_NOINLINE ::RoomInfo*
 Arena::CreateMaybeMessage< ::RoomInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::RoomInfo >(arena);
 }
+template<> PROTOBUF_NOINLINE ::GetServerListRequest*
+Arena::CreateMaybeMessage< ::GetServerListRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::GetServerListRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::GetServerListResponse*
+Arena::CreateMaybeMessage< ::GetServerListResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::GetServerListResponse >(arena);
+}
 template<> PROTOBUF_NOINLINE ::GetRoomListRequest*
 Arena::CreateMaybeMessage< ::GetRoomListRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::GetRoomListRequest >(arena);
@@ -5716,13 +6102,13 @@ template<> PROTOBUF_NOINLINE ::CreateRoomResponse*
 Arena::CreateMaybeMessage< ::CreateRoomResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::CreateRoomResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::CreateRoomTCPRequest*
-Arena::CreateMaybeMessage< ::CreateRoomTCPRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::CreateRoomTCPRequest >(arena);
+template<> PROTOBUF_NOINLINE ::RoomJobTCPRequest*
+Arena::CreateMaybeMessage< ::RoomJobTCPRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::RoomJobTCPRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::CreateRoomTCPResponse*
-Arena::CreateMaybeMessage< ::CreateRoomTCPResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::CreateRoomTCPResponse >(arena);
+template<> PROTOBUF_NOINLINE ::RoomJobTCPResponse*
+Arena::CreateMaybeMessage< ::RoomJobTCPResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::RoomJobTCPResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::RemoveRoomTCPRequest*
 Arena::CreateMaybeMessage< ::RemoveRoomTCPRequest >(Arena* arena) {

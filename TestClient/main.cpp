@@ -21,6 +21,9 @@ int main(int argc, char** argv)
 	std::string tcpHost = gConfigManager->Configs["test"]["host"].asString();
 	uint16		tcpPort = gConfigManager->Configs["test"]["port"].asInt();
 	uint32		maxSession = gConfigManager->Configs["test"]["maxSession"].asInt();
+	uint32		recvBuffSize = gConfigManager->Configs["test"]["recvBuffSize"].asInt();
+	uint32		sendBuffSize = gConfigManager->Configs["test"]["sendBuffSize"].asInt();
+
 	//std::cout << "접속할 방 번호를 입력하세요 : ";
 	//uint64 roomId;
 	//std::cin >> roomId;
@@ -55,7 +58,8 @@ int main(int argc, char** argv)
 		}
 
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); },
+			recvBuffSize, sendBuffSize);
 
 		ASSERT_CRASH(client->Init());
 

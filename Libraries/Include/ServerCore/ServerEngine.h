@@ -5,7 +5,8 @@
 class ServerEngine : public Engine
 {
 public:
-	ServerEngine(std::string_view ip, uint16 port, std::shared_ptr<IOCP> iocp, uint16 maxSessionCount, SessionFactory sessionFactory);
+	ServerEngine(std::string_view ip, uint16 port, std::shared_ptr<IOCP> iocp, uint16 maxSessionCount, SessionFactory sessionFactory
+		, uint64 recvBuffSize = 65535, uint64 sendBuffSize = 65535);
 	virtual ~ServerEngine() = default;
 
 public:
@@ -20,5 +21,6 @@ private:
 	uint16 mPort;
 	ListenerRef mListener = nullptr;
 	SocketAddress mSockAddr = {};
+
 };
 

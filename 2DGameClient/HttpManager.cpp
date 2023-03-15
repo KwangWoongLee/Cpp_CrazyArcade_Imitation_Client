@@ -150,3 +150,23 @@ Json::Value HttpManager::GetLoginUsers()
 	return userInfos;
 
 }
+
+void HttpManager::GetGameResult(uint64 roomId)
+{
+	Json::Value request, response;
+	request["cmd"] = 5013;
+	request["aidx"] = aidx;
+	request["session"] = session;
+	request["room_id"] = roomId;
+
+	JsonPost(request, response);
+
+	HandleError(response);
+
+	auto data = response["data"];
+	auto kill_score = data["kill_score"].asString();
+	auto achievement = data["achievement"];
+
+	cout << "¾ø¾Ø ºí·ÏÀº ÃÑ "<< kill_score <<" °³ÀÔ´Ï´Ù. " << endl;
+}
+

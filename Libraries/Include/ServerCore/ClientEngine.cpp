@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "ClientEngine.h"
 
-ClientEngine::ClientEngine(std::string_view serverIP, uint16 serverPort, IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory)
-    : Engine(iocp, maxSessionCount, sessionFactory),
+ClientEngine::ClientEngine(std::string_view serverIP, uint16 serverPort, IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory, uint64 recvBuffSize, uint64 sendBuffSize)
+    : Engine(iocp, maxSessionCount, sessionFactory, recvBuffSize, sendBuffSize),
 	mServerSockAddr(SocketAddress(serverIP, serverPort)),
 	//mServerIP(serverIP),
 	mServerPort(serverPort)

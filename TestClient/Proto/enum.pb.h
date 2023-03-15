@@ -54,12 +54,13 @@ enum ActorType : int {
   ACTOR_TYPE_BLOCK = 3,
   ACTOR_TYPE_BOMB = 4,
   ACTOR_TYPE_MONSTER = 5,
+  ACTOR_TYPE_ITEM = 6,
   ActorType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   ActorType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool ActorType_IsValid(int value);
 constexpr ActorType ActorType_MIN = ACTOR_TYPE_NONE;
-constexpr ActorType ActorType_MAX = ACTOR_TYPE_MONSTER;
+constexpr ActorType ActorType_MAX = ACTOR_TYPE_ITEM;
 constexpr int ActorType_ARRAYSIZE = ActorType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ActorType_descriptor();
@@ -126,6 +127,32 @@ inline bool MonsterType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MonsterType* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MonsterType>(
     MonsterType_descriptor(), name, value);
+}
+enum ItemType : int {
+  ITEM_TYPE_NONE = 0,
+  ITEM_TYPE_SHOE = 1,
+  ITEM_TYPE_BOMB = 2,
+  ItemType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ItemType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ItemType_IsValid(int value);
+constexpr ItemType ItemType_MIN = ITEM_TYPE_NONE;
+constexpr ItemType ItemType_MAX = ITEM_TYPE_BOMB;
+constexpr int ItemType_ARRAYSIZE = ItemType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemType_descriptor();
+template<typename T>
+inline const std::string& ItemType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ItemType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ItemType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ItemType_descriptor(), enum_t_value);
+}
+inline bool ItemType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ItemType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ItemType>(
+    ItemType_descriptor(), name, value);
 }
 enum BlockType : int {
   BLOCK_TYPE_NONE = 0,
@@ -254,6 +281,11 @@ template <> struct is_proto_enum< ::Protocol::MonsterType> : ::std::true_type {}
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::MonsterType>() {
   return ::Protocol::MonsterType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ItemType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ItemType>() {
+  return ::Protocol::ItemType_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::BlockType> : ::std::true_type {};
 template <>

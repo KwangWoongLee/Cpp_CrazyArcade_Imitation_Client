@@ -22,38 +22,40 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_enum_2eproto[6];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_enum_2eproto[7];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_enum_2eproto = nullptr;
 const uint32_t TableStruct_enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_enum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nenum.proto\022\010Protocol*\215\001\n\tActorType\022\023\n\017"
+  "\n\nenum.proto\022\010Protocol*\242\001\n\tActorType\022\023\n\017"
   "ACTOR_TYPE_NONE\020\000\022\021\n\rACTOR_TYPE_BG\020\001\022\025\n\021"
   "ACTOR_TYPE_PLAYER\020\002\022\024\n\020ACTOR_TYPE_BLOCK\020"
   "\003\022\023\n\017ACTOR_TYPE_BOMB\020\004\022\026\n\022ACTOR_TYPE_MON"
-  "STER\020\005*N\n\nPlayerType\022\024\n\020PLAYER_TYPE_NONE"
-  "\020\000\022\025\n\021PLAYER_TYPE_BAZZI\020\001\022\023\n\017PLAYER_TYPE"
-  "_DAO\020\002*=\n\013MonsterType\022\025\n\021MONSTER_TYPE_NO"
-  "NE\020\000\022\027\n\023MONSTER_TYPE_GGOMUL\020\001*\272\001\n\tBlockT"
-  "ype\022\023\n\017BLOCK_TYPE_NONE\020\000\022\024\n\020BLOCK_TYPE_B"
-  "USH1\020\003\022\024\n\020BLOCK_TYPE_BUSH2\020\004\022\024\n\020BLOCK_TY"
-  "PE_BUSH3\020\010\022\024\n\020BLOCK_TYPE_BUSH4\020\t\022\024\n\020BLOC"
-  "K_TYPE_BUSH5\020\020\022\024\n\020BLOCK_TYPE_BUSH6\020\021\022\024\n\020"
-  "BLOCK_TYPE_BUSH7\020\022*\253\001\n\006Action\022\017\n\013ACTION_"
-  "NONE\020\000\022\r\n\tACTION_UP\020\001\022\017\n\013ACTION_DOWN\020\002\022\017"
-  "\n\013ACTION_LEFT\020\003\022\020\n\014ACTION_RIGHT\020\004\022\017\n\013ACT"
-  "ION_STOP\020\005\022\021\n\rACTION_ATTACK\020\006\022\023\n\017ACTION_"
-  "TEMP_DIE\020\007\022\024\n\020ACTION_RESURRECT\020\010*\200\001\n\rBro"
-  "adCastType\022\022\n\016BROADCAST_NONE\020\000\022\030\n\024BROADC"
-  "AST_ENTER_GAME\020\001\022\030\n\024BROADCAST_LEAVE_GAME"
-  "\020\002\022\024\n\020BROADCAST_ACTION\020\003\022\021\n\rBROADCAST_DI"
-  "E\020\004b\006proto3"
+  "STER\020\005\022\023\n\017ACTOR_TYPE_ITEM\020\006*N\n\nPlayerTyp"
+  "e\022\024\n\020PLAYER_TYPE_NONE\020\000\022\025\n\021PLAYER_TYPE_B"
+  "AZZI\020\001\022\023\n\017PLAYER_TYPE_DAO\020\002*=\n\013MonsterTy"
+  "pe\022\025\n\021MONSTER_TYPE_NONE\020\000\022\027\n\023MONSTER_TYP"
+  "E_GGOMUL\020\001*F\n\010ItemType\022\022\n\016ITEM_TYPE_NONE"
+  "\020\000\022\022\n\016ITEM_TYPE_SHOE\020\001\022\022\n\016ITEM_TYPE_BOMB"
+  "\020\002*\272\001\n\tBlockType\022\023\n\017BLOCK_TYPE_NONE\020\000\022\024\n"
+  "\020BLOCK_TYPE_BUSH1\020\003\022\024\n\020BLOCK_TYPE_BUSH2\020"
+  "\004\022\024\n\020BLOCK_TYPE_BUSH3\020\010\022\024\n\020BLOCK_TYPE_BU"
+  "SH4\020\t\022\024\n\020BLOCK_TYPE_BUSH5\020\020\022\024\n\020BLOCK_TYP"
+  "E_BUSH6\020\021\022\024\n\020BLOCK_TYPE_BUSH7\020\022*\253\001\n\006Acti"
+  "on\022\017\n\013ACTION_NONE\020\000\022\r\n\tACTION_UP\020\001\022\017\n\013AC"
+  "TION_DOWN\020\002\022\017\n\013ACTION_LEFT\020\003\022\020\n\014ACTION_R"
+  "IGHT\020\004\022\017\n\013ACTION_STOP\020\005\022\021\n\rACTION_ATTACK"
+  "\020\006\022\023\n\017ACTION_TEMP_DIE\020\007\022\024\n\020ACTION_RESURR"
+  "ECT\020\010*\200\001\n\rBroadCastType\022\022\n\016BROADCAST_NON"
+  "E\020\000\022\030\n\024BROADCAST_ENTER_GAME\020\001\022\030\n\024BROADCA"
+  "ST_LEAVE_GAME\020\002\022\024\n\020BROADCAST_ACTION\020\003\022\021\n"
+  "\rBROADCAST_DIE\020\004b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_enum_2eproto = {
-    false, false, 811, descriptor_table_protodef_enum_2eproto,
+    false, false, 904, descriptor_table_protodef_enum_2eproto,
     "enum.proto",
     &descriptor_table_enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_enum_2eproto::offsets,
@@ -79,6 +81,7 @@ bool ActorType_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;
@@ -114,9 +117,24 @@ bool MonsterType_IsValid(int value) {
   }
 }
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BlockType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_enum_2eproto);
   return file_level_enum_descriptors_enum_2eproto[3];
+}
+bool ItemType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BlockType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_enum_2eproto);
+  return file_level_enum_descriptors_enum_2eproto[4];
 }
 bool BlockType_IsValid(int value) {
   switch (value) {
@@ -136,7 +154,7 @@ bool BlockType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Action_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_enum_2eproto);
-  return file_level_enum_descriptors_enum_2eproto[4];
+  return file_level_enum_descriptors_enum_2eproto[5];
 }
 bool Action_IsValid(int value) {
   switch (value) {
@@ -157,7 +175,7 @@ bool Action_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BroadCastType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_enum_2eproto);
-  return file_level_enum_descriptors_enum_2eproto[5];
+  return file_level_enum_descriptors_enum_2eproto[6];
 }
 bool BroadCastType_IsValid(int value) {
   switch (value) {

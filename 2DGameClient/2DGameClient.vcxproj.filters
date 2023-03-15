@@ -95,6 +95,12 @@
       <Filter>Proto\contents</Filter>
     </ClCompile>
     <ClCompile Include="ConfigManager.cpp" />
+    <ClCompile Include="Monster.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Contents\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h">
@@ -171,5 +177,11 @@
       <Filter>Proto\contents</Filter>
     </ClInclude>
     <ClInclude Include="ConfigManager.h" />
+    <ClInclude Include="Monster.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Contents\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

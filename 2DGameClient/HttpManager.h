@@ -77,7 +77,7 @@ public:
 	static void GetRoomList();
 	static void EnterRoom(uint64 roomId);
 	static void LeaveRoom();
-
+	static void GetGameResult(uint64 roomId);
 
 	//Version2 Only
 	static Json::Value GetLoginUsers();

@@ -2,10 +2,12 @@
 #include "Engine.h"
 #include "IOCP.h"
 
-Engine::Engine(IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory)
+Engine::Engine(IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory, uint64 recvBuffSize, uint64 sendBuffSize)
 	:mIOCP(iocp),
 	mMaxSessionCount(maxSessionCount),
-	mSessionFactory(sessionFactory)
+	mSessionFactory(sessionFactory),
+	mRecvBufferSize(recvBuffSize),
+	mSendBufferSize(sendBuffSize)
 {
 }
 
@@ -36,11 +38,14 @@ void Engine::Stop()
 {
 }
 
+
 SessionRef Engine::CreateSession()
 {
 	SessionRef session = mSessionFactory();
 	session->SetEngine(shared_from_this());
-	
+	session->mRecvBufferSize = mRecvBufferSize;
+	session->mSendBufferSize = mSendBufferSize;
+
 	{
 		WRITE_LOCK;
 

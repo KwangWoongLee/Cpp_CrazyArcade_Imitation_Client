@@ -2,16 +2,18 @@
   "server": {
     "host": "121.190.0.230",
     "port": 7777,
-    "maxSession" : 1,
-    "viewSize" : 50
+    "maxSession": 1,
+    "viewSize": 500,
+    "zoneCount": 4
   },
-  "test":{
+  "test": {
     "host": "121.190.0.230",
     "port": 7777,
-    "maxSession" : 500,
-    "viewSize" : 50
+    "maxSession": 500,
+    "viewSize": 30,
+    "zoneCount": 4
   },
-  "web":{
+  "web": {
     "host": "121.190.0.230",
     "port": 8080
   }

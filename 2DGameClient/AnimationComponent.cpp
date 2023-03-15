@@ -114,7 +114,7 @@ void AnimationComponent::SetAnimTexture(SDL_Texture* texture, int frameX)
 	
 	SetTexture(mAnimTexture);
 }
-
+ 
 void AnimationComponent::AddAnimTextures(std::string strTexture, SDL_Texture* animTexture)
 {
 	mAnimTextures.insert(std::pair<std::string, SDL_Texture*>(strTexture, animTexture));

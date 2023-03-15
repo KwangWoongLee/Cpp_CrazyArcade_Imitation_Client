@@ -3,6 +3,8 @@
 #include "PacketFactory.h"
 #include "BG.h"
 #include "ServerSession.h"
+#include "Monster.h"
+#include "Item.h"
 
 std::vector<function<void(ServerSessionRef,PacketRef)>> HandleFuncs(UINT16_MAX);
 
@@ -69,8 +71,6 @@ void PacketHandler::S_SPAWN(ServerSessionRef session, PacketRef packet)
 
 			p->Init();
 
-
-
 			gGame->AddActor(p);
 		}
 		break;
@@ -81,6 +81,24 @@ void PacketHandler::S_SPAWN(ServerSessionRef session, PacketRef packet)
 			b->Init();
 
 			gGame->AddActor(b);
+		}
+		break;
+		case Protocol::ACTOR_TYPE_MONSTER:
+		{
+			auto m = std::make_shared<Monster>();
+			m->GetActorInfo(&actor);
+			m->Init();
+
+			gGame->AddActor(m);
+		}
+		break;
+		case Protocol::ACTOR_TYPE_ITEM:
+		{
+			auto i = std::make_shared<Item>();
+			i->GetActorInfo(&actor);
+			i->Init();
+
+			gGame->AddActor(i);
 		}
 		break;
 		case Protocol::ACTOR_TYPE_BOMB:
@@ -118,6 +136,8 @@ void PacketHandler::S_DESPAWN(ServerSessionRef session, PacketRef packet)
 		auto id = actor.id();
 		cout << "µð½ºÆù " << id << " !" << endl;
 		auto actorRef = gGame->FindActor(id);
+		if (actorRef == nullptr) 
+			return;
 		if (actorRef->mType == Protocol::ACTOR_TYPE_PLAYER)
 		{
 			actorRef->SetState(State::ETempDie);

@@ -2,8 +2,8 @@
 #include "ServerEngine.h"
 #include "IOCP.h"
 
-ServerEngine::ServerEngine(std::string_view ip, uint16 port, std::shared_ptr<IOCP> iocp, uint16 maxSessionCount, SessionFactory sessionFactory)
-	: Engine(iocp, maxSessionCount, sessionFactory), 
+ServerEngine::ServerEngine(std::string_view ip, uint16 port, std::shared_ptr<IOCP> iocp, uint16 maxSessionCount, SessionFactory sessionFactory, uint64 recvBuffSize, uint64 sendBuffSize )
+	: Engine(iocp, maxSessionCount, sessionFactory, recvBuffSize, sendBuffSize),
 	mSockAddr(SocketAddress(port)),
 	mIP(ip),
 	mPort(port)

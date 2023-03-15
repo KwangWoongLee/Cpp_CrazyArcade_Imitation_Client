@@ -46,7 +46,7 @@ void PacketHandler::S_TEST(PacketSessionRef session, PacketHeader header, google
 	session->Send(2, actionPkt);
 	gGame->mLastSendTick = GetTickCount64();
 
-	gGame->GenerateOutput(pkt.actors());
+	gGame->GenerateOutput(pkt.poss());
 
 
 

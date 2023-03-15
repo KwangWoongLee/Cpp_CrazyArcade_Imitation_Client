@@ -5,7 +5,9 @@
 class ClientEngine : public Engine
 {
 public:
-	ClientEngine(std::string_view serverIP, uint16 serverPort, IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory);
+	ClientEngine(std::string_view serverIP, uint16 serverPort, IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory
+				, uint64 recvBuffSize = 65535, uint64 sendBuffSize = 65535
+	);
 	virtual ~ClientEngine() = default;
 
 public:
@@ -19,5 +21,6 @@ private:
 	//std::string_view mServerIP;
 	uint16 mServerPort;
 	SocketAddress mServerSockAddr;
+
 };
 

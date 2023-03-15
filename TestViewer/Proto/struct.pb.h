@@ -348,6 +348,7 @@ class PActor final :
     kPlayerTypeFieldNumber = 5,
     kBlockTypeFieldNumber = 6,
     kMonsterTypeFieldNumber = 7,
+    kItemTypeFieldNumber = 8,
   };
   // .Protocol.Pos position = 3;
   bool has_position() const;
@@ -433,6 +434,19 @@ class PActor final :
   void _internal_set_monstertype(::Protocol::MonsterType value);
   public:
 
+  // optional .Protocol.ItemType itemType = 8;
+  bool has_itemtype() const;
+  private:
+  bool _internal_has_itemtype() const;
+  public:
+  void clear_itemtype();
+  ::Protocol::ItemType itemtype() const;
+  void set_itemtype(::Protocol::ItemType value);
+  private:
+  ::Protocol::ItemType _internal_itemtype() const;
+  void _internal_set_itemtype(::Protocol::ItemType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.PActor)
  private:
   class _Internal;
@@ -450,6 +464,7 @@ class PActor final :
     int playertype_;
     int blocktype_;
     int monstertype_;
+    int itemtype_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_struct_2eproto;
@@ -741,6 +756,34 @@ inline void PActor::_internal_set_monstertype(::Protocol::MonsterType value) {
 inline void PActor::set_monstertype(::Protocol::MonsterType value) {
   _internal_set_monstertype(value);
   // @@protoc_insertion_point(field_set:Protocol.PActor.monsterType)
+}
+
+// optional .Protocol.ItemType itemType = 8;
+inline bool PActor::_internal_has_itemtype() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool PActor::has_itemtype() const {
+  return _internal_has_itemtype();
+}
+inline void PActor::clear_itemtype() {
+  _impl_.itemtype_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline ::Protocol::ItemType PActor::_internal_itemtype() const {
+  return static_cast< ::Protocol::ItemType >(_impl_.itemtype_);
+}
+inline ::Protocol::ItemType PActor::itemtype() const {
+  // @@protoc_insertion_point(field_get:Protocol.PActor.itemType)
+  return _internal_itemtype();
+}
+inline void PActor::_internal_set_itemtype(::Protocol::ItemType value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.itemtype_ = value;
+}
+inline void PActor::set_itemtype(::Protocol::ItemType value) {
+  _internal_set_itemtype(value);
+  // @@protoc_insertion_point(field_set:Protocol.PActor.itemType)
 }
 
 #ifdef __GNUC__

@@ -21,14 +21,14 @@
 #include <grpcpp/impl/codegen/sync_stream.h>
 
 static const char* MatchService_method_names[] = {
+  "/MatchService/GetServerList",
   "/MatchService/GetRoomList",
   "/MatchService/CreateRoom",
   "/MatchService/EnterRoom",
   "/MatchService/LeaveRoom",
   "/MatchService/StartGame",
-  "/MatchService/CreateRoomTCP",
+  "/MatchService/RoomJobTCP",
   "/MatchService/RegistServer",
-  "/MatchService/RemoveServer",
 };
 
 std::unique_ptr< MatchService::Stub> MatchService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -38,15 +38,38 @@ std::unique_ptr< MatchService::Stub> MatchService::NewStub(const std::shared_ptr
 }
 
 MatchService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_GetRoomList_(MatchService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateRoom_(MatchService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_EnterRoom_(MatchService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_LeaveRoom_(MatchService_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StartGame_(MatchService_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateRoomTCP_(MatchService_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
-  , rpcmethod_RegistServer_(MatchService_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_RemoveServer_(MatchService_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_GetServerList_(MatchService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetRoomList_(MatchService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateRoom_(MatchService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_EnterRoom_(MatchService_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_LeaveRoom_(MatchService_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StartGame_(MatchService_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RoomJobTCP_(MatchService_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::BIDI_STREAMING, channel)
+  , rpcmethod_RegistServer_(MatchService_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::Status MatchService::Stub::GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::GetServerListResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::GetServerListRequest, ::GetServerListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetServerList_, context, request, response);
+}
+
+void MatchService::Stub::async::GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::GetServerListRequest, ::GetServerListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetServerList_, context, request, response, std::move(f));
+}
+
+void MatchService::Stub::async::GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetServerList_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::GetServerListResponse>* MatchService::Stub::PrepareAsyncGetServerListRaw(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::GetServerListResponse, ::GetServerListRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetServerList_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::GetServerListResponse>* MatchService::Stub::AsyncGetServerListRaw(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetServerListRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
 
 ::grpc::Status MatchService::Stub::GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::GetRoomListResponse* response) {
   return ::grpc::internal::BlockingUnaryCall< ::GetRoomListRequest, ::GetRoomListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetRoomList_, context, request, response);
@@ -163,20 +186,20 @@ void MatchService::Stub::async::StartGame(::grpc::ClientContext* context, const 
   return result;
 }
 
-::grpc::ClientReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* MatchService::Stub::CreateRoomTCPRaw(::grpc::ClientContext* context) {
-  return ::grpc::internal::ClientReaderWriterFactory< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>::Create(channel_.get(), rpcmethod_CreateRoomTCP_, context);
+::grpc::ClientReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* MatchService::Stub::RoomJobTCPRaw(::grpc::ClientContext* context) {
+  return ::grpc::internal::ClientReaderWriterFactory< ::RoomJobTCPRequest, ::RoomJobTCPResponse>::Create(channel_.get(), rpcmethod_RoomJobTCP_, context);
 }
 
-void MatchService::Stub::async::CreateRoomTCP(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CreateRoomTCPRequest,::CreateRoomTCPResponse>* reactor) {
-  ::grpc::internal::ClientCallbackReaderWriterFactory< ::CreateRoomTCPRequest,::CreateRoomTCPResponse>::Create(stub_->channel_.get(), stub_->rpcmethod_CreateRoomTCP_, context, reactor);
+void MatchService::Stub::async::RoomJobTCP(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::RoomJobTCPRequest,::RoomJobTCPResponse>* reactor) {
+  ::grpc::internal::ClientCallbackReaderWriterFactory< ::RoomJobTCPRequest,::RoomJobTCPResponse>::Create(stub_->channel_.get(), stub_->rpcmethod_RoomJobTCP_, context, reactor);
 }
 
-::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* MatchService::Stub::AsyncCreateRoomTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
-  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>::Create(channel_.get(), cq, rpcmethod_CreateRoomTCP_, context, true, tag);
+::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* MatchService::Stub::AsyncRoomJobTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::RoomJobTCPRequest, ::RoomJobTCPResponse>::Create(channel_.get(), cq, rpcmethod_RoomJobTCP_, context, true, tag);
 }
 
-::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* MatchService::Stub::PrepareAsyncCreateRoomTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>::Create(channel_.get(), cq, rpcmethod_CreateRoomTCP_, context, false, nullptr);
+::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* MatchService::Stub::PrepareAsyncRoomJobTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::RoomJobTCPRequest, ::RoomJobTCPResponse>::Create(channel_.get(), cq, rpcmethod_RoomJobTCP_, context, false, nullptr);
 }
 
 ::grpc::Status MatchService::Stub::RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::RegistServerResponse* response) {
@@ -202,32 +225,19 @@ void MatchService::Stub::async::RegistServer(::grpc::ClientContext* context, con
   return result;
 }
 
-::grpc::Status MatchService::Stub::RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::Response* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::RemoveServerRequest, ::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RemoveServer_, context, request, response);
-}
-
-void MatchService::Stub::async::RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest* request, ::Response* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::RemoveServerRequest, ::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RemoveServer_, context, request, response, std::move(f));
-}
-
-void MatchService::Stub::async::RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest* request, ::Response* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RemoveServer_, context, request, response, reactor);
-}
-
-::grpc::ClientAsyncResponseReader< ::Response>* MatchService::Stub::PrepareAsyncRemoveServerRaw(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Response, ::RemoveServerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RemoveServer_, context, request);
-}
-
-::grpc::ClientAsyncResponseReader< ::Response>* MatchService::Stub::AsyncRemoveServerRaw(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) {
-  auto* result =
-    this->PrepareAsyncRemoveServerRaw(context, request, cq);
-  result->StartCall();
-  return result;
-}
-
 MatchService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MatchService_method_names[0],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::GetServerListRequest, ::GetServerListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MatchService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::GetServerListRequest* req,
+             ::GetServerListResponse* resp) {
+               return service->GetServerList(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MatchService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::GetRoomListRequest, ::GetRoomListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MatchService::Service* service,
@@ -237,7 +247,7 @@ MatchService::Service::Service() {
                return service->GetRoomList(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[1],
+      MatchService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::CreateRoomRequest, ::CreateRoomResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MatchService::Service* service,
@@ -247,7 +257,7 @@ MatchService::Service::Service() {
                return service->CreateRoom(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[2],
+      MatchService_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::EnterRoomRequest, ::EnterRoomResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MatchService::Service* service,
@@ -257,7 +267,7 @@ MatchService::Service::Service() {
                return service->EnterRoom(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[3],
+      MatchService_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::LeaveRoomRequest, ::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MatchService::Service* service,
@@ -267,7 +277,7 @@ MatchService::Service::Service() {
                return service->LeaveRoom(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[4],
+      MatchService_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::StartGameRequest, ::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MatchService::Service* service,
@@ -277,17 +287,17 @@ MatchService::Service::Service() {
                return service->StartGame(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[5],
+      MatchService_method_names[6],
       ::grpc::internal::RpcMethod::BIDI_STREAMING,
-      new ::grpc::internal::BidiStreamingHandler< MatchService::Service, ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>(
+      new ::grpc::internal::BidiStreamingHandler< MatchService::Service, ::RoomJobTCPRequest, ::RoomJobTCPResponse>(
           [](MatchService::Service* service,
              ::grpc::ServerContext* ctx,
-             ::grpc::ServerReaderWriter<::CreateRoomTCPResponse,
-             ::CreateRoomTCPRequest>* stream) {
-               return service->CreateRoomTCP(ctx, stream);
+             ::grpc::ServerReaderWriter<::RoomJobTCPResponse,
+             ::RoomJobTCPRequest>* stream) {
+               return service->RoomJobTCP(ctx, stream);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[6],
+      MatchService_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::RegistServerRequest, ::RegistServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](MatchService::Service* service,
@@ -296,19 +306,16 @@ MatchService::Service::Service() {
              ::RegistServerResponse* resp) {
                return service->RegistServer(ctx, req, resp);
              }, this)));
-  AddMethod(new ::grpc::internal::RpcServiceMethod(
-      MatchService_method_names[7],
-      ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< MatchService::Service, ::RemoveServerRequest, ::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-          [](MatchService::Service* service,
-             ::grpc::ServerContext* ctx,
-             const ::RemoveServerRequest* req,
-             ::Response* resp) {
-               return service->RemoveServer(ctx, req, resp);
-             }, this)));
 }
 
 MatchService::Service::~Service() {
+}
+
+::grpc::Status MatchService::Service::GetServerList(::grpc::ServerContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status MatchService::Service::GetRoomList(::grpc::ServerContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response) {
@@ -346,20 +353,13 @@ MatchService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatchService::Service::CreateRoomTCP(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* stream) {
+::grpc::Status MatchService::Service::RoomJobTCP(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* stream) {
   (void) context;
   (void) stream;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status MatchService::Service::RegistServer(::grpc::ServerContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status MatchService::Service::RemoveServer(::grpc::ServerContext* context, const ::RemoveServerRequest* request, ::Response* response) {
   (void) context;
   (void) request;
   (void) response;

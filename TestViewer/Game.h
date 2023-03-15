@@ -9,11 +9,12 @@ public:
 	//게임 기본 3루프
 	//게임 초기화
 	bool Init();
-	void GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::PActor>& actors);
+	void GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::Pos>& poss);
 	uint32		mTicksCount;
 
 	std::atomic<bool> OnNetwork = false;
 
+	uint32		zoneCount;
 	uint32		viewSize;
 	uint64		mLastSendTick;
 	uint64		delayTick;

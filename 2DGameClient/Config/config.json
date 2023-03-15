@@ -2,6 +2,21 @@
   "server": {
     "host": "121.190.0.230",
     "port": 7777,
-    "maxSession" : 1
+    "maxSession": 1,
+    "zoneCount": 4,
+    "recvBuffSize" : 262144,
+    "sendBuffSize" : 262144
+  },
+  "test": {
+    "host": "121.190.0.230",
+    "port": 7777,
+    "maxSession": 500,
+    "zoneCount": 4,
+    "recvBuffSize" : 262144,
+    "sendBuffSize" : 262144
+  },
+  "web": {
+    "host": "121.190.0.230",
+    "port": 8080
   }
 }

@@ -72,9 +72,11 @@ public:
 
 	uint16			mSendPendingCount = 0;
 private:
-	
 	SOCKET mSocket = INVALID_SOCKET;
 	SocketAddress mSockAddress;
+
+	uint64					mRecvBufferSize;
+	uint64					mSendBufferSize;
 
 	RecvEvent				mRecvEvent;
 	SendEvent				mSendEvent;

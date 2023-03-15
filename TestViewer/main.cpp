@@ -19,21 +19,26 @@ int main(int argc, char** argv)
 {
 	gConfigManager->Init(current_path().string(), "Config\\config.json");
 
-	std::string tcpHost = gConfigManager->Configs["server"]["host"].asString();
-	uint16		tcpPort = gConfigManager->Configs["server"]["port"].asInt();
-	uint32		maxSession = gConfigManager->Configs["server"]["maxSession"].asInt();
-	uint32		viewSize = gConfigManager->Configs["server"]["viewSize"].asInt();
+	std::string tcpHost = gConfigManager->Configs["test"]["host"].asString();
+	uint16		tcpPort = gConfigManager->Configs["test"]["port"].asInt();
+	uint32		maxSession = 1;
+	uint32		viewSize = gConfigManager->Configs["test"]["viewSize"].asInt();
+	uint32		zoneCount = gConfigManager->Configs["test"]["zoneCount"].asInt();
+	uint32		recvBuffSize = gConfigManager->Configs["test"]["recvBuffSize"].asInt();
+	uint32		sendBuffSize = gConfigManager->Configs["test"]["sendBuffSize"].asInt();
 
 	HWND hConsole = GetConsoleWindow();
 	ShowWindow(hConsole, SW_SHOW);
 
 	try {
 		gGame->viewSize = viewSize;
+		gGame->zoneCount = zoneCount;
 		ASSERT_CRASH(gGame->Init());
 
 
 		PacketHandler::Init();
-		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); });
+		ClientEngineRef client = std::make_shared<ClientEngine>(tcpHost, tcpPort, std::make_shared<IOCP>(), maxSession, []() { return std::make_shared<ServerSession>(); },
+			recvBuffSize, sendBuffSize);
 
 		ASSERT_CRASH(client->Init());
 

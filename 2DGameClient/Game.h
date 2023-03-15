@@ -37,6 +37,8 @@ public:
 
 	std::atomic<bool> OnNetwork = false;
 
+	bool SHUTDOWN = false;
+
 private:
 	//게임 루프 헬퍼 함수
 	void ProcessInput();

@@ -59,7 +59,7 @@ bool Game::Init()
 
 
 
-void Game::GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::PActor>& actors)
+void Game::GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::Pos>& poss)
 {
 	//후면버퍼(게임) 초기화
 	//현재 그리기 색상으로 초기화
@@ -67,7 +67,7 @@ void Game::GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::PAc
 	//현재 그리기 색상으로 초기화
 	SDL_RenderClear(mRenderer);
 
-	SDL_Rect r = { 0, 0, 300, 50 };
+	SDL_Rect r = { 0, 0, 100, 30 };
 	SDL_RenderCopy(mRenderer, mViewTexture, NULL, &r);
 
 	SDL_Color color = { 255, 0, 255, SDL_ALPHA_OPAQUE };
@@ -77,23 +77,34 @@ void Game::GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::PAc
 	SDL_Texture* delayTexture = SDL_CreateTextureFromSurface(mRenderer, delaysurface);
 	SDL_FreeSurface(delaysurface);
 
-	r = { 0, 60, 300, 50 };
+	r = { 0, 40, 100, 30 };
 	SDL_RenderCopy(mRenderer, delayTexture, NULL, &r);
 	SDL_DestroyTexture(delayTexture);
 
 	string count = "ActorCount : ";
-	count += to_string(actors.size());
+	count += to_string(poss.size());
 	SDL_Surface* countSurface = TTF_RenderText_Blended(font, count.c_str(), color);
 	SDL_Texture* countTexture = SDL_CreateTextureFromSurface(mRenderer, countSurface);
 	SDL_FreeSurface(countSurface);
 
-	r = { 0, 120, 300, 50 };
+	r = { 0, 80, 100, 30 };
 	SDL_RenderCopy(mRenderer, countTexture, NULL, &r);
 	SDL_DestroyTexture(countTexture);
 
+	string zone = "ZoneCount : ";
+	zone += to_string(zoneCount);
+	SDL_Surface* zoneSurface = TTF_RenderText_Blended(font, zone.c_str(), color);
+	SDL_Texture* zoneTexture = SDL_CreateTextureFromSurface(mRenderer, zoneSurface);
+	SDL_FreeSurface(zoneSurface);
+
+	r = { 0, 120, 100, 30 };
+	SDL_RenderCopy(mRenderer, zoneTexture, NULL, &r);
+	SDL_DestroyTexture(zoneTexture);
+
+
 	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 0);
 
-	for (int i = viewSize; i < 1000; i = i + viewSize)
+	for (int i = 1000/zoneCount; i < 1000; i = i + 1000 / zoneCount)
 	{
 		SDL_RenderDrawLine(mRenderer, i, 0, i, 1000);
 		SDL_RenderDrawLine(mRenderer, 0, i, 1000, i);
@@ -101,15 +112,16 @@ void Game::GenerateOutput(const google::protobuf::RepeatedPtrField<Protocol::PAc
 
 	SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
 
-	for (auto actor : actors)
-	{
 
+	for (auto pos : poss)
+	{
+		
 
 		SDL_FRect r;
 		r.w = static_cast<int>(2);
 		r.h = static_cast<int>(2);
-		r.x = actor.position().x();
-		r.y = actor.position().y();
+		r.x = pos.x();
+		r.y = pos.y();
 
 		SDL_RenderDrawRectF(mRenderer, &r);
 	}

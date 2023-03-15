@@ -1326,10 +1326,9 @@ class S_DESPAWN final :
 // -------------------------------------------------------------------
 
 class S_PING final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_PING) */ {
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.S_PING) */ {
  public:
   inline S_PING() : S_PING(nullptr) {}
-  ~S_PING() override;
   explicit PROTOBUF_CONSTEXPR S_PING(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
   S_PING(const S_PING& from);
@@ -1402,29 +1401,15 @@ class S_PING final :
   S_PING* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<S_PING>(arena);
   }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_PING& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_PING& from) {
-    S_PING::MergeImpl(*this, from);
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const S_PING& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
   }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const S_PING& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
   public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(S_PING* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
@@ -1445,18 +1430,6 @@ class S_PING final :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kTickFieldNumber = 1,
-  };
-  // uint64 tick = 1;
-  void clear_tick();
-  uint64_t tick() const;
-  void set_tick(uint64_t value);
-  private:
-  uint64_t _internal_tick() const;
-  void _internal_set_tick(uint64_t value);
-  public:
-
   // @@protoc_insertion_point(class_scope:Protocol.S_PING)
  private:
   class _Internal;
@@ -1465,10 +1438,7 @@ class S_PING final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    uint64_t tick_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
-  union { Impl_ _impl_; };
   friend struct ::TableStruct_protocol_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1869,25 +1839,25 @@ class S_TEST final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kActorsFieldNumber = 1,
+    kPossFieldNumber = 1,
   };
-  // repeated .Protocol.PActor actors = 1;
-  int actors_size() const;
+  // repeated .Protocol.Pos poss = 1;
+  int poss_size() const;
   private:
-  int _internal_actors_size() const;
+  int _internal_poss_size() const;
   public:
-  void clear_actors();
-  ::Protocol::PActor* mutable_actors(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PActor >*
-      mutable_actors();
+  void clear_poss();
+  ::Protocol::Pos* mutable_poss(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Pos >*
+      mutable_poss();
   private:
-  const ::Protocol::PActor& _internal_actors(int index) const;
-  ::Protocol::PActor* _internal_add_actors();
+  const ::Protocol::Pos& _internal_poss(int index) const;
+  ::Protocol::Pos* _internal_add_poss();
   public:
-  const ::Protocol::PActor& actors(int index) const;
-  ::Protocol::PActor* add_actors();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PActor >&
-      actors() const;
+  const ::Protocol::Pos& poss(int index) const;
+  ::Protocol::Pos* add_poss();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Pos >&
+      poss() const;
 
   // @@protoc_insertion_point(class_scope:Protocol.S_TEST)
  private:
@@ -1897,7 +1867,7 @@ class S_TEST final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PActor > actors_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Pos > poss_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2315,26 +2285,6 @@ S_DESPAWN::actors() const {
 
 // S_PING
 
-// uint64 tick = 1;
-inline void S_PING::clear_tick() {
-  _impl_.tick_ = uint64_t{0u};
-}
-inline uint64_t S_PING::_internal_tick() const {
-  return _impl_.tick_;
-}
-inline uint64_t S_PING::tick() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_PING.tick)
-  return _internal_tick();
-}
-inline void S_PING::_internal_set_tick(uint64_t value) {
-  
-  _impl_.tick_ = value;
-}
-inline void S_PING::set_tick(uint64_t value) {
-  _internal_set_tick(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_PING.tick)
-}
-
 // -------------------------------------------------------------------
 
 // C_PONG
@@ -2390,41 +2340,41 @@ C_ACTION::mutable_playeractions() {
 
 // S_TEST
 
-// repeated .Protocol.PActor actors = 1;
-inline int S_TEST::_internal_actors_size() const {
-  return _impl_.actors_.size();
+// repeated .Protocol.Pos poss = 1;
+inline int S_TEST::_internal_poss_size() const {
+  return _impl_.poss_.size();
 }
-inline int S_TEST::actors_size() const {
-  return _internal_actors_size();
+inline int S_TEST::poss_size() const {
+  return _internal_poss_size();
 }
-inline ::Protocol::PActor* S_TEST::mutable_actors(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.S_TEST.actors)
-  return _impl_.actors_.Mutable(index);
+inline ::Protocol::Pos* S_TEST::mutable_poss(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.S_TEST.poss)
+  return _impl_.poss_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PActor >*
-S_TEST::mutable_actors() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.S_TEST.actors)
-  return &_impl_.actors_;
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Pos >*
+S_TEST::mutable_poss() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.S_TEST.poss)
+  return &_impl_.poss_;
 }
-inline const ::Protocol::PActor& S_TEST::_internal_actors(int index) const {
-  return _impl_.actors_.Get(index);
+inline const ::Protocol::Pos& S_TEST::_internal_poss(int index) const {
+  return _impl_.poss_.Get(index);
 }
-inline const ::Protocol::PActor& S_TEST::actors(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.S_TEST.actors)
-  return _internal_actors(index);
+inline const ::Protocol::Pos& S_TEST::poss(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.S_TEST.poss)
+  return _internal_poss(index);
 }
-inline ::Protocol::PActor* S_TEST::_internal_add_actors() {
-  return _impl_.actors_.Add();
+inline ::Protocol::Pos* S_TEST::_internal_add_poss() {
+  return _impl_.poss_.Add();
 }
-inline ::Protocol::PActor* S_TEST::add_actors() {
-  ::Protocol::PActor* _add = _internal_add_actors();
-  // @@protoc_insertion_point(field_add:Protocol.S_TEST.actors)
+inline ::Protocol::Pos* S_TEST::add_poss() {
+  ::Protocol::Pos* _add = _internal_add_poss();
+  // @@protoc_insertion_point(field_add:Protocol.S_TEST.poss)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PActor >&
-S_TEST::actors() const {
-  // @@protoc_insertion_point(field_list:Protocol.S_TEST.actors)
-  return _impl_.actors_;
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Pos >&
+S_TEST::poss() const {
+  // @@protoc_insertion_point(field_list:Protocol.S_TEST.poss)
+  return _impl_.poss_;
 }
 
 #ifdef __GNUC__

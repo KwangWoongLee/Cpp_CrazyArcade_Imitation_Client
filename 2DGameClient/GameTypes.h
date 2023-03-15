@@ -11,6 +11,7 @@ using AnimationComponentRef = shared_ptr<class AnimationComponent>;
 using BlockComponentRef = shared_ptr<class BlockComponent>;
 using ActorRef = shared_ptr<class Actor>;
 using PlayerRef = shared_ptr<class Player>;
+using ItemRef = shared_ptr<class Item>;
 using BombRef = shared_ptr<class Bomb>;
 using BoomRef = shared_ptr<class Boom>;
 using TileRef = shared_ptr<class Tile>;

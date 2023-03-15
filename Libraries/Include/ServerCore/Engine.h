@@ -10,7 +10,7 @@ public:
 
 public:
 	//가상함수 선언
-	Engine(IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory);
+	Engine(IOCPRef iocp, uint16 maxSessionCount, SessionFactory sessionFactory, uint64 recvBuffSize, uint64 sendBuffSize);
 	virtual ~Engine();
 
 	virtual bool Init();
@@ -32,6 +32,8 @@ protected:
 	uint16					mMaxSessionCount = 0;
 	SessionFactory			mSessionFactory;
 	std::vector<SessionRef>	mSessions;
+	uint64		mRecvBufferSize;
+	uint64		mSendBufferSize;
 
 };
 

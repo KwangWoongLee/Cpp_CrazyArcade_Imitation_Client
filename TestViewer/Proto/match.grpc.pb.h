@@ -34,6 +34,13 @@ class MatchService final {
    public:
     virtual ~StubInterface() {}
     // node 2 match(game)
+    virtual ::grpc::Status GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::GetServerListResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServerListResponse>> AsyncGetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServerListResponse>>(AsyncGetServerListRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServerListResponse>> PrepareAsyncGetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetServerListResponse>>(PrepareAsyncGetServerListRaw(context, request, cq));
+    }
     virtual ::grpc::Status GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::GetRoomListResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetRoomListResponse>> AsyncGetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetRoomListResponse>>(AsyncGetRoomListRaw(context, request, cq));
@@ -75,14 +82,14 @@ class MatchService final {
     //
     // match 2 tcp
     // rpc CreateRoomTCP (CreateRoomTCPRequest) returns (stream CreateRoomTCPResponse) {}; // User의 region 확인해서 가능한 서버에서 룸 생성
-    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>> CreateRoomTCP(::grpc::ClientContext* context) {
-      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>>(CreateRoomTCPRaw(context));
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>> RoomJobTCP(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>>(RoomJobTCPRaw(context));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>> AsyncCreateRoomTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>>(AsyncCreateRoomTCPRaw(context, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>> AsyncRoomJobTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>>(AsyncRoomJobTCPRaw(context, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>> PrepareAsyncCreateRoomTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>>(PrepareAsyncCreateRoomTCPRaw(context, cq));
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>> PrepareAsyncRoomJobTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>>(PrepareAsyncRoomJobTCPRaw(context, cq));
     }
     // tcp 2 match
     virtual ::grpc::Status RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::RegistServerResponse* response) = 0;
@@ -92,17 +99,12 @@ class MatchService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegistServerResponse>> PrepareAsyncRegistServer(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegistServerResponse>>(PrepareAsyncRegistServerRaw(context, request, cq));
     }
-    virtual ::grpc::Status RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::Response* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Response>> AsyncRemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Response>>(AsyncRemoveServerRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Response>> PrepareAsyncRemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Response>>(PrepareAsyncRemoveServerRaw(context, request, cq));
-    }
     class async_interface {
      public:
       virtual ~async_interface() {}
       // node 2 match(game)
+      virtual void GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void CreateRoom(::grpc::ClientContext* context, const ::CreateRoomRequest* request, ::CreateRoomResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -119,17 +121,17 @@ class MatchService final {
       //
       // match 2 tcp
       // rpc CreateRoomTCP (CreateRoomTCPRequest) returns (stream CreateRoomTCPResponse) {}; // User의 region 확인해서 가능한 서버에서 룸 생성
-      virtual void CreateRoomTCP(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CreateRoomTCPRequest,::CreateRoomTCPResponse>* reactor) = 0;
+      virtual void RoomJobTCP(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::RoomJobTCPRequest,::RoomJobTCPResponse>* reactor) = 0;
       // tcp 2 match
       virtual void RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest* request, ::Response* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest* request, ::Response* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetServerListResponse>* AsyncGetServerListRaw(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetServerListResponse>* PrepareAsyncGetServerListRaw(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetRoomListResponse>* AsyncGetRoomListRaw(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetRoomListResponse>* PrepareAsyncGetRoomListRaw(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::CreateRoomResponse>* AsyncCreateRoomRaw(::grpc::ClientContext* context, const ::CreateRoomRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -140,17 +142,22 @@ class MatchService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Response>* PrepareAsyncLeaveRoomRaw(::grpc::ClientContext* context, const ::LeaveRoomRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Response>* AsyncStartGameRaw(::grpc::ClientContext* context, const ::StartGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Response>* PrepareAsyncStartGameRaw(::grpc::ClientContext* context, const ::StartGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* CreateRoomTCPRaw(::grpc::ClientContext* context) = 0;
-    virtual ::grpc::ClientAsyncReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* AsyncCreateRoomTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncReaderWriterInterface< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* PrepareAsyncCreateRoomTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* RoomJobTCPRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* AsyncRoomJobTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* PrepareAsyncRoomJobTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegistServerResponse>* AsyncRegistServerRaw(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegistServerResponse>* PrepareAsyncRegistServerRaw(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Response>* AsyncRemoveServerRaw(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Response>* PrepareAsyncRemoveServerRaw(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+    ::grpc::Status GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::GetServerListResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServerListResponse>> AsyncGetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServerListResponse>>(AsyncGetServerListRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServerListResponse>> PrepareAsyncGetServerList(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetServerListResponse>>(PrepareAsyncGetServerListRaw(context, request, cq));
+    }
     ::grpc::Status GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::GetRoomListResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetRoomListResponse>> AsyncGetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetRoomListResponse>>(AsyncGetRoomListRaw(context, request, cq));
@@ -186,14 +193,14 @@ class MatchService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Response>> PrepareAsyncStartGame(::grpc::ClientContext* context, const ::StartGameRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Response>>(PrepareAsyncStartGameRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>> CreateRoomTCP(::grpc::ClientContext* context) {
-      return std::unique_ptr< ::grpc::ClientReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>>(CreateRoomTCPRaw(context));
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>> RoomJobTCP(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>>(RoomJobTCPRaw(context));
     }
-    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>> AsyncCreateRoomTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>>(AsyncCreateRoomTCPRaw(context, cq, tag));
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>> AsyncRoomJobTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>>(AsyncRoomJobTCPRaw(context, cq, tag));
     }
-    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>> PrepareAsyncCreateRoomTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>>(PrepareAsyncCreateRoomTCPRaw(context, cq));
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>> PrepareAsyncRoomJobTCP(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>>(PrepareAsyncRoomJobTCPRaw(context, cq));
     }
     ::grpc::Status RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::RegistServerResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegistServerResponse>> AsyncRegistServer(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) {
@@ -202,16 +209,11 @@ class MatchService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegistServerResponse>> PrepareAsyncRegistServer(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegistServerResponse>>(PrepareAsyncRegistServerRaw(context, request, cq));
     }
-    ::grpc::Status RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::Response* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Response>> AsyncRemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Response>>(AsyncRemoveServerRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Response>> PrepareAsyncRemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Response>>(PrepareAsyncRemoveServerRaw(context, request, cq));
-    }
     class async final :
       public StubInterface::async_interface {
      public:
+      void GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetServerList(::grpc::ClientContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response, std::function<void(::grpc::Status)>) override;
       void GetRoomList(::grpc::ClientContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CreateRoom(::grpc::ClientContext* context, const ::CreateRoomRequest* request, ::CreateRoomResponse* response, std::function<void(::grpc::Status)>) override;
@@ -222,11 +224,9 @@ class MatchService final {
       void LeaveRoom(::grpc::ClientContext* context, const ::LeaveRoomRequest* request, ::Response* response, ::grpc::ClientUnaryReactor* reactor) override;
       void StartGame(::grpc::ClientContext* context, const ::StartGameRequest* request, ::Response* response, std::function<void(::grpc::Status)>) override;
       void StartGame(::grpc::ClientContext* context, const ::StartGameRequest* request, ::Response* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void CreateRoomTCP(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::CreateRoomTCPRequest,::CreateRoomTCPResponse>* reactor) override;
+      void RoomJobTCP(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::RoomJobTCPRequest,::RoomJobTCPResponse>* reactor) override;
       void RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response, std::function<void(::grpc::Status)>) override;
       void RegistServer(::grpc::ClientContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest* request, ::Response* response, std::function<void(::grpc::Status)>) override;
-      void RemoveServer(::grpc::ClientContext* context, const ::RemoveServerRequest* request, ::Response* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -238,6 +238,8 @@ class MatchService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
+    ::grpc::ClientAsyncResponseReader< ::GetServerListResponse>* AsyncGetServerListRaw(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetServerListResponse>* PrepareAsyncGetServerListRaw(::grpc::ClientContext* context, const ::GetServerListRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetRoomListResponse>* AsyncGetRoomListRaw(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetRoomListResponse>* PrepareAsyncGetRoomListRaw(::grpc::ClientContext* context, const ::GetRoomListRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::CreateRoomResponse>* AsyncCreateRoomRaw(::grpc::ClientContext* context, const ::CreateRoomRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -248,21 +250,19 @@ class MatchService final {
     ::grpc::ClientAsyncResponseReader< ::Response>* PrepareAsyncLeaveRoomRaw(::grpc::ClientContext* context, const ::LeaveRoomRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Response>* AsyncStartGameRaw(::grpc::ClientContext* context, const ::StartGameRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Response>* PrepareAsyncStartGameRaw(::grpc::ClientContext* context, const ::StartGameRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* CreateRoomTCPRaw(::grpc::ClientContext* context) override;
-    ::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* AsyncCreateRoomTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
-    ::grpc::ClientAsyncReaderWriter< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* PrepareAsyncCreateRoomTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* RoomJobTCPRaw(::grpc::ClientContext* context) override;
+    ::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* AsyncRoomJobTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReaderWriter< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* PrepareAsyncRoomJobTCPRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::RegistServerResponse>* AsyncRegistServerRaw(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::RegistServerResponse>* PrepareAsyncRegistServerRaw(::grpc::ClientContext* context, const ::RegistServerRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Response>* AsyncRemoveServerRaw(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Response>* PrepareAsyncRemoveServerRaw(::grpc::ClientContext* context, const ::RemoveServerRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_GetServerList_;
     const ::grpc::internal::RpcMethod rpcmethod_GetRoomList_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateRoom_;
     const ::grpc::internal::RpcMethod rpcmethod_EnterRoom_;
     const ::grpc::internal::RpcMethod rpcmethod_LeaveRoom_;
     const ::grpc::internal::RpcMethod rpcmethod_StartGame_;
-    const ::grpc::internal::RpcMethod rpcmethod_CreateRoomTCP_;
+    const ::grpc::internal::RpcMethod rpcmethod_RoomJobTCP_;
     const ::grpc::internal::RpcMethod rpcmethod_RegistServer_;
-    const ::grpc::internal::RpcMethod rpcmethod_RemoveServer_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -271,6 +271,7 @@ class MatchService final {
     Service();
     virtual ~Service();
     // node 2 match(game)
+    virtual ::grpc::Status GetServerList(::grpc::ServerContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response);
     virtual ::grpc::Status GetRoomList(::grpc::ServerContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response);
     virtual ::grpc::Status CreateRoom(::grpc::ServerContext* context, const ::CreateRoomRequest* request, ::CreateRoomResponse* response);
     virtual ::grpc::Status EnterRoom(::grpc::ServerContext* context, const ::EnterRoomRequest* request, ::EnterRoomResponse* response);
@@ -282,10 +283,29 @@ class MatchService final {
     //
     // match 2 tcp
     // rpc CreateRoomTCP (CreateRoomTCPRequest) returns (stream CreateRoomTCPResponse) {}; // User의 region 확인해서 가능한 서버에서 룸 생성
-    virtual ::grpc::Status CreateRoomTCP(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* stream);
+    virtual ::grpc::Status RoomJobTCP(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* stream);
     // tcp 2 match
     virtual ::grpc::Status RegistServer(::grpc::ServerContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response);
-    virtual ::grpc::Status RemoveServer(::grpc::ServerContext* context, const ::RemoveServerRequest* request, ::Response* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetServerList : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetServerList() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_GetServerList() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServerList(::grpc::ServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetServerList(::grpc::ServerContext* context, ::GetServerListRequest* request, ::grpc::ServerAsyncResponseWriter< ::GetServerListResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
   };
   template <class BaseClass>
   class WithAsyncMethod_GetRoomList : public BaseClass {
@@ -293,7 +313,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetRoomList() {
-      ::grpc::Service::MarkMethodAsync(0);
+      ::grpc::Service::MarkMethodAsync(1);
     }
     ~WithAsyncMethod_GetRoomList() override {
       BaseClassMustBeDerivedFromService(this);
@@ -304,7 +324,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetRoomList(::grpc::ServerContext* context, ::GetRoomListRequest* request, ::grpc::ServerAsyncResponseWriter< ::GetRoomListResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -313,7 +333,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CreateRoom() {
-      ::grpc::Service::MarkMethodAsync(1);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_CreateRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -324,7 +344,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateRoom(::grpc::ServerContext* context, ::CreateRoomRequest* request, ::grpc::ServerAsyncResponseWriter< ::CreateRoomResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -333,7 +353,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_EnterRoom() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(3);
     }
     ~WithAsyncMethod_EnterRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -344,7 +364,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEnterRoom(::grpc::ServerContext* context, ::EnterRoomRequest* request, ::grpc::ServerAsyncResponseWriter< ::EnterRoomResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -353,7 +373,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_LeaveRoom() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(4);
     }
     ~WithAsyncMethod_LeaveRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -364,7 +384,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestLeaveRoom(::grpc::ServerContext* context, ::LeaveRoomRequest* request, ::grpc::ServerAsyncResponseWriter< ::Response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -373,7 +393,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StartGame() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(5);
     }
     ~WithAsyncMethod_StartGame() override {
       BaseClassMustBeDerivedFromService(this);
@@ -384,27 +404,27 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestStartGame(::grpc::ServerContext* context, ::StartGameRequest* request, ::grpc::ServerAsyncResponseWriter< ::Response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_CreateRoomTCP : public BaseClass {
+  class WithAsyncMethod_RoomJobTCP : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_CreateRoomTCP() {
-      ::grpc::Service::MarkMethodAsync(5);
+    WithAsyncMethod_RoomJobTCP() {
+      ::grpc::Service::MarkMethodAsync(6);
     }
-    ~WithAsyncMethod_CreateRoomTCP() override {
+    ~WithAsyncMethod_RoomJobTCP() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateRoomTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* /*stream*/)  override {
+    ::grpc::Status RoomJobTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* /*stream*/)  override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreateRoomTCP(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncBidiStreaming(5, context, stream, new_call_cq, notification_cq, tag);
+    void RequestRoomJobTCP(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(6, context, stream, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -413,7 +433,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RegistServer() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_RegistServer() override {
       BaseClassMustBeDerivedFromService(this);
@@ -424,43 +444,50 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRegistServer(::grpc::ServerContext* context, ::RegistServerRequest* request, ::grpc::ServerAsyncResponseWriter< ::RegistServerResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_RemoveServer : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithAsyncMethod_RemoveServer() {
-      ::grpc::Service::MarkMethodAsync(7);
-    }
-    ~WithAsyncMethod_RemoveServer() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status RemoveServer(::grpc::ServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestRemoveServer(::grpc::ServerContext* context, ::RemoveServerRequest* request, ::grpc::ServerAsyncResponseWriter< ::Response>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetRoomList<WithAsyncMethod_CreateRoom<WithAsyncMethod_EnterRoom<WithAsyncMethod_LeaveRoom<WithAsyncMethod_StartGame<WithAsyncMethod_CreateRoomTCP<WithAsyncMethod_RegistServer<WithAsyncMethod_RemoveServer<Service > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_GetServerList<WithAsyncMethod_GetRoomList<WithAsyncMethod_CreateRoom<WithAsyncMethod_EnterRoom<WithAsyncMethod_LeaveRoom<WithAsyncMethod_StartGame<WithAsyncMethod_RoomJobTCP<WithAsyncMethod_RegistServer<Service > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetServerList : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetServerList() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::GetServerListRequest, ::GetServerListResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::GetServerListRequest* request, ::GetServerListResponse* response) { return this->GetServerList(context, request, response); }));}
+    void SetMessageAllocatorFor_GetServerList(
+        ::grpc::MessageAllocator< ::GetServerListRequest, ::GetServerListResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::GetServerListRequest, ::GetServerListResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetServerList() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServerList(::grpc::ServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetServerList(
+      ::grpc::CallbackServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/)  { return nullptr; }
+  };
   template <class BaseClass>
   class WithCallbackMethod_GetRoomList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetRoomList() {
-      ::grpc::Service::MarkMethodCallback(0,
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::GetRoomListRequest, ::GetRoomListResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::GetRoomListRequest* request, ::GetRoomListResponse* response) { return this->GetRoomList(context, request, response); }));}
     void SetMessageAllocatorFor_GetRoomList(
         ::grpc::MessageAllocator< ::GetRoomListRequest, ::GetRoomListResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::GetRoomListRequest, ::GetRoomListResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -481,13 +508,13 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CreateRoom() {
-      ::grpc::Service::MarkMethodCallback(1,
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::CreateRoomRequest, ::CreateRoomResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::CreateRoomRequest* request, ::CreateRoomResponse* response) { return this->CreateRoom(context, request, response); }));}
     void SetMessageAllocatorFor_CreateRoom(
         ::grpc::MessageAllocator< ::CreateRoomRequest, ::CreateRoomResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::CreateRoomRequest, ::CreateRoomResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -508,13 +535,13 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_EnterRoom() {
-      ::grpc::Service::MarkMethodCallback(2,
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::EnterRoomRequest, ::EnterRoomResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::EnterRoomRequest* request, ::EnterRoomResponse* response) { return this->EnterRoom(context, request, response); }));}
     void SetMessageAllocatorFor_EnterRoom(
         ::grpc::MessageAllocator< ::EnterRoomRequest, ::EnterRoomResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::EnterRoomRequest, ::EnterRoomResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -535,13 +562,13 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_LeaveRoom() {
-      ::grpc::Service::MarkMethodCallback(3,
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::LeaveRoomRequest, ::Response>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::LeaveRoomRequest* request, ::Response* response) { return this->LeaveRoom(context, request, response); }));}
     void SetMessageAllocatorFor_LeaveRoom(
         ::grpc::MessageAllocator< ::LeaveRoomRequest, ::Response>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::LeaveRoomRequest, ::Response>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -562,13 +589,13 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_StartGame() {
-      ::grpc::Service::MarkMethodCallback(4,
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::StartGameRequest, ::Response>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::StartGameRequest* request, ::Response* response) { return this->StartGame(context, request, response); }));}
     void SetMessageAllocatorFor_StartGame(
         ::grpc::MessageAllocator< ::StartGameRequest, ::Response>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::StartGameRequest, ::Response>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -584,25 +611,25 @@ class MatchService final {
       ::grpc::CallbackServerContext* /*context*/, const ::StartGameRequest* /*request*/, ::Response* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_CreateRoomTCP : public BaseClass {
+  class WithCallbackMethod_RoomJobTCP : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_CreateRoomTCP() {
-      ::grpc::Service::MarkMethodCallback(5,
-          new ::grpc::internal::CallbackBidiHandler< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>(
+    WithCallbackMethod_RoomJobTCP() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackBidiHandler< ::RoomJobTCPRequest, ::RoomJobTCPResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context) { return this->CreateRoomTCP(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->RoomJobTCP(context); }));
     }
-    ~WithCallbackMethod_CreateRoomTCP() override {
+    ~WithCallbackMethod_RoomJobTCP() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateRoomTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* /*stream*/)  override {
+    ::grpc::Status RoomJobTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* /*stream*/)  override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerBidiReactor< ::CreateRoomTCPRequest, ::CreateRoomTCPResponse>* CreateRoomTCP(
+    virtual ::grpc::ServerBidiReactor< ::RoomJobTCPRequest, ::RoomJobTCPResponse>* RoomJobTCP(
       ::grpc::CallbackServerContext* /*context*/)
       { return nullptr; }
   };
@@ -612,13 +639,13 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_RegistServer() {
-      ::grpc::Service::MarkMethodCallback(6,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::RegistServerRequest, ::RegistServerResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::RegistServerRequest* request, ::RegistServerResponse* response) { return this->RegistServer(context, request, response); }));}
     void SetMessageAllocatorFor_RegistServer(
         ::grpc::MessageAllocator< ::RegistServerRequest, ::RegistServerResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::RegistServerRequest, ::RegistServerResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -633,42 +660,32 @@ class MatchService final {
     virtual ::grpc::ServerUnaryReactor* RegistServer(
       ::grpc::CallbackServerContext* /*context*/, const ::RegistServerRequest* /*request*/, ::RegistServerResponse* /*response*/)  { return nullptr; }
   };
+  typedef WithCallbackMethod_GetServerList<WithCallbackMethod_GetRoomList<WithCallbackMethod_CreateRoom<WithCallbackMethod_EnterRoom<WithCallbackMethod_LeaveRoom<WithCallbackMethod_StartGame<WithCallbackMethod_RoomJobTCP<WithCallbackMethod_RegistServer<Service > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
-  class WithCallbackMethod_RemoveServer : public BaseClass {
+  class WithGenericMethod_GetServerList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_RemoveServer() {
-      ::grpc::Service::MarkMethodCallback(7,
-          new ::grpc::internal::CallbackUnaryHandler< ::RemoveServerRequest, ::Response>(
-            [this](
-                   ::grpc::CallbackServerContext* context, const ::RemoveServerRequest* request, ::Response* response) { return this->RemoveServer(context, request, response); }));}
-    void SetMessageAllocatorFor_RemoveServer(
-        ::grpc::MessageAllocator< ::RemoveServerRequest, ::Response>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::RemoveServerRequest, ::Response>*>(handler)
-              ->SetMessageAllocator(allocator);
+    WithGenericMethod_GetServerList() {
+      ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithCallbackMethod_RemoveServer() override {
+    ~WithGenericMethod_GetServerList() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RemoveServer(::grpc::ServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/) override {
+    ::grpc::Status GetServerList(::grpc::ServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* RemoveServer(
-      ::grpc::CallbackServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_GetRoomList<WithCallbackMethod_CreateRoom<WithCallbackMethod_EnterRoom<WithCallbackMethod_LeaveRoom<WithCallbackMethod_StartGame<WithCallbackMethod_CreateRoomTCP<WithCallbackMethod_RegistServer<WithCallbackMethod_RemoveServer<Service > > > > > > > > CallbackService;
-  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetRoomList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetRoomList() {
-      ::grpc::Service::MarkMethodGeneric(0);
+      ::grpc::Service::MarkMethodGeneric(1);
     }
     ~WithGenericMethod_GetRoomList() override {
       BaseClassMustBeDerivedFromService(this);
@@ -685,7 +702,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CreateRoom() {
-      ::grpc::Service::MarkMethodGeneric(1);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_CreateRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -702,7 +719,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_EnterRoom() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_EnterRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -719,7 +736,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_LeaveRoom() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(4);
     }
     ~WithGenericMethod_LeaveRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -736,7 +753,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StartGame() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(5);
     }
     ~WithGenericMethod_StartGame() override {
       BaseClassMustBeDerivedFromService(this);
@@ -748,18 +765,18 @@ class MatchService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_CreateRoomTCP : public BaseClass {
+  class WithGenericMethod_RoomJobTCP : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_CreateRoomTCP() {
-      ::grpc::Service::MarkMethodGeneric(5);
+    WithGenericMethod_RoomJobTCP() {
+      ::grpc::Service::MarkMethodGeneric(6);
     }
-    ~WithGenericMethod_CreateRoomTCP() override {
+    ~WithGenericMethod_RoomJobTCP() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateRoomTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* /*stream*/)  override {
+    ::grpc::Status RoomJobTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* /*stream*/)  override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -770,7 +787,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RegistServer() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_RegistServer() override {
       BaseClassMustBeDerivedFromService(this);
@@ -782,20 +799,23 @@ class MatchService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_RemoveServer : public BaseClass {
+  class WithRawMethod_GetServerList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_RemoveServer() {
-      ::grpc::Service::MarkMethodGeneric(7);
+    WithRawMethod_GetServerList() {
+      ::grpc::Service::MarkMethodRaw(0);
     }
-    ~WithGenericMethod_RemoveServer() override {
+    ~WithRawMethod_GetServerList() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RemoveServer(::grpc::ServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/) override {
+    ::grpc::Status GetServerList(::grpc::ServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetServerList(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -804,7 +824,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetRoomList() {
-      ::grpc::Service::MarkMethodRaw(0);
+      ::grpc::Service::MarkMethodRaw(1);
     }
     ~WithRawMethod_GetRoomList() override {
       BaseClassMustBeDerivedFromService(this);
@@ -815,7 +835,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetRoomList(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -824,7 +844,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CreateRoom() {
-      ::grpc::Service::MarkMethodRaw(1);
+      ::grpc::Service::MarkMethodRaw(2);
     }
     ~WithRawMethod_CreateRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -835,7 +855,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateRoom(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -844,7 +864,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_EnterRoom() {
-      ::grpc::Service::MarkMethodRaw(2);
+      ::grpc::Service::MarkMethodRaw(3);
     }
     ~WithRawMethod_EnterRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -855,7 +875,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEnterRoom(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -864,7 +884,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_LeaveRoom() {
-      ::grpc::Service::MarkMethodRaw(3);
+      ::grpc::Service::MarkMethodRaw(4);
     }
     ~WithRawMethod_LeaveRoom() override {
       BaseClassMustBeDerivedFromService(this);
@@ -875,7 +895,7 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestLeaveRoom(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -884,7 +904,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StartGame() {
-      ::grpc::Service::MarkMethodRaw(4);
+      ::grpc::Service::MarkMethodRaw(5);
     }
     ~WithRawMethod_StartGame() override {
       BaseClassMustBeDerivedFromService(this);
@@ -895,27 +915,27 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestStartGame(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_CreateRoomTCP : public BaseClass {
+  class WithRawMethod_RoomJobTCP : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_CreateRoomTCP() {
-      ::grpc::Service::MarkMethodRaw(5);
+    WithRawMethod_RoomJobTCP() {
+      ::grpc::Service::MarkMethodRaw(6);
     }
-    ~WithRawMethod_CreateRoomTCP() override {
+    ~WithRawMethod_RoomJobTCP() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateRoomTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* /*stream*/)  override {
+    ::grpc::Status RoomJobTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* /*stream*/)  override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreateRoomTCP(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncBidiStreaming(5, context, stream, new_call_cq, notification_cq, tag);
+    void RequestRoomJobTCP(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(6, context, stream, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -924,7 +944,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RegistServer() {
-      ::grpc::Service::MarkMethodRaw(6);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_RegistServer() override {
       BaseClassMustBeDerivedFromService(this);
@@ -935,28 +955,30 @@ class MatchService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRegistServer(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_RemoveServer : public BaseClass {
+  class WithRawCallbackMethod_GetServerList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_RemoveServer() {
-      ::grpc::Service::MarkMethodRaw(7);
+    WithRawCallbackMethod_GetServerList() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServerList(context, request, response); }));
     }
-    ~WithRawMethod_RemoveServer() override {
+    ~WithRawCallbackMethod_GetServerList() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RemoveServer(::grpc::ServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/) override {
+    ::grpc::Status GetServerList(::grpc::ServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestRemoveServer(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
-    }
+    virtual ::grpc::ServerUnaryReactor* GetServerList(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithRawCallbackMethod_GetRoomList : public BaseClass {
@@ -964,7 +986,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetRoomList() {
-      ::grpc::Service::MarkMethodRawCallback(0,
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetRoomList(context, request, response); }));
@@ -986,7 +1008,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CreateRoom() {
-      ::grpc::Service::MarkMethodRawCallback(1,
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateRoom(context, request, response); }));
@@ -1008,7 +1030,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_EnterRoom() {
-      ::grpc::Service::MarkMethodRawCallback(2,
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EnterRoom(context, request, response); }));
@@ -1030,7 +1052,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_LeaveRoom() {
-      ::grpc::Service::MarkMethodRawCallback(3,
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LeaveRoom(context, request, response); }));
@@ -1052,7 +1074,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_StartGame() {
-      ::grpc::Service::MarkMethodRawCallback(4,
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartGame(context, request, response); }));
@@ -1069,25 +1091,25 @@ class MatchService final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_CreateRoomTCP : public BaseClass {
+  class WithRawCallbackMethod_RoomJobTCP : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_CreateRoomTCP() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+    WithRawCallbackMethod_RoomJobTCP() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context) { return this->CreateRoomTCP(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->RoomJobTCP(context); }));
     }
-    ~WithRawCallbackMethod_CreateRoomTCP() override {
+    ~WithRawCallbackMethod_RoomJobTCP() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateRoomTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::CreateRoomTCPResponse, ::CreateRoomTCPRequest>* /*stream*/)  override {
+    ::grpc::Status RoomJobTCP(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::RoomJobTCPResponse, ::RoomJobTCPRequest>* /*stream*/)  override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* CreateRoomTCP(
+    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* RoomJobTCP(
       ::grpc::CallbackServerContext* /*context*/)
       { return nullptr; }
   };
@@ -1097,7 +1119,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_RegistServer() {
-      ::grpc::Service::MarkMethodRawCallback(6,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RegistServer(context, request, response); }));
@@ -1114,26 +1136,31 @@ class MatchService final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_RemoveServer : public BaseClass {
+  class WithStreamedUnaryMethod_GetServerList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_RemoveServer() {
-      ::grpc::Service::MarkMethodRawCallback(7,
-          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-            [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RemoveServer(context, request, response); }));
+    WithStreamedUnaryMethod_GetServerList() {
+      ::grpc::Service::MarkMethodStreamed(0,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::GetServerListRequest, ::GetServerListResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::GetServerListRequest, ::GetServerListResponse>* streamer) {
+                       return this->StreamedGetServerList(context,
+                         streamer);
+                  }));
     }
-    ~WithRawCallbackMethod_RemoveServer() override {
+    ~WithStreamedUnaryMethod_GetServerList() override {
       BaseClassMustBeDerivedFromService(this);
     }
-    // disable synchronous version of this method
-    ::grpc::Status RemoveServer(::grpc::ServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/) override {
+    // disable regular version of this method
+    ::grpc::Status GetServerList(::grpc::ServerContext* /*context*/, const ::GetServerListRequest* /*request*/, ::GetServerListResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* RemoveServer(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetServerList(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GetServerListRequest,::GetServerListResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetRoomList : public BaseClass {
@@ -1141,7 +1168,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetRoomList() {
-      ::grpc::Service::MarkMethodStreamed(0,
+      ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
           ::GetRoomListRequest, ::GetRoomListResponse>(
             [this](::grpc::ServerContext* context,
@@ -1168,7 +1195,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CreateRoom() {
-      ::grpc::Service::MarkMethodStreamed(1,
+      ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler<
           ::CreateRoomRequest, ::CreateRoomResponse>(
             [this](::grpc::ServerContext* context,
@@ -1195,7 +1222,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_EnterRoom() {
-      ::grpc::Service::MarkMethodStreamed(2,
+      ::grpc::Service::MarkMethodStreamed(3,
         new ::grpc::internal::StreamedUnaryHandler<
           ::EnterRoomRequest, ::EnterRoomResponse>(
             [this](::grpc::ServerContext* context,
@@ -1222,7 +1249,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_LeaveRoom() {
-      ::grpc::Service::MarkMethodStreamed(3,
+      ::grpc::Service::MarkMethodStreamed(4,
         new ::grpc::internal::StreamedUnaryHandler<
           ::LeaveRoomRequest, ::Response>(
             [this](::grpc::ServerContext* context,
@@ -1249,7 +1276,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StartGame() {
-      ::grpc::Service::MarkMethodStreamed(4,
+      ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
           ::StartGameRequest, ::Response>(
             [this](::grpc::ServerContext* context,
@@ -1276,7 +1303,7 @@ class MatchService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RegistServer() {
-      ::grpc::Service::MarkMethodStreamed(6,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::RegistServerRequest, ::RegistServerResponse>(
             [this](::grpc::ServerContext* context,
@@ -1297,36 +1324,9 @@ class MatchService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedRegistServer(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::RegistServerRequest,::RegistServerResponse>* server_unary_streamer) = 0;
   };
-  template <class BaseClass>
-  class WithStreamedUnaryMethod_RemoveServer : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithStreamedUnaryMethod_RemoveServer() {
-      ::grpc::Service::MarkMethodStreamed(7,
-        new ::grpc::internal::StreamedUnaryHandler<
-          ::RemoveServerRequest, ::Response>(
-            [this](::grpc::ServerContext* context,
-                   ::grpc::ServerUnaryStreamer<
-                     ::RemoveServerRequest, ::Response>* streamer) {
-                       return this->StreamedRemoveServer(context,
-                         streamer);
-                  }));
-    }
-    ~WithStreamedUnaryMethod_RemoveServer() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable regular version of this method
-    ::grpc::Status RemoveServer(::grpc::ServerContext* /*context*/, const ::RemoveServerRequest* /*request*/, ::Response* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedRemoveServer(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::RemoveServerRequest,::Response>* server_unary_streamer) = 0;
-  };
-  typedef WithStreamedUnaryMethod_GetRoomList<WithStreamedUnaryMethod_CreateRoom<WithStreamedUnaryMethod_EnterRoom<WithStreamedUnaryMethod_LeaveRoom<WithStreamedUnaryMethod_StartGame<WithStreamedUnaryMethod_RegistServer<WithStreamedUnaryMethod_RemoveServer<Service > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_GetServerList<WithStreamedUnaryMethod_GetRoomList<WithStreamedUnaryMethod_CreateRoom<WithStreamedUnaryMethod_EnterRoom<WithStreamedUnaryMethod_LeaveRoom<WithStreamedUnaryMethod_StartGame<WithStreamedUnaryMethod_RegistServer<Service > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GetRoomList<WithStreamedUnaryMethod_CreateRoom<WithStreamedUnaryMethod_EnterRoom<WithStreamedUnaryMethod_LeaveRoom<WithStreamedUnaryMethod_StartGame<WithStreamedUnaryMethod_RegistServer<WithStreamedUnaryMethod_RemoveServer<Service > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GetServerList<WithStreamedUnaryMethod_GetRoomList<WithStreamedUnaryMethod_CreateRoom<WithStreamedUnaryMethod_EnterRoom<WithStreamedUnaryMethod_LeaveRoom<WithStreamedUnaryMethod_StartGame<WithStreamedUnaryMethod_RegistServer<Service > > > > > > > StreamedService;
 };
 
 

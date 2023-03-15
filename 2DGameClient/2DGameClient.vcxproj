@@ -199,8 +199,10 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HttpManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Proto\enum.pb.cc">
@@ -246,6 +248,8 @@
     <ClInclude Include="HttpManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Action.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="Player.h" />

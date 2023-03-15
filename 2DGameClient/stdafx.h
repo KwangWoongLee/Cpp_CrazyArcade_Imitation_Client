@@ -66,6 +66,7 @@
 #include "Singleton.h"
 
 #include "GameTypes.h"
+#include "RedisManager.h"
 
 #include "InputManager.h"
 
